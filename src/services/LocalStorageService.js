@@ -37,7 +37,7 @@ const removeValue = key => {
 };
 
 const defineProperty = (prop, defaultKey = '', tag = '') => {
-  const projectName = 'nap'.replace(/-/g, '_').toUpperCase();
+  const projectName = 'digilab'.replace(/-/g, '_').toUpperCase();
   const capitalizedKey = `${prop[0].toUpperCase()}${prop.substring(1)}`;
 
   module.exports[`set${capitalizedKey}`] = (val, key = defaultKey) =>
