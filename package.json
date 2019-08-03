@@ -1,5 +1,5 @@
 {
-  "name": "nap",
+  "name": "digilab",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -86,7 +86,7 @@
     "stylelint-no-indistinguishable-colors": "^1.2.1",
     "stylelint-scss": "^3.5.4"
   },
-  "title": "nap",
+  "title": "digilab",
   "repository": {
     "type": "git",
     "url": "git@github.com:LucasZibell/NAP-React.git"
