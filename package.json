@@ -3,6 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "dotenv": "^6.0.0",
+    "geolib": "^2.0.24",
+    "gulp": "^4.0.0",
+    "gulp-awspublish": "^3.3.3",
+    "lodash": "^4.17.4",
+    "merge-stream": "^1.0.1",
+    "prop-types": "^15.6.2",
+    "react-app-rewire-hot-loader": "^1.0.1",
+    "react-dropzone": "^5.0.1",
+    "react-hot-loader": "^4.3.4",
+    "react-modal": "^3.5.1",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "react-spinners": "^0.3.2",
+    "react-time-counter": "^1.0.2",
+    "react-toastify": "^4.3.0",
     "@redux-beacon/google-analytics": "^1.2.2",
     "apisauce": "^1.0.2",
     "babel-plugin-module-resolver": "^3.2.0",
@@ -18,7 +33,6 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.0.1",
-    "react-spinkit": "^3.0.0",
     "redux": "^4.0.1",
     "redux-beacon": "^2.1.0",
     "redux-form": "^8.2.4",
@@ -29,75 +43,49 @@
     "wolox-equalizer": "0.0.3"
   },
   "scripts": {
-    "start": "node ./scripts/start.js development",
-    "start-env": "node ./scripts/start.js",
-    "build": "node ./scripts/build.js",
-    "deploy": "node ./scripts/deploy.js",
-    "test": "rescripts test --env=jsdom",
+    "start": "react-app-rewired start --scripts-version wolox-react-scripts",
+    "build": "react-app-rewired build --scripts-version wolox-react-scripts",
+    "test": "jest --forceExit --coverage --detectOpenHandles",
     "eject": "./node_modules/react-scripts/bin/react-scripts.js eject",
+    "deploy": "react-app-rewired build --scripts-version wolox-react-scripts",
+    "flow": "./node_modules/.bin/flow",
     "lint": "./node_modules/eslint/bin/eslint.js src",
     "lint-fix": "./node_modules/eslint/bin/eslint.js src --fix",
-    "lint-scss": "./node_modules/stylelint/bin/stylelint.js '**/*.scss' --fix",
-    "lint-diff": "git diff --name-only --cached --relative --diff-filter=ACM | grep \\.js$ | xargs eslint"
+    "lint-diff": "git diff --name-only --cached --relative | grep \\.js$ | xargs eslint",
+    "precommit": "npm run lint-diff && npm run flow && npm run test"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
-    "@rescripts/cli": "0.0.7",
-    "aws-deploy-script-fe": "0.0.4",
-    "chalk": "^2.4.2",
-    "env-cmd": "^9.0.3",
-    "eslint-config-wolox": "^2.3.0",
-    "eslint-config-wolox-react": "^1.1.0",
-    "eslint-import-resolver-babel-module": "^5.1.0",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-flowtype": "^3.9.1",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-native": "^3.5.0",
-    "husky": "^2.4.1",
-    "minimist": "^1.2.0",
-    "postcss-html": "^0.36.0",
-    "postcss-syntax": "^0.36.2",
-    "prettier": "^1.17.1",
-    "prettier-eslint": "^8.8.2",
-    "prettier-eslint-cli": "^4.7.1",
-    "prettier-stylelint": "^0.4.2",
-    "prop-types": "^15.7.2",
-    "react-hot-loader": "^4.11.1",
-    "stylelint": "^9.10.1",
-    "stylelint-config-wolox": "^1.0.5",
-    "stylelint-no-indistinguishable-colors": "^1.2.1",
-    "stylelint-scss": "^3.5.4"
-  },
-  "title": "digilab",
+  "title": "Digilab",
+  "description": "Digilab",
   "repository": {
     "type": "git",
     "url": "git@github.com:LucasZibell/NAP-React.git"
   },
-  "engines": {
-    "node": ">= 10.15.3",
-    "npm": ">= 6.9.0"
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-import-resolver-babel-module": "^4.0.0",
+    "eslint-plugin-flowtype": "^2.35.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-react": "^7.3.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "husky": "^0.14.3",
+    "prettier": "^1.13.7",
+    "prettier-eslint": "^8.8.2",
+    "react-app-rewired": "^1.5.2",
+    "react-scripts": "^2.1.1",
+    "react-test-renderer": "^16.7.0",
+    "wolox-react-scripts": "^1.2.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-diff && npm run lint-scss"
-    }
+  "env": {
+    "jest/globals": true
   }
 }

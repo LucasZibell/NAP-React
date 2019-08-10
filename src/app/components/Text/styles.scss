@@ -1,0 +1,78 @@
+@import 'colors';
+
+%text-base {
+  color: $gray;
+}
+
+@mixin font-weight($size) {
+  font-weight: $size;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.text-1 {
+  @extend %text-base;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.text-2 {
+  @extend %text-base;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.text-3 {
+  @extend %text-base;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.text-4 {
+  @extend %text-base;
+  font-size: 8px;
+  line-height: 12px;
+}
+
+.title-1 {
+  @extend %text-base;
+  font-size: 36px;
+  line-height: 44px;
+  @include font-weight(300);
+}
+
+.title-2 {
+  @extend %text-base;
+  font-size: 20px;
+  line-height: 24px;
+  @include font-weight(900);
+}
+
+.title-3 {
+  @extend %text-base;
+  font-size: 18px;
+  line-height: 22px;
+  @include font-weight(700);
+}
+
+.title-4 {
+  @extend %text-base;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.title-5 {
+  @extend %text-base;
+  font-size: 14px;
+  line-height: 17px;
+  @include font-weight(700);
+}
+
+.title-6 {
+  @extend %text-base;
+  font-size: 12px;
+  line-height: 15px;
+  @include font-weight(700);
+}

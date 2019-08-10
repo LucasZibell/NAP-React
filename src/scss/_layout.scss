@@ -1,0 +1,219 @@
+.column {
+  display: flex;
+  flex-direction: column;
+
+  &.top {
+    justify-content: flex-start;
+  }
+
+  &.middle {
+    justify-content: center;
+  }
+
+  &.bottom {
+    justify-content: flex-end;
+  }
+
+  &.space-between {
+    justify-content: space-between;
+  }
+
+  &.space-around {
+    justify-content: space-around;
+  }
+
+  &.start {
+    align-items: flex-start;
+  }
+
+  &.center {
+    align-items: center;
+  }
+
+  &.baseline {
+    align-items: baseline;
+  }
+
+  &.end {
+    align-items: flex-end;
+  }
+
+  &.stretch {
+    align-items: stretch;
+  }
+
+  .self-start {
+    align-self: flex-start;
+  }
+
+  .self-center {
+    align-self: center;
+  }
+
+  .self-end {
+    align-self: flex-end;
+  }
+
+  .self-stretch {
+    align-self: stretch;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+
+  &.top {
+    align-items: flex-start;
+  }
+
+  &.middle {
+    align-items: center;
+  }
+
+  &.bottom {
+    align-items: flex-end;
+  }
+
+  &.baseline {
+    align-items: baseline;
+  }
+
+  &.start {
+    justify-content: flex-start;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.end {
+    justify-content: flex-end;
+  }
+
+  &.space-between {
+    justify-content: space-between;
+  }
+
+  &.space-around {
+    justify-content: space-around;
+  }
+
+  &.space-evenly {
+    justify-content: space-evenly;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .self-top {
+    align-self: flex-start;
+  }
+
+  .self-middle {
+    align-self: center;
+  }
+
+  .self-bottom {
+    align-self: flex-end;
+  }
+
+  .self-stretch {
+    align-self: stretch;
+  }
+
+  .stretch {
+    align-items: stretch;
+  }
+}
+
+@for $i from 5 through 100 {
+  .padding-#{$i} {
+    padding: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .padding-bottom-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .padding-left-#{$i} {
+    padding-left: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .padding-top-#{$i} {
+    padding-top: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .padding-right-#{$i} {
+    padding-right: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .margin-#{$i} {
+    margin: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .margin-top-#{$i} {
+    margin-top: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .margin-bottom-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .margin-right-#{$i} {
+    margin-right: #{$i}px;
+  }
+}
+
+@for $i from 5 through 100 {
+  .margin-left-#{$i} {
+    margin-left: #{$i}px;
+  }
+}
+
+@for $i from 10 through 100 {
+  .icon-#{$i} {
+    width: #{$i}px;
+  }
+}
+
+@for $i from 1 through 16 {
+  .item-#{$i} {
+    flex: $i;
+    min-width: 0;
+  }
+}
+
+@for $i from 1 through 16 {
+  .item-#{$i}-no-basis {
+    flex: $i 1 0px;
+    min-width: 0;
+  }
+}
+
+@for $i from 1 through 16 {
+  .grow-#{$i} {
+    flex-grow: $i;
+  }
+}

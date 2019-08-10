@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { t } from 'i18next';
 
 import InputLabel from '../../components/InputLabel';
+import withLoader from '../../components/Loader';
 import Routes from '../../../constants/routes';
 
 import { FIELDS } from './constants';
-import styles from './styles.module.scss';
+import styles from './styles.scss';
 
 function Login({ onEmailChange, onPasswordChange, onLogin }) {
   return (
@@ -53,4 +54,4 @@ Login.propTypes = {
   onPasswordChange: PropTypes.func.isRequired
 };
 
-export default Login;
+export default withLoader(props => props.loading)(Login);

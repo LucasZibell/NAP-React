@@ -1,0 +1,50 @@
+@import "~wolox-equalizer/equalizer";
+@import "fonts";
+@import "colors";
+@import "layout";
+@import "component";
+
+html,
+body {
+  height: 100%;
+}
+
+.ReactModal__Overlay {
+  z-index: 2;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.Toastify__toast--success {
+  background: $caribbean-green;
+}
+
+.Toastify__toast--error {
+  background: $sunset-orange;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+
+  & > :first-child {
+    flex: 1;
+  }
+}
+
+// TODO: style for Mozilla and Safari.
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $gray-3;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: $submarine;
+}

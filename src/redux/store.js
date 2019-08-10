@@ -1,16 +1,14 @@
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import { reducer as form } from 'redux-form';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import createHistory from 'history/createBrowserHistory';
+import { reducer as form } from 'redux-form';
+import { fetchMiddleware } from 'redux-recompose';
 
-/*
- * TODO Add this if you need it
- * import AnalyticsMiddleware from '../services/AnalyticsService';
- */
+import { actions as authActions } from './Auth/actions';
 import { reducer as auth } from './Auth/reducer';
 
-export const history = createBrowserHistory();
+export const history = createHistory();
 
 // Add reducers here
 const reducers = combineReducers({
@@ -19,12 +17,17 @@ const reducers = combineReducers({
   router: connectRouter(history)
 });
 
-const middlewares = [thunk, routerMiddleware(history)];
+const middlewares = [routerMiddleware(history), fetchMiddleware];
 const enhancers = [];
 
-// TODO Add this if you need it.
+/* ------------- Thunk Middleware ------------- */
+middlewares.push(thunk);
+
+middlewares.push(fetchMiddleware);
+
+// TODO Add this if you need it
 /* ------------- Analytics Middleware ------------- */
-// Middlewares.push(AnalyticsMiddleware);
+// middlewares.push(AnalyticsMiddleware);
 
 /* ------------- Assemble Middleware ------------- */
 enhancers.push(applyMiddleware(...middlewares));
@@ -32,14 +35,16 @@ enhancers.push(applyMiddleware(...middlewares));
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootReducer = (state, action) =>
-  /*
-   * TODO Add this if you need it
-   * if (action.type === authActions.SIGN_OUT) {
-   *   return reducers(getGlobalState(state), action);
-   * }
-   */
-  reducers(state, action);
+// TODO Add this if you need it Into rootReducer scope
+// if (action.type === authActions.SIGN_OUT) {
+//   return reducers(getGlobalState(state), action);
+// }
+const rootReducer = (state, action) => {
+  if (action.type === authActions.LOGOUT) {
+    state = undefined;
+  }
+  return reducers(state, action);
+};
 
 const store = createStore(rootReducer, composeEnhancers(...enhancers));
 

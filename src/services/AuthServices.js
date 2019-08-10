@@ -1,35 +1,33 @@
-import api from '../config/api';
+import api from '@config/api';
 import { actionCreators as authActions } from '../redux/Auth/actions';
 
 import * as LocalStorageService from './LocalStorageService';
 
-export const setCurrentUser = currentUser => {
-  api.setHeader('Authorization', currentUser.sessionToken);
-  LocalStorageService.setSessionToken(currentUser.sessionToken);
+export const setCurrentUser = token => {
+  api.setHeader('Authorization', token);
+  LocalStorageService.setSessionToken(token);
 };
-export const getCurrentUser = () => {
-  const currentSessionToken = LocalStorageService.getSessionToken();
 
+export const getCurrentUser = async () => {
+  const currentSessionToken = LocalStorageService.getSessionToken();
   if (currentSessionToken) {
     api.setHeader('Authorization', currentSessionToken);
-
     return true;
   }
-
   return false;
 };
-export const removeCurrentUser = () => LocalStorageService.removeSessionToken();
 
-export const authSetup = async dispatch => {
-  const currentUser = await getCurrentUser();
+export const removeCurrentUser = async () => LocalStorageService.removeSessionToken();
 
-  dispatch(authActions.init(currentUser));
+export const authSetup = async (dispatch, currentUserToken) => {
+  await api.setHeaders(currentUserToken);
+  dispatch(authActions.init());
 };
 
-export const login = () =>
-  // TODO: Implement call to authentication API here
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve({ ok: true, data: { sessionToken: 'token' } });
-    }, 750); // eslint-disable-line no-magic-numbers
-  });
+export const authApiSetup = apiInstance => {
+  apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
+};
+
+export const getUserData = () => api.get('/me');
+
+export const failedLogin = body => api.post('/failed_login', body);

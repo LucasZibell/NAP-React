@@ -1,0 +1,9 @@
+{
+  "generator-react-bootstrap": {
+    "promptValues": {
+      "projectName": "GosmoBackOffice",
+      "projectDescription": "GosmoBackOffice",
+      "repoUrl": "https://github.com/Wolox/gosmo-contingency-administrator-react"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+.full-width {
+  width: 100%;
+}
+
+.three-quarter-width {
+  width: 75%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.quarter-width {
+  width: 25%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.three-quarter-height {
+  width: 75%;
+}
+
+.half-height {
+  height: 50%;
+}
+
+.quarter-height {
+  height: 25%;
+}
+
+.full-screen {
+  min-height: 100vh;
+  flex-grow: 1;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.unscroll-x {
+  overflow-x: hidden;
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}
+
+.no-border {
+  border-style: none;
+}
+
+@for $i from 5 through 100 {
+  .border-#{$i} {
+    border: 1px solid $black;
+    border-radius: #{$i}px;
+  }
+}
