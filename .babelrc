@@ -1,0 +1,22 @@
+{
+  "presets": ["flow", ["env", {
+    "targets": {
+      "browsers": ["last 2 versions", "safari >= 7"]
+    }
+  }], "react"],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@components": "./src/app/components",
+        "@utils": "./src/utils",
+        "@services": "./src/services",
+        "@config": "./src/config",
+        "@redux": "./src/redux",
+        "@constants": "./src/constants",
+        "@assets": "./src/assets",
+        "@screens": "./src/app/screens"
+      }
+    }]
+  ]
+}

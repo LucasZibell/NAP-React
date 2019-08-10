@@ -21,6 +21,7 @@ class LoginContainer extends Component {
         onEmailChange={this.handleEmailChange}
         onPasswordChange={this.handlePasswordChange}
         onLogin={this.handleLogin}
+        // loading
       />
     );
   }

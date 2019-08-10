@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Gotham Rounded';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/GothamRounded-Medium.otf'); /* IE9 Compat Modes */
+  src: local('Gotham Rounded'), local('Gotham Rounded'),
+       url('./assets/fonts/Gotham Rounded Bold.otf') format('embedded-opentype'), /* IE6-IE8 */
+       url('./assets/fonts/Gotham Rounded Book.otf') format('woff2'), /* Super Modern Browsers */
+       url('./assets/fonts/Gotham-Bold_0(1).otf') format('woff'), /* Modern Browsers */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Gotham-Rounded;
+}

@@ -1,60 +1,22 @@
-import { push } from 'connected-react-router';
+import { completeTypes, createTypes } from 'redux-recompose';
+import { push } from 'react-router-redux';
 
-import * as AuthService from '../../services/AuthServices';
-import Routes from '../../constants/routes';
-import { stringArrayToObject } from '../../utils/array';
+import * as AuthService from '@services/AuthServices';
+import * as RouteConstants from '@constants/routes';
 
 /* ------------- Auth actions ------------- */
-export const actions = stringArrayToObject(
-  ['LOGIN', 'LOGIN_SUCCESS', 'LOGIN_FAILURE', 'LOGOUT', 'AUTH_INIT'],
-  '@@AUTH'
-);
 
-const privateActionCreators = {
-  loginSuccess(authData) {
-    return {
-      type: actions.LOGIN_SUCCESS,
-      payload: { authData }
-    };
-  },
-  loginFailure(err) {
-    return {
-      type: actions.LOGIN_FAILURE,
-      payload: { err }
-    };
-  }
-};
+export const actions = createTypes(completeTypes(['AUTH_INIT'], ['LOGOUT']), '@@AUTH');
 
 export const actionCreators = {
-  init(user) {
-    return {
-      type: actions.AUTH_INIT,
-      payload: { user }
-    };
-  },
-  login(authData) {
-    return async dispatch => {
-      dispatch({ type: actions.LOGIN });
-      try {
-        const response = await AuthService.login(authData);
-
-        if (response.ok) {
-          await AuthService.setCurrentUser(response.data);
-          dispatch(privateActionCreators.loginSuccess(response.data));
-          dispatch(push(Routes.HOME));
-        } else {
-          throw new Error('Invalid credentials');
-        }
-      } catch (e) {
-        dispatch(privateActionCreators.loginFailure(e));
-      }
-    };
-  },
-  logout() {
-    return async dispatch => {
-      await AuthService.removeCurrentUser();
-      dispatch({ type: actions.LOGOUT });
-      dispatch(push(Routes.LOGIN));
-    };
+  init: () => ({
+    type: actions.AUTH_INIT,
+    target: 'currentUser',
+    service: AuthService.getUserData
+  }),
+  logout: () => async dispatch => {
+    await AuthService.removeCurrentUser();
+    dispatch({ type: actions.LOGOUT });
+    dispatch(push(RouteConstants.LOGIN));
   }
 };
