@@ -1,12 +1,14 @@
-import { completeTypes, createTypes } from 'redux-recompose';
-import { push } from 'react-router-redux';
+import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
+import { push } from 'connected-react-router';
+import { toast } from 'react-toastify';
+import { t } from 'i18next';
 
 import * as AuthService from '@services/AuthServices';
-import * as RouteConstants from '@constants/routes';
+import Routes from '@constants/routes';
 
 /* ------------- Auth actions ------------- */
 
-export const actions = createTypes(completeTypes(['AUTH_INIT'], ['LOGOUT']), '@@AUTH');
+export const actions = createTypes(completeTypes(['AUTH_INIT', 'LOGIN'], ['LOGOUT']), '@@AUTH');
 
 export const actionCreators = {
   init: () => ({
@@ -14,9 +16,26 @@ export const actionCreators = {
     target: 'currentUser',
     service: AuthService.getUserData
   }),
+  login: body => dispatch =>
+    dispatch({
+      type: actions.LOGIN,
+      target: 'currentUser',
+      payload: body,
+      service: AuthService.login,
+      injections: [
+        withPostSuccess((_, { data }) => {
+          debugger; //eslint-disable-line
+          AuthService.setCurrentUser(data.token);
+          dispatch(push(Routes.HOME));
+        }),
+        withPostFailure(() => {
+          toast.error(t('toast_text:INVALID_CREDENTIALS'));
+        })
+      ]
+    }),
   logout: () => async dispatch => {
     await AuthService.removeCurrentUser();
     dispatch({ type: actions.LOGOUT });
-    dispatch(push(RouteConstants.LOGIN));
+    dispatch(push(Routes.LOGIN));
   }
 };

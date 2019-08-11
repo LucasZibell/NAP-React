@@ -9,6 +9,7 @@ import Routes from '../../../constants/routes';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 
 const Login = lazy(() => import('../../screens/Login'));
+const Home = lazy(() => import('../../screens/Home'));
 
 function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ function AppRoutes() {
       <Suspense>
         <Switch>
           <AuthenticatedRoute isPublicRoute exact path={Routes.LOGIN} component={Login} />
+          <AuthenticatedRoute isPrivateRoute exact path={Routes.HOME} component={Home} />
         </Switch>
       </Suspense>
     </ConnectedRouter>
