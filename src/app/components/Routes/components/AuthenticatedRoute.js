@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 
 import Routes from '@constants/routes';
 
+import NavBar from '../../NavBar';
+
 const DEFAULT_PUBLIC_ROUTE = Routes.LOGIN;
 const DEFAULT_PRIVATE_ROUTE = Routes.HOME;
 
@@ -15,19 +17,8 @@ function AuthenticatedRoute({ isPublicRoute, isPrivateRoute, currentUser, compon
       {...props}
       // eslint-disable-next-line react/jsx-no-bind
       render={routeProps => {
-        /*
-         * TODO Add this if you need it
-         * if (device.isMobile && !device.adviceSubmitted) {
-         *   return <AppDownloader />;
-         * }
-         */
         if (currentUser) {
           if (isPublicRoute) {
-            /*
-             * TODO Add this if you need it
-             * if (currentUser && isPublicRoute) {
-             * do not allow logged users to access public routes. redirect to app
-             */
             return (
               <Redirect
                 to={{
@@ -38,7 +29,6 @@ function AuthenticatedRoute({ isPublicRoute, isPrivateRoute, currentUser, compon
             );
           }
         } else if (isPrivateRoute) {
-          // Do not allow unlogged users to access app. redirect to signin
           return (
             <Redirect
               to={{
@@ -48,8 +38,12 @@ function AuthenticatedRoute({ isPublicRoute, isPrivateRoute, currentUser, compon
             />
           );
         }
-
-        return <Comp {...routeProps} />;
+        return (
+          <div className="column full-width">
+            {isPrivateRoute && <NavBar />}
+            <Comp {...routeProps} />
+          </div>
+        );
       }}
     />
   );
