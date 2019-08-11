@@ -1,0 +1,93 @@
+@import "colors";
+
+%input-base {
+  background-color: $white;
+  border: 1px solid $silver;
+  border-radius: 5px;
+  color: $tundora;
+  font-size: 12px;
+  font-weight: 400;
+  height: 35px;
+  padding: 5px 10px;
+  z-index: 0;
+
+  &:focus {
+    border-color: $caribbean-green;
+    box-shadow: 0 0 5px 0 $caribbean-green;
+  }
+
+  &:disabled {
+    background-color: rgba($silver, 0.2);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+@mixin font-weight($size) {
+  font-weight: $size;
+}
+
+%input-1-base {
+  @extend %input-base;
+  max-width: 300px;
+  transition: border-color, box-shadow 0.5s ease-in-out;
+  width: 100%;
+}
+
+.input-1 {
+  @extend %input-1-base;
+}
+
+.input-2 {
+  @extend %input-1-base;
+  line-height: 16px;
+}
+
+.input-3 {
+  @extend %input-1-base;
+  max-width: none;
+}
+
+.input-label,
+.input-label-error,
+.input-label-active {
+  color: $tundora;
+  font-size: 12px;
+  font-weight: 350;
+  line-height: 13px;
+  margin-bottom: 5px;
+  transition: color 0.5s ease-in-out;
+}
+
+.input-label-active {
+  color: $caribbean-green;
+}
+
+.input-label-error {
+  color: $sunset-orange;
+}
+
+.input-container {
+  z-index: 0;
+}
+
+.field {
+  font-weight: 100;
+}
+
+.back,
+.back:focus {
+  border: 1px solid $sunset-orange;
+  box-shadow: 0 0 5px 0 $sunset-orange;
+}
+
+.error-msg {
+  color: $sunset-orange;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.row-label {
+  margin: 0 10px 0 0;
+}

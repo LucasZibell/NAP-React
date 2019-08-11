@@ -8,6 +8,8 @@ export const setCurrentUser = token => {
   LocalStorageService.setSessionToken(token);
 };
 
+export const login = body => new Promise(resolve => resolve({ data: { token: 'token', ...body }, ok: true }));
+
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();
   if (currentSessionToken) {
@@ -28,6 +30,6 @@ export const authApiSetup = apiInstance => {
   apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
 };
 
-export const getUserData = () => api.get('/me');
+export const getUserData = () => new Promise(resolve => resolve({ data: { name: 'Joe' }, ok: true }));
 
 export const failedLogin = body => api.post('/failed_login', body);

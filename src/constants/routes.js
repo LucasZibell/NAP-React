@@ -1,7 +1,5 @@
-const Routes = {
+export default {
   HOME: '/',
   LOGIN: '/login',
   RECOVER_PASSWORD: '/forgot_password'
 };
-
-export default Routes;

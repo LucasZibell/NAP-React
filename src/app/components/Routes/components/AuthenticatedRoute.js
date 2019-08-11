@@ -4,22 +4,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
-import Routes from '../../../../constants/routes';
+import Routes from '@constants/routes';
 
 const DEFAULT_PUBLIC_ROUTE = Routes.LOGIN;
+const DEFAULT_PRIVATE_ROUTE = Routes.HOME;
 
-function AuthenticatedRoute({
-  /*
-   * TODO Add this if you need it
-   * device,
-   */
-  isPublicRoute,
-  isPrivateRoute,
-  // initialized,
-  currentUser,
-  component: Comp,
-  ...props
-}) {
+function AuthenticatedRoute({ isPublicRoute, isPrivateRoute, currentUser, component: Comp, ...props }) {
   return (
     <Route
       {...props}
@@ -41,7 +31,7 @@ function AuthenticatedRoute({
             return (
               <Redirect
                 to={{
-                  pathname: DEFAULT_PUBLIC_ROUTE,
+                  pathname: DEFAULT_PRIVATE_ROUTE,
                   state: { from: props.location }
                 }}
               />
@@ -65,14 +55,6 @@ function AuthenticatedRoute({
   );
 }
 
-AuthenticatedRoute.defaultProps = {
-  /*
-   * TODO Add this if you need it
-   * isPublicRoute: true,
-   */
-  currentUser: false
-};
-
 AuthenticatedRoute.propTypes = {
   ...Route.propTypes, // eslint-disable-line react/forbid-foreign-prop-types
   currentUser: PropTypes.bool,
@@ -80,4 +62,8 @@ AuthenticatedRoute.propTypes = {
   isPublicRoute: PropTypes.bool
 };
 
-export default withRouter(connect()(AuthenticatedRoute));
+const mapStateToProps = store => ({
+  currentUser: store.auth.currentUser
+});
+
+export default withRouter(connect(mapStateToProps)(AuthenticatedRoute));

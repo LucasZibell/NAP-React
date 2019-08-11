@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-import { ClimbingBoxLoader } from 'react-spinners';
+import BoxLoader from '../Loader/boxLoader';
 
 import { DEFAULT_MAX_DURATION } from './constants';
 
@@ -14,7 +14,7 @@ function CustomSuspense({ maxDuration, fallback, children }) {
 }
 
 CustomSuspense.defaultProps = {
-  fallback: <ClimbingBoxLoader />,
+  fallback: <BoxLoader />,
   maxDuration: DEFAULT_MAX_DURATION
 };
 

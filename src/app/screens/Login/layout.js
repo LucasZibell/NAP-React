@@ -1,57 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { t } from 'i18next';
+import { Form, reduxForm } from 'redux-form';
 
-import InputLabel from '../../components/InputLabel';
-import withLoader from '../../components/Loader';
-import Routes from '../../../constants/routes';
+import { required } from '@utils/validationUtils';
+import Input from '@components/Input';
+import withLoader from '@components/Loader';
+import Routes from '@constants/routes';
 
-import { FIELDS } from './constants';
+import FormNames from './formFieldNames';
 import styles from './styles.scss';
 
-function Login({ onEmailChange, onPasswordChange, onLogin }) {
+function Login({ handleSubmit }) {
   return (
-    <form className={`column center full-width m-top-8 ${styles.formContainer}`} onSubmit={onLogin}>
+    <Form className={`column center full-width m-top-8 ${styles.formContainer}`} onSubmit={handleSubmit}>
       <div className="column center m-bottom-3">
-        <h2 className="m-bottom-1">{t('Login:login')}</h2>
-        <h3>{t('Login:loginExplanation')}</h3>
+        <h2 className="m-bottom-1">{t('login:LOGIN')}</h2>
+        <h3>{t('login:LOGIN_EXPLANATION')}</h3>
       </div>
       <div className={`column m-bottom-2 ${styles.sectionContainer}`}>
-        <InputLabel
-          label={t('Login:email')}
-          name={FIELDS.email}
-          inputId={FIELDS.email}
-          dataFor={FIELDS.email}
+        <Input
+          label={t('login:EMAIL')}
+          name={FormNames.EMAIL}
           inputType="text"
+          validate={[required]}
           inputClassName={`m-bottom-2 full-width ${styles.input}`}
-          placeholder={t('Login:emailPlaceholder')}
-          handleChange={onEmailChange}
+          placeholder={t('login:EMAIL_PLACEHOLDER')}
         />
-        <InputLabel
-          label={t('Login:password')}
-          name={FIELDS.password}
-          inputId={FIELDS.password}
-          dataFor={FIELDS.password}
+        <Input
+          label={t('login:PASSWORD')}
+          name={FormNames.PASSWORD}
           inputType="password"
+          validate={[required]}
           inputClassName={`m-bottom-2 full-width ${styles.input}`}
-          placeholder={t('Login:passwordPlaceholder')}
-          handleChange={onPasswordChange}
+          placeholder={t('login:PASSWORD_PLACEHOLDER')}
         />
       </div>
       <div className={`column center ${styles.sectionContainer}`}>
-        <button type="submit" className={`full-width m-bottom-1 ${styles.button}`}>
-          {t('Login:enter')}
-        </button>
-        <a href={Routes.RECOVER_PASSWORD}>{t('Login:forgotPassword')}</a>
+        <button className={`full-width m-bottom-1 ${styles.button}`}>{t('login:ENTER')}</button>
+        <a href={Routes.RECOVER_PASSWORD}>{t('login:FORGOT_PASSWORD')}</a>
       </div>
-    </form>
+    </Form>
   );
 }
 
 Login.propTypes = {
-  onEmailChange: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
-  onPasswordChange: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired
 };
 
-export default withLoader(props => props.loading)(Login);
+export default reduxForm({
+  form: FormNames.LOGIN
+})(withLoader(props => props.loading)(Login));
