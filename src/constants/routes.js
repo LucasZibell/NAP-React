@@ -1,5 +1,6 @@
 export default {
   HOME: '/',
   LOGIN: '/login',
-  RECOVER_PASSWORD: '/forgot_password'
+  RECOVER_PASSWORD: '/forgot_password',
+  PROFILE: '/profile'
 };
