@@ -1,0 +1,30 @@
+@import 'colors';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: $azure-radiance;
+  height: 50px;
+  box-shadow: 0 5px 6px 2px $box-shadow;
+}
+
+.nav-button {
+  font-size: 18px;
+  width: 100%;
+  color: $white;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    font-weight: bold;
+    background-color: $congress-blue; 
+  }
+
+  &:last-child {
+    background: url(../../../assets/icons/ic_logout.svg) 70% center no-repeat;
+
+    &:hover {
+      background-color: $congress-blue; 
+    }
+  }
+}

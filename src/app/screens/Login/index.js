@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
-import get from 'lodash/get';
 
 import { actionCreators } from '@redux/Auth/actions';
 import { getCurrentUser } from '@services/AuthServices';
@@ -29,14 +28,9 @@ class LoginContainer extends Component {
 
 LoginContainer.propTypes = {
   login: PropTypes.func.isRequired,
-  // canSubmit: PropTypes.bool,
   redirectHome: PropTypes.func,
   init: PropTypes.func.isRequired
 };
-
-const mapStateToProps = store => ({
-  canSubmit: get(store, 'form.login.values.password') && get(store, 'form.login.values.username')
-});
 
 const mapDispatchToProps = dispatch => ({
   login: body => dispatch(actionCreators.login(body)),
@@ -45,6 +39,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(LoginContainer);
