@@ -24,8 +24,8 @@ export const actionCreators = {
       service: AuthService.login,
       injections: [
         withPostSuccess((_, { data }) => {
-          debugger; //eslint-disable-line
           AuthService.setCurrentUser(data.token);
+          dispatch(actionCreators.init());
           dispatch(push(Routes.HOME));
         }),
         withPostFailure(() => {
