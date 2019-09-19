@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Text from '@components/Text';
 import defaultUser from '@assets/icons/default_user.png';
 
+import { awards } from './constants';
+
 import styles from './styles.scss';
 
 class Profile extends Component {
@@ -21,6 +23,11 @@ class Profile extends Component {
         </div>
         <div className={styles.achievments}>
           <Text>Logros:</Text>
+          <div>
+            {currentUser.awards.map(elem => (
+              <img className="margin-10" key={elem} alt="award" src={awards[elem]} width={30} />
+            ))}
+          </div>
         </div>
       </div>
     );
