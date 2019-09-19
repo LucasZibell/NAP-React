@@ -5,5 +5,6 @@ export default {
   PROFILE: '/profile',
   COMPUTER_SCIENCE_GUIDE: '/computer_science_guide',
   ALGORITHM_GUIDE: '/algorithm_guide',
-  ROBOTICS_GUIDE: '/robotics_guide'
+  ROBOTICS_GUIDE: '/robotics_guide',
+  EXAMS: '/exams'
 };
