@@ -30,7 +30,7 @@ function Login({ handleSubmit }) {
         <Input
           label={t('login:PASSWORD')}
           name={FormNames.PASSWORD}
-          inputType="password"
+          type="password"
           validate={[required]}
           inputClassName={`m-bottom-2 full-width ${styles.input}`}
           placeholder={t('login:PASSWORD_PLACEHOLDER')}

@@ -30,6 +30,17 @@ export const authApiSetup = apiInstance => {
   apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
 };
 
-export const getUserData = () => new Promise(resolve => resolve({ data: { name: 'Joe' }, ok: true }));
+export const getUserData = () =>
+  new Promise(resolve =>
+    resolve({
+      data: {
+        name: 'Joe',
+        surname: 'Jack',
+        email: 'test@admin.com',
+        awards: ['FIRST_EXCERSICE', 'THREE_STREAK', 'COMPLETE_ROBOTICS']
+      },
+      ok: true
+    })
+  );
 
 export const failedLogin = body => api.post('/failed_login', body);
