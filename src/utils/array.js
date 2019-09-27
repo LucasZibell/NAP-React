@@ -14,4 +14,6 @@ export function stringArrayToObject(actionsArray, namespace = '') {
 
 export const splitGetN = (array, position) => array.split('/')[position];
 
+export const formatUrl = (route, id) => route.replace(':id', id);
+
 export const contains = (string, subString) => string.indexOf(subString) !== -1;

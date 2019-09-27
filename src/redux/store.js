@@ -7,6 +7,7 @@ import { fetchMiddleware } from 'redux-recompose';
 
 import { actions as authActions } from './Auth/actions';
 import { reducer as auth } from './Auth/reducer';
+import { reducer as exerciseDetails } from './ExerciseDetails/reducer';
 
 export const history = createHistory();
 
@@ -14,6 +15,7 @@ export const history = createHistory();
 const reducers = combineReducers({
   auth,
   form,
+  exerciseDetails,
   router: connectRouter(history)
 });
 
