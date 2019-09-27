@@ -1,10 +1,14 @@
 import React from 'react';
 import { t } from 'i18next';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 import Text from '@components/Text';
+import Routes from '@constants/routes';
+import { formatUrl } from '../../../utils/array';
 
-function GuideList({ excerciseList }) {
+function GuideList({ excerciseList, goToExcersiceDetails }) {
   return (
     <table>
       <tr>
@@ -14,7 +18,7 @@ function GuideList({ excerciseList }) {
       {excerciseList.map(elem => (
         <tr align="center" key={elem.id}>
           <td>
-            <button onClick={() => console.log(elem.id)}>
+            <button onClick={() => goToExcersiceDetails(elem.id)}>
               <Text>{elem.title}</Text>
             </button>
           </td>
@@ -28,7 +32,15 @@ function GuideList({ excerciseList }) {
 }
 
 GuideList.propTypes = {
-  excerciseList: PropTypes.arrayOf(PropTypes.shape({}))
+  excerciseList: PropTypes.arrayOf(PropTypes.shape({})),
+  goToExcersiceDetails: PropTypes.func.isRequired
 };
 
-export default GuideList;
+const mapDispatchToProps = dispatch => ({
+  goToExcersiceDetails: id => dispatch(push(formatUrl(Routes.EXERCISE_DETAILS, id)))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(GuideList);

@@ -15,6 +15,7 @@ const ComputerScienceGuide = lazy(() => import('../../screens/ComputerScienceGui
 const RoboticsGuide = lazy(() => import('../../screens/RoboticsGuide'));
 const AlgorithmGuide = lazy(() => import('../../screens/AlgorithmGuide'));
 const Exams = lazy(() => import('../../screens/Exams'));
+const ExerciseDetails = lazy(() => import('../../screens/ExerciseDetails'));
 
 function AppRoutes() {
   return (
@@ -27,6 +28,12 @@ function AppRoutes() {
           <AuthenticatedRoute isPrivateRoute exact path={Routes.COMPUTER_SCIENCE_GUIDE} component={ComputerScienceGuide} /> {/* eslint-disable-line prettier/prettier */}
           <AuthenticatedRoute isPrivateRoute exact path={Routes.ALGORITHM_GUIDE} component={AlgorithmGuide} />
           <AuthenticatedRoute isPrivateRoute exact path={Routes.ROBOTICS_GUIDE} component={RoboticsGuide} />
+          <AuthenticatedRoute
+            isPrivateRoute
+            exact
+            path={Routes.EXERCISE_DETAILS}
+            component={ExerciseDetails}
+          />
           <AuthenticatedRoute isPrivateRoute exact path={Routes.EXAMS} component={Exams} />
         </Switch>
       </Suspense>
