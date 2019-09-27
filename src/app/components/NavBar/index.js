@@ -24,7 +24,9 @@ function NavBar({ logout, goToProfile, goHome, goTo }) {
         </div>
       </div>
       {/* <button className={styles.navButton}>{t('navbar:EXERCISES')}</button> */}
-      <button className={styles.navButton}>{t('navbar:TESTS')}</button>
+      <button onClick={() => goTo(Routes.EXAMS)} className={styles.navButton}>
+        {t('navbar:TESTS')}
+      </button>
       <button onClick={goToProfile} className={styles.navButton}>
         {t('navbar:PROFILE')}
       </button>
