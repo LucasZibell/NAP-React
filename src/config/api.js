@@ -4,7 +4,7 @@ import * as AuthService from '@services/AuthServices';
 import { actionCreators as authActions } from '@redux/Auth/actions';
 
 const api = create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: 'http://localhost:4000',
   timeout: 30000
 });
 
