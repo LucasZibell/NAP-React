@@ -6,6 +6,7 @@ export default {
   COMPUTER_SCIENCE_GUIDE: '/computer_science_guide',
   ALGORITHM_GUIDE: '/algorithm_guide',
   ROBOTICS_GUIDE: '/robotics_guide',
-  EXAMS: '/exams',
+  EXAM: '/exam',
+  EXAM_LIST: '/exam_list',
   EXERCISE_DETAILS: '/exercise_details/:id'
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { push } from 'connected-react-router';
 import { t } from 'i18next';
 
@@ -9,7 +8,8 @@ import { actionCreators } from '@redux/Auth/actions';
 
 import styles from './styles.scss';
 
-function NavBar({ logout, goToProfile, goHome, goTo }) {
+function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
+  const examLink = currentUser.teacher ? Routes.EXAM_LIST : Routes.EXAM;
   return (
     <div className={styles.container}>
       <button onClick={goHome} className={styles.navButton}>
@@ -24,7 +24,7 @@ function NavBar({ logout, goToProfile, goHome, goTo }) {
         </div>
       </div>
       {/* <button className={styles.navButton}>{t('navbar:EXERCISES')}</button> */}
-      <button onClick={() => goTo(Routes.EXAMS)} className={styles.navButton}>
+      <button onClick={() => goTo(examLink)} className={styles.navButton}>
         {t('navbar:TESTS')}
       </button>
       <button onClick={goToProfile} className={styles.navButton}>
@@ -37,12 +37,9 @@ function NavBar({ logout, goToProfile, goHome, goTo }) {
   );
 }
 
-NavBar.propTypes = {
-  logout: PropTypes.func.isRequired,
-  goToProfile: PropTypes.func.isRequired,
-  goHome: PropTypes.func.isRequired,
-  goTo: PropTypes.func.isRequired
-};
+const mapStateToProps = store => ({
+  currentUser: store.auth.currentUser
+});
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(actionCreators.logout()),
@@ -52,6 +49,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(NavBar);
