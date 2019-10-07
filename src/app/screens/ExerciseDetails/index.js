@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Text from '@components/Text';
+import MultipleChoice from '@components/MultipleChoice';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
 
 class ExerciseDetails extends Component {
@@ -18,11 +19,11 @@ class ExerciseDetails extends Component {
         {loading ? (
           'Cargando...'
         ) : (
-          <Fragment>
-            <Text>{exerciseInfo.id}</Text>
-            <Text>{exerciseInfo.title}</Text>
-            <Text>{exerciseInfo.description}</Text>
-          </Fragment>
+          <MultipleChoice
+            options={exerciseInfo.options || []}
+            title={exerciseInfo.title}
+            description={exerciseInfo.description}
+          />
         )}
       </div>
     );
