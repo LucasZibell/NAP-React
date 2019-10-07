@@ -20,9 +20,10 @@ export const getExerciseInfo = id =>
     resolve({
       data: {
         id,
-        title: 'Aprendiendo lo que es un if',
-        description: 'Tenes que hacer un if para completar este ejercicio',
-        options
+        title: 'Aprendiendo el abecedario',
+        description: 'Cual es la primer letra del abecedario',
+        options,
+        answer: 'a'
       },
       ok: true
     })

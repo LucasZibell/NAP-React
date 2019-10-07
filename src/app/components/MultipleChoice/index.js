@@ -7,12 +7,13 @@ import withLoader from '@components/Loader';
 
 import FormNames from './formFieldNames';
 
-function MultipleChoice({ options, title, description }) {
+function MultipleChoice({ handleSubmit, options, title, description }) {
   return (
-    <Form className="row">
+    <Form className="row" onSubmit={handleSubmit}>
       <div className="column">
         <Text elementType="title-2">{title}</Text>
-        <Text elementType="text-3">{description}</Text>
+        <Text elementType="text-1">{description}</Text>
+        <button>Enviar Solucion</button>
       </div>
       {options.map(elem => (
         <div key={elem.id} className="column">

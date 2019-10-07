@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Text from '@components/Text';
 import MultipleChoice from '@components/MultipleChoice';
@@ -10,6 +11,14 @@ class ExerciseDetails extends Component {
   componentDidMount() {
     this.props.getExerciseInfo(this.props.match.params.id);
   }
+
+  onSubmit = value => {
+    if (value.answer === this.props.exerciseInfo.answer) {
+      toast.success('Muy bien!! Opcion correcta');
+    } else {
+      toast.error('Esa opcion no es la correcta, intenta de vuelta');
+    }
+  };
 
   render() {
     const { loading, exerciseInfo } = this.props;
@@ -23,6 +32,7 @@ class ExerciseDetails extends Component {
             options={exerciseInfo.options || []}
             title={exerciseInfo.title}
             description={exerciseInfo.description}
+            onSubmit={this.onSubmit}
           />
         )}
       </div>
