@@ -7,19 +7,25 @@ import withLoader from '@components/Loader';
 
 import FormNames from './formFieldNames';
 
+import styles from './styles.scss';
+
 function MultipleChoice({ handleSubmit, options, title, description }) {
   return (
-    <Form className="row" onSubmit={handleSubmit}>
-      <div className="column">
-        <Text elementType="title-2">{title}</Text>
-        <Text elementType="text-1">{description}</Text>
-        <button>Enviar Solucion</button>
+    <Form className="row center" onSubmit={handleSubmit}>
+      <div className="column margin-right-50">
+        <Text elementType="title-2" className="margin-bottom-10">
+          {title}
+        </Text>
+        <Text elementType="text-1" className="margin-bottom-10">
+          {description}
+        </Text>
+        <button className={styles.button}>Enviar Solucion</button>
       </div>
-      {options.map(elem => (
-        <div key={elem.id} className="column">
-          <RadioButton name={FormNames.ANSWER} value={elem.value} text={elem.text} />
-        </div>
-      ))}
+      <div className="column">
+        {options.map(elem => (
+          <RadioButton key={elem.id} name={FormNames.ANSWER} value={elem.value} text={elem.text} />
+        ))}
+      </div>
     </Form>
   );
 }

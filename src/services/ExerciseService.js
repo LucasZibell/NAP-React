@@ -21,9 +21,10 @@ export const getExerciseInfo = id =>
       data: {
         id,
         title: 'Aprendiendo el abecedario',
-        description: 'Cual es la primer letra del abecedario',
+        description: '¿Cual es la primer letra del abecedario?',
         options,
-        answer: 'a'
+        answer: 'a',
+        multipleChoice: true
       },
       ok: true
     })

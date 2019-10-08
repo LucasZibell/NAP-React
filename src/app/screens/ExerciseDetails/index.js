@@ -25,15 +25,16 @@ class ExerciseDetails extends Component {
     return (
       <div className="column">
         <Text>Bienvenido al ejercicio</Text>
-        {loading ? (
-          'Cargando...'
-        ) : (
+        {exerciseInfo.multipleChoice ? (
           <MultipleChoice
             options={exerciseInfo.options || []}
             title={exerciseInfo.title}
             description={exerciseInfo.description}
             onSubmit={this.onSubmit}
+            loading={loading}
           />
+        ) : (
+          'Programacion en bloques'
         )}
       </div>
     );
