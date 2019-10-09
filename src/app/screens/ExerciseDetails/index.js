@@ -1,8 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Text from '@components/Text';
+import MultipleChoice from '@components/MultipleChoice';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
 
 class ExerciseDetails extends Component {
@@ -15,6 +17,14 @@ class ExerciseDetails extends Component {
 
     // document.body.appendChild(script);
   }
+
+  onSubmit = value => {
+    if (value.answer === this.props.exerciseInfo.answer) {
+      toast.success('Muy bien!! Opcion correcta');
+    } else {
+      toast.error('Esa opcion no es la correcta, intenta de vuelta');
+    }
+  };
 
   render() {
     const { loading, exerciseInfo } = this.props;
@@ -32,14 +42,16 @@ class ExerciseDetails extends Component {
           <gs-board size='{ "x": 4, "y": 4 }' header='{ "x": 1, "y": 1 }' />
         </div>
         <button className="kids-submit-button"> Mandar solucion</button>
-        {loading ? (
-          'Cargando...'
+        {exerciseInfo.multipleChoice ? (
+          <MultipleChoice
+            options={exerciseInfo.options || []}
+            title={exerciseInfo.title}
+            description={exerciseInfo.description}
+            onSubmit={this.onSubmit}
+            loading={loading}
+          />
         ) : (
-          <Fragment>
-            <Text>{exerciseInfo.id}</Text>
-            <Text>{exerciseInfo.title}</Text>
-            <Text>{exerciseInfo.description}</Text>
-          </Fragment>
+          'Programacion en bloques'
         )}
       </div>
     );

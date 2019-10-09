@@ -14,7 +14,8 @@ const Profile = lazy(() => import('../../screens/Profile'));
 const ComputerScienceGuide = lazy(() => import('../../screens/ComputerScienceGuide'));
 const RoboticsGuide = lazy(() => import('../../screens/RoboticsGuide'));
 const AlgorithmGuide = lazy(() => import('../../screens/AlgorithmGuide'));
-const Exams = lazy(() => import('../../screens/Exams'));
+const Exam = lazy(() => import('../../screens/Exam'));
+const ExamList = lazy(() => import('../../screens/ExamList'));
 const ExerciseDetails = lazy(() => import('../../screens/ExerciseDetails'));
 
 function AppRoutes() {
@@ -39,7 +40,8 @@ function AppRoutes() {
             path={Routes.EXERCISE_DETAILS}
             component={ExerciseDetails}
           />
-          <AuthenticatedRoute isPrivateRoute exact path={Routes.EXAMS} component={Exams} />
+          <AuthenticatedRoute isPrivateRoute exact path={Routes.EXAM} component={Exam} />
+          <AuthenticatedRoute isPrivateRoute exact path={Routes.EXAM_LIST} component={ExamList} />
         </Switch>
       </Suspense>
     </ConnectedRouter>

@@ -8,7 +8,13 @@ export const setCurrentUser = token => {
   LocalStorageService.setSessionToken(token);
 };
 
-export const login = body => new Promise(resolve => resolve({ data: { token: 'token', ...body }, ok: true }));
+export const login = body =>
+  new Promise(resolve => {
+    if (body.email === 'admin') {
+      resolve({ data: { token: 'admin', ...body }, ok: true });
+    }
+    resolve({ data: { token: 'token', ...body }, ok: true });
+  });
 
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();
@@ -37,6 +43,7 @@ export const getUserData = () =>
         name: 'Joe',
         surname: 'Jack',
         email: 'test@admin.com',
+        teacher: LocalStorageService.getSessionToken() === 'admin',
         awards: ['FIRST_EXCERSICE', 'THREE_STREAK', 'COMPLETE_ROBOTICS']
       },
       ok: true

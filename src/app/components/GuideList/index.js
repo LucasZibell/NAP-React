@@ -8,7 +8,7 @@ import Text from '@components/Text';
 import Routes from '@constants/routes';
 import { formatUrl } from '../../../utils/array';
 
-function GuideList({ excerciseList, goToExcersiceDetails }) {
+function GuideList({ excerciseList, goToExamDetails, goToExcersiceDetails, exams }) {
   return (
     <table>
       <tr>
@@ -18,7 +18,7 @@ function GuideList({ excerciseList, goToExcersiceDetails }) {
       {excerciseList.map(elem => (
         <tr align="center" key={elem.id}>
           <td>
-            <button onClick={() => goToExcersiceDetails(elem.id)}>
+            <button onClick={() => (exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id))}>
               <Text>{elem.title}</Text>
             </button>
           </td>
@@ -37,7 +37,8 @@ GuideList.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  goToExcersiceDetails: id => dispatch(push(formatUrl(Routes.EXERCISE_DETAILS, id)))
+  goToExcersiceDetails: id => dispatch(push(formatUrl(Routes.EXERCISE_DETAILS, id))),
+  goToExamDetails: id => dispatch(push(formatUrl(Routes.EXAM, id)))
 });
 
 export default connect(
