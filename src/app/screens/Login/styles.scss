@@ -8,6 +8,7 @@
   height: 30px;
   border: solid 1px;
   border-radius: 5px;
+  max-width: 100% !important;
 }
 
 .form-container {
@@ -19,4 +20,8 @@
 .section-container {
   width: 100%;
   max-width: 280px;
+}
+
+.texto-blanco {
+  color: white !important;
 }
