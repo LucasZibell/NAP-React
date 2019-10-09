@@ -29,7 +29,7 @@ export const getExerciseInfo = id =>
         description: '¿Cual es la primer letra del abecedario?',
         options,
         answer: 'a',
-        multipleChoice: true
+        multipleChoice: false
       },
       ok: true
     })
