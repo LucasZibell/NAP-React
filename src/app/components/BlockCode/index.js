@@ -1,9 +1,14 @@
 import React, { Fragment } from 'react';
 
+import styles from './styles.scss';
+
+const tools = {
+  visible: ['Comandos Primitivos']
+};
+
 function BlockCode() {
   const x = something => {
     console.log({ a: 'hola', something });
-    debugger; //eslint-disable-line
   };
   return (
     <Fragment>
@@ -14,16 +19,12 @@ function BlockCode() {
       <link rel="import" href="http://localhost:9292/assets/editor/editor.html" />
       <link rel="import" href="http://localhost:9292/assets/editor/gobstones-code-runner.html" />
       <div className="row space-between">
-        <polymer onRunRequest={x}>
-          <gs-element-blockly width="100px" height="50px" />
-          <gs-board size='{ "x": 4, "y": 4 }' header='{ "x": 1, "y": 3 }' />
-          <gs-board size='{ "x": 4, "y": 4 }' header='{ "x": 1, "y": 1 }' />
-          <gobstones-code-runner />
-        </polymer>
+        <mu-gobstones-custom-editor toolbox={tools} />
+        <gs-board className="mu-initial-state active" size='{ "x": 2, "y": 1 }' header='{ "x": 0, "y": 1 }' />
+        <gs-board className="mu-final-state active" size='{ "x": 2, "y": 1 }' header='{ "x": 1, "y": 1 }' />
       </div>
-      <button className="kids-submit-button" onRunRequest={x}>
-        Mandar solucion
-      </button>
+      <kids-submit-button onClick={x} />
+      <input type="hidden" id="mu-custom-editor-value" value={''} />
     </Fragment>
   );
 }
