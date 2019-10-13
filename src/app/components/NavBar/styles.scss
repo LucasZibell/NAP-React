@@ -1,4 +1,4 @@
-@import 'colors';
+@import "colors";
 
 .container {
   display: flex;
@@ -16,15 +16,31 @@
   transition: all 0.5s ease-in-out;
 
   &:hover {
-    font-weight: bold;
-    background-color: $congress-blue; 
+    // letter-spacing: 1px;
+    // box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+    // transition: all 0.4s ease 0s;
+
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+    transition: all 0.4s ease 0s;
   }
 
   &:last-child {
     background: url(../../../assets/icons/ic_logout.svg) 80% center no-repeat;
 
     &:hover {
-      background-color: $congress-blue; 
+      text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+      transition: all 0.4s ease 0s;
     }
   }
+}
+
+/*Colores de Digilab segun poster*/
+.verde {
+  background-color: #6fc3b9 !important;
+}
+.grisClaro {
+  background-color: #9b9b96 !important;
+}
+.grisOscuro {
+  background-color: #b3b3af !important;
 }

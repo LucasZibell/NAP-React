@@ -30,7 +30,6 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -43,7 +42,6 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -60,10 +58,10 @@ function Login({ handleSubmit }) {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={false} sm={4} md={7} className={`${classes.image} ${styles.backgroundImage}`} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+          <Avatar className={`${classes.avatar} ${styles.verde}`}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" align="center">
@@ -105,8 +103,7 @@ function Login({ handleSubmit }) {
               type="submit"
               fullWidth
               variant="contained"
-              color="primary"
-              className={classes.submit}
+              className={`${classes.submit} ${styles.verde}`}
             >
               <span className={`m-bottom-1 ${styles.textoBlanco}`}>{t('login:ENTER')}</span>
             </Button>
