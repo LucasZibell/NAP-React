@@ -8,6 +8,7 @@
   height: 30px;
   border: solid 1px;
   border-radius: 5px;
+  max-width: 100% !important;
 }
 
 .form-container {
@@ -19,4 +20,22 @@
 .section-container {
   width: 100%;
   max-width: 280px;
+}
+
+.texto-blanco {
+  color: white !important;
+}
+
+/*Colores de Digilab segun poster*/
+.verde {
+  background-color: #6fc3b9 !important;
+}
+.grisClaro {
+  background-color: #9b9b96 !important;
+}
+.grisOscuro {
+  background-color: #b3b3af !important;
+}
+.backgroundImage {
+  background-image: url(../../../assets/img/digilab.jpg) !important;
 }
