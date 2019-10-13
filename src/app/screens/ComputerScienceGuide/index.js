@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
-
 import Text from '@components/Text';
 import GuideList from '@components/GuideList';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const mockExcerciseList = [
   {
@@ -24,7 +25,16 @@ const mockExcerciseList = [
 function ComputerScienceGuide() {
   return (
     <Fragment>
-      <Text>Bienvenido a la guia de ciencias de la computacion</Text>
+      <br></br>
+      <Grid container spacing={3}>
+        <Grid item xs={1}>
+        </Grid>
+        <Grid item xs={8}>
+          <Typography variant="h6" gutterBottom>
+            Bienvenido a la guía de ciencias de la computación
+          </Typography>
+        </Grid>
+      </Grid>
       <GuideList excerciseList={mockExcerciseList} />
     </Fragment>
   );

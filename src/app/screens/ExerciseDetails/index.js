@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import Text from '@components/Text';
 import MultipleChoice from '@components/MultipleChoice';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 class ExerciseDetails extends Component {
   componentDidMount() {
@@ -24,7 +26,16 @@ class ExerciseDetails extends Component {
     const { loading, exerciseInfo } = this.props;
     return (
       <div className="column">
-        <Text>Bienvenido al ejercicio</Text>
+        <br></br>
+        <Grid container spacing={3}>
+          <Grid item xs={1}>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography variant="h6" gutterBottom>
+              Bienvenido al ejercicio
+          </Typography>
+          </Grid>
+        </Grid>
         {exerciseInfo.multipleChoice ? (
           <MultipleChoice
             options={exerciseInfo.options || []}
@@ -34,8 +45,8 @@ class ExerciseDetails extends Component {
             loading={loading}
           />
         ) : (
-          'Programacion en bloques'
-        )}
+            'Programacion en bloques'
+          )}
       </div>
     );
   }

@@ -6,7 +6,7 @@ import RadioButton from '@components/RadioButton';
 import withLoader from '@components/Loader';
 
 import FormNames from './formFieldNames';
-
+import Button from '@material-ui/core/Button';
 import styles from './styles.scss';
 
 function MultipleChoice({ handleSubmit, options, title, description }) {
@@ -19,7 +19,12 @@ function MultipleChoice({ handleSubmit, options, title, description }) {
         <Text elementType="text-1" className="margin-bottom-10">
           {description}
         </Text>
-        <button className={styles.button}>Enviar Solucion</button>
+        <button className={styles.button}>
+          <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
+        </button>
+        <Button variant="contained" size="large" className={styles.button}>
+          <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
+        </Button>
       </div>
       <div className="column">
         {options.map(elem => (
