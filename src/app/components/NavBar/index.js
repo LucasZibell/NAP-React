@@ -26,7 +26,6 @@ function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
             <button onClick={() => goTo(Routes.ROBOTICS_GUIDE)}>{t('navbar:ROBOTICS')}</button>
           </div>
         </div>
-        {/* <button className={styles.navButton}>{t('navbar:EXERCISES')}</button> */}
         <button onClick={() => goTo(examLink)} className={styles.navButton}>
           {t('navbar:TESTS')}
         </button>

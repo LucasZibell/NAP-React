@@ -95,10 +95,6 @@ function Login({ handleSubmit }) {
               margin="normal"
               required
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               type="submit"
               fullWidth
@@ -114,9 +110,6 @@ function Login({ handleSubmit }) {
                 </Link>
               </Grid>
               <Grid item>
-                {/* <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link> */}
               </Grid>
             </Grid>
             <Box mt={5}>
