@@ -1,8 +1,11 @@
-import React, { Fragment } from 'react';
-import Text from '@components/Text';
+import React, { Fragment, Component } from 'react';
 import GuideList from '@components/GuideList';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
+
+import { actionCreators } from '@redux/Guides/actions';
+import get from 'lodash.get';
 
 const mockExcerciseList = [
   {
@@ -22,22 +25,45 @@ const mockExcerciseList = [
   }
 ];
 
-function ComputerScienceGuide() {
-  return (
-    <Fragment>
-      <br></br>
-      <Grid container spacing={3}>
-        <Grid item xs={1}>
+class ComputerScienceGuide extends Component {
+  componentDidMount() {
+    this.props.getGuide();
+  }
+
+  render() {
+    const { loading, guideList } = this.props;
+    return (
+      <Fragment>
+        <br />
+        <Grid container spacing={3}>
+          <Grid item xs={1} />
+          <Grid item xs={8}>
+            <Typography variant="h6" gutterBottom>
+              Bienvenido a la guía de ciencias de la computación
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          <Typography variant="h6" gutterBottom>
-            Bienvenido a la guía de ciencias de la computación
-          </Typography>
-        </Grid>
-      </Grid>
-      <GuideList excerciseList={mockExcerciseList} />
-    </Fragment>
-  );
+        <GuideList
+          title={get(guideList, 'guide.name')}
+          description={get(guideList, 'guide.description')}
+          excerciseList={mockExcerciseList}
+          loading={loading}
+        />
+      </Fragment>
+    );
+  }
 }
 
-export default ComputerScienceGuide;
+const mapStateToProps = store => ({
+  guideList: store.guide.guideList,
+  loading: store.guide.guideListLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  getGuide: () => dispatch(actionCreators.getGuide(1))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ComputerScienceGuide);

@@ -1,16 +1,19 @@
-import api from '@config/api';
+// import api from '@config/api';
 import { actionCreators as authActions } from '../redux/Auth/actions';
 
 import * as LocalStorageService from './LocalStorageService';
 
 export const setCurrentUser = token => {
-  api.setHeader('Authorization', token);
+  // api.setHeader('Authorization', token);
   LocalStorageService.setSessionToken(token);
 };
 
-export const login = body =>
+// api.get('auth/identity/callback', body);
+export const login = async body =>
   new Promise(resolve => {
-    if (body.email === 'admin') {
+    if (body.password !== '123' || (body.auth_key !== 'admin' && body.auth_key !== 'alumno'))
+      resolve({ error: 'Invalid credentials', ok: false });
+    if (body.auth_key === 'admin') {
       resolve({ data: { token: 'admin', ...body }, ok: true });
     }
     resolve({ data: { token: 'token', ...body }, ok: true });
@@ -19,7 +22,7 @@ export const login = body =>
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();
   if (currentSessionToken) {
-    api.setHeader('Authorization', currentSessionToken);
+    // api.setHeader('Authorization', currentSessionToken);
     return true;
   }
   return false;
@@ -27,27 +30,35 @@ export const getCurrentUser = async () => {
 
 export const removeCurrentUser = async () => LocalStorageService.removeSessionToken();
 
-export const authSetup = async (dispatch, currentUserToken) => {
-  await api.setHeaders(currentUserToken);
+export const authSetup = async (dispatch /* currentUserToken */) => {
+  // await api.setHeaders(currentUserToken);
   dispatch(authActions.init());
 };
 
-export const authApiSetup = apiInstance => {
-  apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
+export const authApiSetup = (/* apiInstance */) => {
+  // apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
 };
 
-export const getUserData = () =>
-  new Promise(resolve =>
-    resolve({
-      data: {
-        name: 'Joe',
-        surname: 'Jack',
+export const getUserData = () => {
+  const teacher = LocalStorageService.getSessionToken() === 'admin';
+  const data = teacher
+    ? {
+        name: 'Admin',
+        surname: 'Admin',
         email: 'test@admin.com',
-        teacher: LocalStorageService.getSessionToken() === 'admin',
+        teacher,
         awards: ['FIRST_EXCERSICE', 'THREE_STREAK', 'COMPLETE_ROBOTICS']
-      },
+      }
+    : {
+        name: 'Alumno',
+        surname: 'User',
+        email: 'test@user.com',
+        awards: ['FIRST_EXCERSICE']
+      };
+  return new Promise(resolve =>
+    resolve({
+      data,
       ok: true
     })
   );
-
-export const failedLogin = body => api.post('/failed_login', body);
+};
