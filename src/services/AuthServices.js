@@ -8,15 +8,16 @@ export const setCurrentUser = token => {
   LocalStorageService.setSessionToken(token);
 };
 
-// api.get('auth/identity/callback', body);
-export const login = body =>
+export const login = async body =>
+  // await api.get('auth/identity/callback', body);
+  // return api.get('user');
   new Promise(resolve => {
-    if (body.email === 'admin') {
+    if (body.password !== '123') resolve({ error: 'Invalid credentials', ok: false });
+    if (body.auth_key === 'admin') {
       resolve({ data: { token: 'admin', ...body }, ok: true });
     }
     resolve({ data: { token: 'token', ...body }, ok: true });
   });
-
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();
   if (currentSessionToken) {
@@ -37,16 +38,25 @@ export const authApiSetup = (/* apiInstance */) => {
   // apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
 };
 
-export const getUserData = () =>
-  new Promise(resolve =>
-    resolve({
-      data: {
-        name: 'Joe',
-        surname: 'Jack',
+export const getUserData = () => {
+  const teacher = LocalStorageService.getSessionToken() === 'admin';
+  const data = teacher
+    ? {
+        name: 'Admin',
+        surname: 'Admin',
         email: 'test@admin.com',
-        teacher: LocalStorageService.getSessionToken() === 'admin',
         awards: ['FIRST_EXCERSICE', 'THREE_STREAK', 'COMPLETE_ROBOTICS']
-      },
+      }
+    : {
+        name: 'Alumno',
+        surname: 'User',
+        email: 'test@user.com',
+        awards: ['FIRST_EXCERSICE']
+      };
+  return new Promise(resolve =>
+    resolve({
+      data,
       ok: true
     })
   );
+};
