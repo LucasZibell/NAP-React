@@ -9,6 +9,7 @@ import { actions as authActions } from './Auth/actions';
 import { reducer as auth } from './Auth/reducer';
 import { reducer as exam } from './Exam/reducer';
 import { reducer as exerciseDetails } from './ExerciseDetails/reducer';
+import { reducer as guide } from './Guides/reducer';
 
 export const history = createHistory();
 
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   form,
   exam,
   exerciseDetails,
+  guide,
   router: connectRouter(history)
 });
 

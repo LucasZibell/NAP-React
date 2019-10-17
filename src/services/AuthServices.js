@@ -1,13 +1,14 @@
-import api from '@config/api';
+// import api from '@config/api';
 import { actionCreators as authActions } from '../redux/Auth/actions';
 
 import * as LocalStorageService from './LocalStorageService';
 
 export const setCurrentUser = token => {
-  api.setHeader('Authorization', token);
+  // api.setHeader('Authorization', token);
   LocalStorageService.setSessionToken(token);
 };
 
+// api.get('auth/identity/callback', body);
 export const login = body =>
   new Promise(resolve => {
     if (body.email === 'admin') {
@@ -19,7 +20,7 @@ export const login = body =>
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();
   if (currentSessionToken) {
-    api.setHeader('Authorization', currentSessionToken);
+    // api.setHeader('Authorization', currentSessionToken);
     return true;
   }
   return false;
@@ -27,13 +28,13 @@ export const getCurrentUser = async () => {
 
 export const removeCurrentUser = async () => LocalStorageService.removeSessionToken();
 
-export const authSetup = async (dispatch, currentUserToken) => {
-  await api.setHeaders(currentUserToken);
+export const authSetup = async (dispatch /* currentUserToken */) => {
+  // await api.setHeaders(currentUserToken);
   dispatch(authActions.init());
 };
 
-export const authApiSetup = apiInstance => {
-  apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
+export const authApiSetup = (/* apiInstance */) => {
+  // apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
 };
 
 export const getUserData = () =>
@@ -49,5 +50,3 @@ export const getUserData = () =>
       ok: true
     })
   );
-
-export const failedLogin = body => api.post('/failed_login', body);

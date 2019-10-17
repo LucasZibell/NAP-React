@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import Text from '@components/Text';
 import MultipleChoice from '@components/MultipleChoice';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { mockExc } from './constants';
 
 class ExerciseDetails extends Component {
   componentDidMount() {
@@ -15,7 +16,7 @@ class ExerciseDetails extends Component {
   }
 
   onSubmit = value => {
-    if (value.answer === this.props.exerciseInfo.answer) {
+    if (value.answer === this.props.mockExc.answer) {
       toast.success('Muy bien!! Opcion correcta');
     } else {
       toast.error('Esa opcion no es la correcta, intenta de vuelta');
@@ -26,27 +27,22 @@ class ExerciseDetails extends Component {
     const { loading, exerciseInfo } = this.props;
     return (
       <div className="column">
-        <br></br>
+        <br />
         <Grid container spacing={3}>
-          <Grid item xs={1}>
-          </Grid>
+          <Grid item xs={1} />
           <Grid item xs={8}>
             <Typography variant="h6" gutterBottom>
               Bienvenido al ejercicio
-          </Typography>
+            </Typography>
           </Grid>
         </Grid>
-        {exerciseInfo.multipleChoice ? (
-          <MultipleChoice
-            options={exerciseInfo.options || []}
-            title={exerciseInfo.title}
-            description={exerciseInfo.description}
-            onSubmit={this.onSubmit}
-            loading={loading}
-          />
-        ) : (
-            'Programacion en bloques'
-          )}
+        <MultipleChoice
+          options={mockExc.options || []}
+          title={`${get(exerciseInfo, 'exercise.name')} ${mockExc.title}`}
+          description={`${get(exerciseInfo, 'exercise.description')} ${mockExc.description}`}
+          onSubmit={this.onSubmit}
+          loading={loading}
+        />
       </div>
     );
   }
@@ -64,12 +60,13 @@ ExerciseDetails.propTypes = {
 };
 
 const mapStateToProps = store => ({
+  mockExc,
   exerciseInfo: store.exerciseDetails.exerciseInfo,
   loading: store.exerciseDetails.exerciseInfoLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  getExerciseInfo: id => dispatch(actionCreators.getExerciseInfo(id))
+  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(1))
 });
 
 export default connect(
