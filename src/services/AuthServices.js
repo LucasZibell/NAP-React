@@ -8,16 +8,17 @@ export const setCurrentUser = token => {
   LocalStorageService.setSessionToken(token);
 };
 
+// api.get('auth/identity/callback', body);
 export const login = async body =>
-  // await api.get('auth/identity/callback', body);
-  // return api.get('user');
   new Promise(resolve => {
-    if (body.password !== '123') resolve({ error: 'Invalid credentials', ok: false });
+    if (body.password !== '123' || (body.auth_key !== 'admin' && body.auth_key !== 'alumno'))
+      resolve({ error: 'Invalid credentials', ok: false });
     if (body.auth_key === 'admin') {
       resolve({ data: { token: 'admin', ...body }, ok: true });
     }
     resolve({ data: { token: 'token', ...body }, ok: true });
   });
+
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();
   if (currentSessionToken) {
