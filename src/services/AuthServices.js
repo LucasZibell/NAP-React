@@ -46,6 +46,7 @@ export const getUserData = () => {
         name: 'Admin',
         surname: 'Admin',
         email: 'test@admin.com',
+        teacher,
         awards: ['FIRST_EXCERSICE', 'THREE_STREAK', 'COMPLETE_ROBOTICS']
       }
     : {
