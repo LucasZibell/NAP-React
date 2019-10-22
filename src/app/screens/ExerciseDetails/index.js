@@ -2,29 +2,36 @@ import React, { Component } from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
+import { goBack } from 'react-router-redux';
 
 import MultipleChoice from '@components/MultipleChoice';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import ExerciseResult from '@components/ExerciseResult';
 import { mockExc } from './constants';
 
 class ExerciseDetails extends Component {
+  state = { isOpen: false, success: false };
+
   componentDidMount() {
     this.props.getExerciseInfo(this.props.match.params.id);
   }
 
   onSubmit = value => {
     if (value.answer === this.props.mockExc.answer) {
-      toast.success('Muy bien!! Opcion correcta');
+      this.setState({ success: true });
     } else {
-      toast.error('Esa opcion no es la correcta, intenta de vuelta');
+      this.setState({ success: false });
     }
+    this.toggleModal();
   };
 
+  toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+
   render() {
-    const { loading, exerciseInfo } = this.props;
+    const { loading, exerciseInfo, goToExcList } = this.props;
+    const { isOpen, success } = this.state;
     return (
       <div className="column">
         <br />
@@ -42,6 +49,12 @@ class ExerciseDetails extends Component {
           description={`${get(exerciseInfo, 'exercise.description')} ${mockExc.description}`}
           onSubmit={this.onSubmit}
           loading={loading}
+        />
+        <ExerciseResult
+          isOpen={isOpen}
+          success={success}
+          closeModal={this.toggleModal}
+          goToExerciseList={goToExcList}
         />
       </div>
     );
@@ -66,7 +79,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(1))
+  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(1)),
+  goToExcList: () => dispatch(goBack())
 });
 
 export default connect(
