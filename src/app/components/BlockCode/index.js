@@ -7,9 +7,15 @@ const tools = {
 };
 
 function BlockCode() {
+  window.digilab = {
+    api_url: process.env.REACT_APP_API_BASE_URL,
+    exercise_id: 1
+  };
+  
   const x = something => {
     console.log({ a: 'hola', something });
   };
+
   return (
     <Fragment>
       <link rel="stylesheet" href="http://localhost:9292/assets/editor/editor.css" />
@@ -17,13 +23,17 @@ function BlockCode() {
       <link rel="import" href="http://localhost:9292/assets/polymer.html" />
       <link rel="import" href="http://localhost:9292/assets/gs-board.html" />
       <link rel="import" href="http://localhost:9292/assets/editor/editor.html" />
-      <link rel="import" href="http://localhost:9292/assets/editor/gobstones-code-runner.html" />
       <div className="row space-between">
         <mu-gobstones-custom-editor toolbox={tools} />
-        <gs-board className="mu-initial-state active" size='{ "x": 2, "y": 1 }' header='{ "x": 0, "y": 1 }' />
+        <div className="mu-kids-gbs-board-initial active">
+          <gs-board size='{ "x": 2, "y": 1 }' header='{ "x": 0, "y": 1 }' />
+        </div>
         <gs-board className="mu-final-state active" size='{ "x": 2, "y": 1 }' header='{ "x": 1, "y": 1 }' />
       </div>
       <kids-submit-button onClick={x} />
+      <div className="actions">
+        <kids-reset-button></kids-reset-button>
+      </div>
       <input type="hidden" id="mu-custom-editor-value" value={''} />
     </Fragment>
   );
