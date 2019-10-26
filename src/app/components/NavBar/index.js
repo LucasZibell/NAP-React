@@ -7,33 +7,36 @@ import Routes from '@constants/routes';
 import { actionCreators } from '@redux/Auth/actions';
 
 import styles from './styles.scss';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
   const examLink = currentUser.teacher ? Routes.EXAM_LIST : Routes.EXAM;
   return (
-    <div className={styles.container}>
-      <button onClick={goHome} className={styles.navButton}>
-        {t('navbar:DIGILAB')}
-      </button>
-      <div className="dropdown">
-        <button className="dropbtn">{t('navbar:EXERCISES')}</button>
-        <div className="dropdown-content">
-          <button onClick={() => goTo(Routes.COMPUTER_SCIENCE_GUIDE)}>{t('navbar:COMPUTER_SCIENCE')}</button>
-          <button onClick={() => goTo(Routes.ALGORITHM_GUIDE)}>{t('navbar:ALGORITHM')}</button>
-          <button onClick={() => goTo(Routes.ROBOTICS_GUIDE)}>{t('navbar:ROBOTICS')}</button>
+    <AppBar position="static" className={styles.verde}>
+      <Toolbar variant="dense">
+        <button onClick={goHome} className={styles.navButton}>
+          {t('navbar:DIGILAB')}
+        </button>
+        <div className={`dropdown`}>
+          <button className="dropbtn">{t('navbar:EXERCISES')}</button>
+          <div className="dropdown-content">
+            <button onClick={() => goTo(Routes.COMPUTER_SCIENCE_GUIDE)}>{t('navbar:COMPUTER_SCIENCE')}</button>
+            <button onClick={() => goTo(Routes.ALGORITHM_GUIDE)}>{t('navbar:ALGORITHM')}</button>
+            <button onClick={() => goTo(Routes.ROBOTICS_GUIDE)}>{t('navbar:ROBOTICS')}</button>
+          </div>
         </div>
-      </div>
-      {/* <button className={styles.navButton}>{t('navbar:EXERCISES')}</button> */}
-      <button onClick={() => goTo(examLink)} className={styles.navButton}>
-        {t('navbar:TESTS')}
-      </button>
-      <button onClick={goToProfile} className={styles.navButton}>
-        {t('navbar:PROFILE')}
-      </button>
-      <button onClick={logout} className={styles.navButton}>
-        {t('navbar:LOGOUT')}
-      </button>
-    </div>
+        <button onClick={() => goTo(examLink)} className={styles.navButton}>
+          {t('navbar:TESTS')}
+        </button>
+        <button onClick={goToProfile} className={styles.navButton}>
+          {t('navbar:PROFILE')}
+        </button>
+        <button onClick={logout} className={styles.navButton}>
+          {t('navbar:LOGOUT')}
+        </button>
+      </Toolbar>
+    </AppBar>
   );
 }
 

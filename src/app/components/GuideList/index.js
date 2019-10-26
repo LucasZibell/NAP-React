@@ -3,31 +3,48 @@ import { t } from 'i18next';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 
-import Text from '@components/Text';
+import withLoader from '@components/Loader';
 import Routes from '@constants/routes';
 import { formatUrl } from '../../../utils/array';
 
-function GuideList({ excerciseList, goToExamDetails, goToExcersiceDetails, exams }) {
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary
+  }
+}));
+
+function GuideList({ title, description, excerciseList, goToExamDetails, goToExcersiceDetails, exams }) {
+  const classes = useStyles();
   return (
-    <table>
-      <tr>
-        <th>{t('guide_list:TITLE')}</th>
-        <th>{t('guide_list:DESCRIPTION')}</th>
-      </tr>
-      {excerciseList.map(elem => (
-        <tr align="center" key={elem.id}>
-          <td>
+    <Grid container spacing={3}>
+      <Grid item xs={6}>
+        <Paper className={classes.paper}>
+          {t('guide_list:TITLE', { title })}
+          <br />
+          {t('guide_list:DESCRIPTION', { description })}
+        </Paper>
+      </Grid>
+      <Grid item xs={6}>
+        {excerciseList.map(elem => (
+          <Paper key={elem.id} className={classes.paper}>
             <button onClick={() => (exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id))}>
-              <Text>{elem.title}</Text>
+              {elem.title}
             </button>
-          </td>
-          <td>
-            <Text>{elem.description}</Text>
-          </td>
-        </tr>
-      ))}
-    </table>
+            <br />
+            {elem.description}
+          </Paper>
+        ))}
+      </Grid>
+    </Grid>
   );
 }
 
@@ -44,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(GuideList);
+)(withLoader(props => props.loading)(GuideList));

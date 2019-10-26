@@ -1,42 +1,66 @@
 import React, { Component } from 'react';
+import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
+import { goBack } from 'react-router-redux';
 
-import Text from '@components/Text';
 import MultipleChoice from '@components/MultipleChoice';
 import BlockCode from '@components/BlockCode';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import ExerciseResult from '@components/ExerciseResult';
+import { mockExc } from './constants';
 
 class ExerciseDetails extends Component {
+  state = { isOpen: false, success: false };
+
   componentDidMount() {
     this.props.getExerciseInfo(this.props.match.params.id);
   }
 
   onSubmit = value => {
-    if (value.answer === this.props.exerciseInfo.answer) {
-      toast.success('Muy bien!! Opcion correcta');
+    if (value.answer === this.props.mockExc.answer) {
+      this.setState({ success: true });
     } else {
-      toast.error('Esa opcion no es la correcta, intenta de vuelta');
+      this.setState({ success: false });
     }
+    this.toggleModal();
   };
 
+  toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+
   render() {
-    const { loading, exerciseInfo } = this.props;
+    const { loading, exerciseInfo, goToExcList } = this.props;
+    const { isOpen, success } = this.state;
     return (
       <div className="column">
-        <Text>Bienvenido al ejercicio</Text>
-        {exerciseInfo.multipleChoice ? (
+        <br />
+        <Grid container spacing={3}>
+          <Grid item xs={1} />
+          <Grid item xs={8}>
+            <Typography variant="h6" gutterBottom>
+              Bienvenido al ejercicio
+            </Typography>
+          </Grid>
+        </Grid>
+        {mockExc.multipleChoice ? (
           <MultipleChoice
-            options={exerciseInfo.options || []}
-            title={exerciseInfo.title}
-            description={exerciseInfo.description}
+            options={mockExc.options || []}
+            title={`${get(exerciseInfo, 'exercise.name')} ${mockExc.title}`}
+            description={`${get(exerciseInfo, 'exercise.description')} ${mockExc.description}`}
             onSubmit={this.onSubmit}
             loading={loading}
           />
         ) : (
           <BlockCode loading={loading} />
         )}
+        <ExerciseResult
+          isOpen={isOpen}
+          success={success}
+          closeModal={this.toggleModal}
+          goToExerciseList={goToExcList}
+        />
       </div>
     );
   }
@@ -54,12 +78,14 @@ ExerciseDetails.propTypes = {
 };
 
 const mapStateToProps = store => ({
+  mockExc,
   exerciseInfo: store.exerciseDetails.exerciseInfo,
   loading: store.exerciseDetails.exerciseInfoLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(1))
+  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(1)),
+  goToExcList: () => dispatch(goBack())
 });
 
 export default connect(
