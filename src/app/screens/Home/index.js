@@ -78,6 +78,8 @@ function Home() {
   return (
     <Fragment>
       <br></br>
+      <br></br>
+      <br></br>
       <Container maxWidth="sm">
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           Bienvenido a DIGILAB
