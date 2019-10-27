@@ -1,4 +1,4 @@
-// import api from '@config/api';
+import api from '@config/api';
 import { actionCreators as authActions } from '../redux/Auth/actions';
 
 import * as LocalStorageService from './LocalStorageService';
@@ -8,16 +8,15 @@ export const setCurrentUser = token => {
   LocalStorageService.setSessionToken(token);
 };
 
-// api.get('auth/identity/callback', body);
-export const login = async body =>
-  new Promise(resolve => {
-    if (body.password !== '123' || (body.auth_key !== 'admin' && body.auth_key !== 'alumno'))
-      resolve({ error: 'Invalid credentials', ok: false });
-    if (body.auth_key === 'admin') {
-      resolve({ data: { token: 'admin', ...body }, ok: true });
-    }
-    resolve({ data: { token: 'token', ...body }, ok: true });
-  });
+export const login = async body => api.get('auth/identity/callback', body);
+// new Promise(resolve => {
+//   if (body.password !== '123' || (body.auth_key !== 'admin' && body.auth_key !== 'alumno'))
+//     resolve({ error: 'Invalid credentials', ok: false });
+//   if (body.auth_key === 'admin') {
+//     resolve({ data: { token: 'admin', ...body }, ok: true });
+//   }
+//   resolve({ data: { token: 'token', ...body }, ok: true });
+// });
 
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();

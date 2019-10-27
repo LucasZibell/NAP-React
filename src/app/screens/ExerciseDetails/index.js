@@ -20,6 +20,7 @@ class ExerciseDetails extends Component {
   }
 
   onSubmit = value => {
+    this.props.submitAnswer(value.answer);
     if (value.answer === this.props.mockExc.answer) {
       this.setState({ success: true });
     } else {
@@ -44,11 +45,11 @@ class ExerciseDetails extends Component {
             </Typography>
           </Grid>
         </Grid>
-        {mockExc.multipleChoice ? (
+        {get(exerciseInfo, 'exercise.multipleChoice') ? (
           <MultipleChoice
-            options={mockExc.options || []}
-            title={`${get(exerciseInfo, 'exercise.name')} ${mockExc.title}`}
-            description={`${get(exerciseInfo, 'exercise.description')} ${mockExc.description}`}
+            options={get(exerciseInfo, 'exercise.options') || []}
+            title={get(exerciseInfo, 'exercise.name')}
+            description={get(exerciseInfo, 'exercise.description')}
             onSubmit={this.onSubmit}
             loading={loading}
           />
@@ -84,7 +85,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(1)),
+  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(2)),
+  submitAnswer: answer => dispatch(actionCreators.submitAnswer(2, answer)),
   goToExcList: () => dispatch(goBack())
 });
 
