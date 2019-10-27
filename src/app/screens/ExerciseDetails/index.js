@@ -10,7 +10,6 @@ import { actionCreators } from '@redux/ExerciseDetails/actions';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ExerciseResult from '@components/ExerciseResult';
-import { mockExc } from './constants';
 
 class ExerciseDetails extends Component {
   state = { isOpen: false, success: false };
@@ -19,15 +18,9 @@ class ExerciseDetails extends Component {
     this.props.getExerciseInfo(this.props.match.params.id);
   }
 
-  onSubmit = value => {
-    this.props.submitAnswer(value.answer);
-    if (value.answer === this.props.mockExc.answer) {
-      this.setState({ success: true });
-    } else {
-      this.setState({ success: false });
-    }
-    this.toggleModal();
-  };
+  onSubmit = value => this.props.submitAnswer(value.answer, this.onFinish);
+
+  onFinish = success => this.setState(prevState => ({ isOpen: !prevState.isOpen, success }));
 
   toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
 
@@ -79,14 +72,13 @@ ExerciseDetails.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  mockExc,
   exerciseInfo: store.exerciseDetails.exerciseInfo,
   loading: store.exerciseDetails.exerciseInfoLoading
 });
 
 const mapDispatchToProps = dispatch => ({
   getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(2)),
-  submitAnswer: answer => dispatch(actionCreators.submitAnswer(2, answer)),
+  submitAnswer: (answer, onFinish) => dispatch(actionCreators.submitAnswer(2, answer, onFinish)),
   goToExcList: () => dispatch(goBack())
 });
 

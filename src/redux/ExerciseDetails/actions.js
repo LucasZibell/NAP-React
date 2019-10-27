@@ -1,4 +1,5 @@
-import { completeTypes, createTypes } from 'redux-recompose';
+import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
+import { PASSED } from '@constants/exercise';
 
 import * as ExerciseService from '@services/ExerciseService';
 
@@ -16,10 +17,16 @@ export const actionCreators = {
     payload: id,
     service: ExerciseService.getExerciseInfo
   }),
-  submitAnswer: (id, body) => ({
+  submitAnswer: (id, body, onFinish) => ({
     type: actions.SUBMIT_ANSWER,
     target: 'answer',
     payload: { id, body },
-    service: ExerciseService.submitAnswer
+    service: ExerciseService.submitAnswer,
+    injections: [
+      withPostSuccess((_, { data }) => {
+      debugger; //eslint-disable-line
+        onFinish(data.results.status === PASSED);
+      })
+    ]
   })
 };
