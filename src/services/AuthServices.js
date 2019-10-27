@@ -8,7 +8,7 @@ export const setCurrentUser = token => {
   LocalStorageService.setSessionToken(token);
 };
 
-export const login = async body => api.get('auth/identity/callback', body);
+export const login = async body => api.get('auth/identity/callback', body, { withCredentials: true });
 // new Promise(resolve => {
 //   if (body.password !== '123' || (body.auth_key !== 'admin' && body.auth_key !== 'alumno'))
 //     resolve({ error: 'Invalid credentials', ok: false });
