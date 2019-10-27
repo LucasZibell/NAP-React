@@ -22,11 +22,6 @@ export const actionCreators = {
     target: 'answer',
     payload: { id, body },
     service: ExerciseService.submitAnswer,
-    injections: [
-      withPostSuccess((_, { data }) => {
-      debugger; //eslint-disable-line
-        onFinish(data.results.status === PASSED);
-      })
-    ]
+    injections: [withPostSuccess((_, { data }) => onFinish(data.results.status === PASSED))]
   })
 };
