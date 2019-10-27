@@ -27,7 +27,7 @@ function MultipleChoice({ handleSubmit, options, title, description }) {
       </div>
       <div className="column">
         {options.map(elem => (
-          <RadioButton key={elem.id} name={FormNames.ANSWER} value={elem.value} text={elem.value} />
+          <RadioButton key={elem.id} name={FormNames.ANSWER} value={elem.value} text={elem.text} />
         ))}
       </div>
     </Form>
