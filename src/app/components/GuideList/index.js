@@ -132,23 +132,21 @@ function GuideList({ title, description, excerciseList, goToExamDetails, goToExc
       </Grid>
       <Grid item xs={6} md={6}>
         {excerciseList.map(elem => (
-          <CardActionArea component="a" href="#" key={elem.title}>
+          <CardActionArea component="a" onClick={() => { exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id) }} key={elem.title}>
             <Card className={classes.card}>
               <div className={classes.cardDetails}>
                 <CardContent>
-                  <button onClick={() => (exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id))}>
-                    <Typography component="h2" variant="h5">
-                      {elem.title}
-                    </Typography>
-                    <br></br>
-                    <Typography variant="subtitle1" paragraph>
-                      {elem.description}
-                    </Typography>
-                    <br></br>
-                    <Typography variant="subtitle1" color="primary">
-                     {exams ? 'Realizar Exámen' : 'Realizar Ejercicio'}
-                      </Typography>
-                  </button>
+                  <Typography component="h2" variant="h5">
+                    {elem.title}
+                  </Typography>
+                  <br></br>
+                  <Typography variant="subtitle1" paragraph>
+                    {elem.description}
+                  </Typography>
+                  <br></br>
+                  <Typography variant="subtitle1" color="primary">
+                    {exams ? 'Realizar Exámen' : 'Realizar Ejercicio'}
+                  </Typography>
                 </CardContent>
               </div>
               <Hidden xsDown>
@@ -163,7 +161,7 @@ function GuideList({ title, description, excerciseList, goToExamDetails, goToExc
           </CardActionArea>
         ))}
       </Grid>
-    </Grid>
+    </Grid >
   );
 }
 
