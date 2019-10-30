@@ -24,6 +24,9 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
+import happyNappy from '@assets/nappy/happy_nappy.png';
+import regularNappy from '@assets/nappy/regular_nappy.png';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -110,55 +113,54 @@ function GuideList({ title, description, excerciseList, goToExamDetails, goToExc
   return (
     <Grid container spacing={3}>
       <Grid item xs={6}>
-        <Paper className={classes.paper}>
-          {t('guide_list:TITLE', { title })}
-          <br />
-          {t('guide_list:DESCRIPTION', { description })}
-        </Paper>
+        <CardActionArea component="a" href="#">
+          <Card className={classes.card}>
+            <div className={classes.cardDetails}>
+              <CardContent>
+                <Typography component="h2" variant="h5">
+                  {t('guide_list:TITLE', { title })}
+                </Typography>
+                <br></br>
+                <Typography variant="subtitle1" paragraph>
+                  {t('guide_list:DESCRIPTION', { description })}
+                </Typography>
+              </CardContent>
+            </div>
+          </Card>
+          <br></br>
+        </CardActionArea>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} md={6}>
         {excerciseList.map(elem => (
-          <Paper key={elem.id} className={classes.paper}>
-            <button onClick={() => (exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id))}>
-              {elem.title}
-            </button>
-            <br />
-            {elem.description}
-          </Paper>
-        ))}
-      </Grid>
-      <Grid container spacing={4}>
-        {excerciseList.map(elem => (
-          <Grid item key={elem.title} xs={6} md={6}>
-            <CardActionArea component="a" href="#">
-              <Card className={classes.card}>
-                <div className={classes.cardDetails}>
-                  <CardContent>
-                    <button onClick={() => (exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id))}>
-                      <Typography component="h2" variant="h5">
-                        {elem.title}
-                      </Typography>
-                      <br></br>
-                      <Typography variant="subtitle1" paragraph>
-                        {elem.description}
-                      </Typography>
-                      <br></br>
-                      <Typography variant="subtitle1" color="primary">
-                        Continue reading...
+          <CardActionArea component="a" href="#" key={elem.title}>
+            <Card className={classes.card}>
+              <div className={classes.cardDetails}>
+                <CardContent>
+                  <button onClick={() => (exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id))}>
+                    <Typography component="h2" variant="h5">
+                      {elem.title}
                     </Typography>
-                    </button>
-                  </CardContent>
-                </div>
-                <Hidden xsDown>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                </Hidden>
-              </Card>
-            </CardActionArea>
-          </Grid>
+                    <br></br>
+                    <Typography variant="subtitle1" paragraph>
+                      {elem.description}
+                    </Typography>
+                    <br></br>
+                    <Typography variant="subtitle1" color="primary">
+                     {exams ? 'Realizar Exámen' : 'Realizar Ejercicio'}
+                      </Typography>
+                  </button>
+                </CardContent>
+              </div>
+              <Hidden xsDown>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={regularNappy}
+                  title="Regular Nappy"
+                />
+              </Hidden>
+            </Card>
+            <br></br>
+          </CardActionArea>
         ))}
       </Grid>
     </Grid>
