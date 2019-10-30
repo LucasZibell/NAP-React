@@ -1,4 +1,4 @@
-// import api from '@config/api';
+import api from '@config/api';
 import { actionCreators as authActions } from '../redux/Auth/actions';
 
 import * as LocalStorageService from './LocalStorageService';
@@ -8,21 +8,12 @@ export const setCurrentUser = token => {
   LocalStorageService.setSessionToken(token);
 };
 
-// api.get('auth/identity/callback', body);
-export const login = async body =>
-  new Promise(resolve => {
-    if (body.password !== '123' || (body.auth_key !== 'admin' && body.auth_key !== 'alumno'))
-      resolve({ error: 'Invalid credentials', ok: false });
-    if (body.auth_key === 'admin') {
-      resolve({ data: { token: 'admin', ...body }, ok: true });
-    }
-    resolve({ data: { token: 'token', ...body }, ok: true });
-  });
+export const login = async body => api.get('auth/identity/callback', body, { withCredentials: true });
 
 export const getCurrentUser = async () => {
   const currentSessionToken = LocalStorageService.getSessionToken();
   if (currentSessionToken) {
-    // api.setHeader('Authorization', currentSessionToken);
+    api.setHeader('Authorization', currentSessionToken);
     return true;
   }
   return false;
@@ -39,26 +30,4 @@ export const authApiSetup = (/* apiInstance */) => {
   // apiInstance.setHeader('Authorization', LocalStorageService.getSessionToken());
 };
 
-export const getUserData = () => {
-  const teacher = LocalStorageService.getSessionToken() === 'admin';
-  const data = teacher
-    ? {
-        name: 'Admin',
-        surname: 'Admin',
-        email: 'test@admin.com',
-        teacher,
-        awards: ['FIRST_EXCERSICE', 'THREE_STREAK', 'COMPLETE_ROBOTICS']
-      }
-    : {
-        name: 'Alumno',
-        surname: 'User',
-        email: 'test@user.com',
-        awards: ['FIRST_EXCERSICE']
-      };
-  return new Promise(resolve =>
-    resolve({
-      data,
-      ok: true
-    })
-  );
-};
+export const getUserData = () => api.get('/user', null, { withCredentials: true });

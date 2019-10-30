@@ -27,7 +27,7 @@ const mockExcerciseList = [
 
 class ComputerScienceGuide extends Component {
   componentDidMount() {
-    this.props.getGuide();
+    this.props.getGuide(this.props.currentUserGuide);
   }
 
   render() {
@@ -55,6 +55,7 @@ class ComputerScienceGuide extends Component {
 }
 
 const mapStateToProps = store => ({
+  currentUserGuide: get(store.auth, 'currentUser.user.guides.science'),
   guideList: store.guide.guideList,
   loading: store.guide.guideListLoading
 });

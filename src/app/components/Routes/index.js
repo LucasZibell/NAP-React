@@ -26,7 +26,12 @@ function AppRoutes() {
           <AuthenticatedRoute isPublicRoute exact path={Routes.LOGIN} component={Login} />
           <AuthenticatedRoute isPrivateRoute exact path={Routes.HOME} component={Home} />
           <AuthenticatedRoute isPrivateRoute exact path={Routes.PROFILE} component={Profile} />
-          <AuthenticatedRoute isPrivateRoute exact path={Routes.COMPUTER_SCIENCE_GUIDE} component={ComputerScienceGuide} /> {/* eslint-disable-line prettier/prettier */}
+          <AuthenticatedRoute
+            isPrivateRoute
+            exact
+            path={Routes.COMPUTER_SCIENCE_GUIDE}
+            component={ComputerScienceGuide}
+          />
           <AuthenticatedRoute isPrivateRoute exact path={Routes.ALGORITHM_GUIDE} component={AlgorithmGuide} />
           <AuthenticatedRoute isPrivateRoute exact path={Routes.ROBOTICS_GUIDE} component={RoboticsGuide} />
           <AuthenticatedRoute

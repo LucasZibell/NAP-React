@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
 
 import MultipleChoice from '@components/MultipleChoice';
+import BlockCode from '@components/BlockCode';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ExerciseResult from '@components/ExerciseResult';
-import { mockExc } from './constants';
 
 class ExerciseDetails extends Component {
   state = { isOpen: false, success: false };
@@ -18,14 +18,9 @@ class ExerciseDetails extends Component {
     this.props.getExerciseInfo(this.props.match.params.id);
   }
 
-  onSubmit = value => {
-    if (value.answer === this.props.mockExc.answer) {
-      this.setState({ success: true });
-    } else {
-      this.setState({ success: false });
-    }
-    this.toggleModal();
-  };
+  onSubmit = value => this.props.submitAnswer(value.answer, this.onFinish);
+
+  onFinish = success => this.setState(prevState => ({ isOpen: !prevState.isOpen, success }));
 
   toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
 
@@ -43,13 +38,17 @@ class ExerciseDetails extends Component {
             </Typography>
           </Grid>
         </Grid>
-        <MultipleChoice
-          options={mockExc.options || []}
-          title={`${get(exerciseInfo, 'exercise.name')} ${mockExc.title}`}
-          description={`${get(exerciseInfo, 'exercise.description')} ${mockExc.description}`}
-          onSubmit={this.onSubmit}
-          loading={loading}
-        />
+        {!get(exerciseInfo, 'exercise.multipleChoice') ? (
+          <MultipleChoice
+            options={get(exerciseInfo, 'exercise.options') || []}
+            title={get(exerciseInfo, 'exercise.name')}
+            description={get(exerciseInfo, 'exercise.description')}
+            onSubmit={this.onSubmit}
+            loading={loading}
+          />
+        ) : (
+          <BlockCode loading={loading} />
+        )}
         <ExerciseResult
           isOpen={isOpen}
           success={success}
@@ -73,13 +72,13 @@ ExerciseDetails.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  mockExc,
   exerciseInfo: store.exerciseDetails.exerciseInfo,
   loading: store.exerciseDetails.exerciseInfoLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(1)),
+  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(2)),
+  submitAnswer: (answer, onFinish) => dispatch(actionCreators.submitAnswer(2, answer, onFinish)),
   goToExcList: () => dispatch(goBack())
 });
 
