@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 function BlockCode() {
   window.digilab = {
-    api_url: process.env.REACT_APP_API_BASE_URL,
+    api_url: 'https://api.digilab.live',
     exercise_id: 1,
     on_success: () => console.log('Success'),
     on_failure: () => console.log('Failure')

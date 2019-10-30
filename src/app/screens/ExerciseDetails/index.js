@@ -38,7 +38,7 @@ class ExerciseDetails extends Component {
             </Typography>
           </Grid>
         </Grid>
-        {get(exerciseInfo, 'exercise.multipleChoice') ? (
+        {!get(exerciseInfo, 'exercise.multipleChoice') ? (
           <MultipleChoice
             options={get(exerciseInfo, 'exercise.options') || []}
             title={get(exerciseInfo, 'exercise.name')}
