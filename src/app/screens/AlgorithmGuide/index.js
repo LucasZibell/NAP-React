@@ -8,24 +8,6 @@ import Grid from '@material-ui/core/Grid';
 
 import { actionCreators } from '@redux/Guides/actions';
 
-// const mockExcerciseList = [
-//   {
-//     id: 99,
-//     title: 'Ejercicio  30',
-//     description: 'Aprendemos a programar'
-//   },
-//   {
-//     id: 88,
-//     title: 'Ejercicio 66',
-//     description: 'Que es un if?'
-//   },
-//   {
-//     id: 77,
-//     title: 'Ejercicio 90',
-//     description: 'Que es un for?'
-//   }
-// ];
-
 class AlgorithmGuide extends Component {
   componentDidMount() {
     this.props.getGuide(this.props.currentUserGuide);
