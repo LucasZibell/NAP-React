@@ -33,7 +33,7 @@ export const actionCreators = {
       ]
     }),
   logout: () => async dispatch => {
-    await AuthService.removeCurrentUser();
+    AuthService.removeCurrentUser();
     dispatch({ type: actions.LOGOUT });
     dispatch(push(Routes.LOGIN));
   }

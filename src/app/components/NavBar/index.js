@@ -5,10 +5,10 @@ import { t } from 'i18next';
 
 import Routes from '@constants/routes';
 import { actionCreators } from '@redux/Auth/actions';
-
-import styles from './styles.scss';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+
+import styles from './styles.scss';
 
 function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
   const examLink = currentUser.teacher ? Routes.EXAM_LIST : Routes.EXAM;
@@ -21,7 +21,9 @@ function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
         <div className={`dropdown`}>
           <button className="dropbtn">{t('navbar:EXERCISES')}</button>
           <div className="dropdown-content">
-            <button onClick={() => goTo(Routes.COMPUTER_SCIENCE_GUIDE)}>{t('navbar:COMPUTER_SCIENCE')}</button>
+            <button onClick={() => goTo(Routes.COMPUTER_SCIENCE_GUIDE)}>
+              {t('navbar:COMPUTER_SCIENCE')}
+            </button>
             <button onClick={() => goTo(Routes.ALGORITHM_GUIDE)}>{t('navbar:ALGORITHM')}</button>
             <button onClick={() => goTo(Routes.ROBOTICS_GUIDE)}>{t('navbar:ROBOTICS')}</button>
           </div>

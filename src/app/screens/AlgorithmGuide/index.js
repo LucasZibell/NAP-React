@@ -8,23 +8,23 @@ import Grid from '@material-ui/core/Grid';
 
 import { actionCreators } from '@redux/Guides/actions';
 
-const mockExcerciseList = [
-  {
-    id: 99,
-    title: 'Ejercicio  30',
-    description: 'Aprendemos a programar'
-  },
-  {
-    id: 88,
-    title: 'Ejercicio 66',
-    description: 'Que es un if?'
-  },
-  {
-    id: 77,
-    title: 'Ejercicio 90',
-    description: 'Que es un for?'
-  }
-];
+// const mockExcerciseList = [
+//   {
+//     id: 99,
+//     title: 'Ejercicio  30',
+//     description: 'Aprendemos a programar'
+//   },
+//   {
+//     id: 88,
+//     title: 'Ejercicio 66',
+//     description: 'Que es un if?'
+//   },
+//   {
+//     id: 77,
+//     title: 'Ejercicio 90',
+//     description: 'Que es un for?'
+//   }
+// ];
 
 class AlgorithmGuide extends Component {
   componentDidMount() {
@@ -32,6 +32,7 @@ class AlgorithmGuide extends Component {
   }
 
   render() {
+    const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
     return (
       <Fragment>
         <br />
@@ -43,7 +44,12 @@ class AlgorithmGuide extends Component {
             </Typography>
           </Grid>
         </Grid>
-        <GuideList excerciseList={mockExcerciseList} />
+        <GuideList
+          title={guideTitle}
+          description={guideDescription}
+          excerciseList={guideExcercises}
+          loading={loading}
+        />
       </Fragment>
     );
   }
@@ -51,12 +57,14 @@ class AlgorithmGuide extends Component {
 
 const mapStateToProps = store => ({
   currentUserGuide: get(store.auth, 'currentUser.user.guides.algorithm'),
-  guideList: store.guide.guideList,
+  guideTitle: get(store.guide, 'guideList.guide.name'),
+  guideDescription: get(store.guide, 'guideList.guide.description'),
+  guideExcercises: get(store.guide, 'guideList.guide.exercises') || [],
   loading: store.guide.guideListLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  getGuide: guideId => dispatch(actionCreators.getGuide(guideId))
+  getGuide: guideId => dispatch(actionCreators.getGuide(guideId || 1))
 });
 
 export default connect(

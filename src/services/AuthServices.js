@@ -19,7 +19,7 @@ export const getCurrentUser = async () => {
   return false;
 };
 
-export const removeCurrentUser = async () => LocalStorageService.removeSessionToken();
+export const removeCurrentUser = () => api.get('/logout', null, { withCredentials: true });
 
 export const authSetup = async (dispatch /* currentUserToken */) => {
   // await api.setHeaders(currentUserToken);
