@@ -10,7 +10,10 @@ const defaultState = {
 const initialState = completeState(defaultState);
 
 const reducerDescription = {
-  primaryActions: [actions.GET_EXERCISE_INFO]
+  primaryActions: [actions.GET_EXERCISE_INFO, actions.SUBMIT_ANSWER],
+  override: {
+    [actions.CLEAR_EXERCISE]: state => ({ ...state, exerciseInfo: {} })
+  }
 };
 
 export const reducer = createReducer(Immutable(initialState), completeReducer(reducerDescription));

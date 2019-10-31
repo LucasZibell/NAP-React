@@ -8,30 +8,13 @@ import Grid from '@material-ui/core/Grid';
 
 import { actionCreators } from '@redux/Guides/actions';
 
-const mockExcerciseList = [
-  {
-    id: 1,
-    title: 'Ejercicio 1',
-    description: 'Este es facil'
-  },
-  {
-    id: 2,
-    title: 'Ejercicio 2',
-    description: 'Este tambien'
-  },
-  {
-    id: 3,
-    title: 'Ejercicio 3',
-    description: 'Este no'
-  }
-];
-
 class RoboticsGuide extends Component {
   componentDidMount() {
     this.props.getGuide(this.props.currentUserGuide);
   }
 
   render() {
+    const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
     return (
       <Fragment>
         <br />
@@ -43,7 +26,12 @@ class RoboticsGuide extends Component {
             </Typography>
           </Grid>
         </Grid>
-        <GuideList excerciseList={mockExcerciseList} />
+        <GuideList
+          title={guideTitle}
+          description={guideDescription}
+          excerciseList={guideExcercises}
+          loading={loading}
+        />
       </Fragment>
     );
   }
@@ -51,12 +39,14 @@ class RoboticsGuide extends Component {
 
 const mapStateToProps = store => ({
   currentUserGuide: get(store.auth, 'currentUser.user.guides.robotics'),
-  guideList: store.guide.guideList,
+  guideTitle: get(store.guide, 'guideList.guide.name'),
+  guideDescription: get(store.guide, 'guideList.guide.description'),
+  guideExcercises: get(store.guide, 'guideList.guide.exercises') || [],
   loading: store.guide.guideListLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  getGuide: guideId => dispatch(actionCreators.getGuide(guideId))
+  getGuide: guideId => dispatch(actionCreators.getGuide(guideId || 1))
 });
 
 export default connect(

@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 
 import { actionCreators } from '@redux/Auth/actions';
-import { getCurrentUser } from '@services/AuthServices';
+import { getUserData } from '@services/AuthServices';
 import { HOME } from '@constants/routes';
 
 import Login from './layout';
 
 class LoginContainer extends Component {
   componentDidMount = () => {
-    getCurrentUser().then(async response => {
+    getUserData().then(async response => {
       if (response) {
         await this.props.init();
         this.props.redirectHome();

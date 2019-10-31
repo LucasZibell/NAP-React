@@ -18,9 +18,9 @@ function BlockCode() {
       <div className="row space-between">
         <mu-gobstones-custom-editor />
         <div className="mu-kids-gbs-board-initial active">
-          <gs-board size='{ "x": 2, "y": 1 }' header='{ "x": 0, "y": 1 }' />
+          <gs-board size='{ "x": 4, "y": 4 }' header='{ "x": 0, "y": 0 }' />
         </div>
-        <gs-board className="mu-final-state active" size='{ "x": 2, "y": 1 }' header='{ "x": 1, "y": 1 }' />
+        <gs-board className="mu-final-state active" size='{ "x": 4, "y": 4 }' header='{ "x": 4, "y": 4 }' />
       </div>
       <kids-submit-button />
       <div className="actions">

@@ -18,7 +18,11 @@ class ExerciseDetails extends Component {
     this.props.getExerciseInfo(this.props.match.params.id);
   }
 
-  onSubmit = value => this.props.submitAnswer(value.answer, this.onFinish);
+  componentWillUnmount() {
+    this.props.clearExercise();
+  }
+
+  onSubmit = value => this.props.submitAnswer(this.props.match.params.id, value.answer, this.onFinish);
 
   onFinish = success => this.setState(prevState => ({ isOpen: !prevState.isOpen, success }));
 
@@ -38,7 +42,7 @@ class ExerciseDetails extends Component {
             </Typography>
           </Grid>
         </Grid>
-        {!get(exerciseInfo, 'exercise.multipleChoice') ? (
+        {get(exerciseInfo, 'exercise.multipleChoice') ? (
           <MultipleChoice
             options={get(exerciseInfo, 'exercise.options') || []}
             title={get(exerciseInfo, 'exercise.name')}
@@ -77,9 +81,10 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getExerciseInfo: () => dispatch(actionCreators.getExerciseInfo(2)),
-  submitAnswer: (answer, onFinish) => dispatch(actionCreators.submitAnswer(2, answer, onFinish)),
-  goToExcList: () => dispatch(goBack())
+  getExerciseInfo: id => dispatch(actionCreators.getExerciseInfo(id)),
+  submitAnswer: (id, answer, onFinish) => dispatch(actionCreators.submitAnswer(id, answer, onFinish)),
+  goToExcList: () => dispatch(goBack()),
+  clearExercise: () => dispatch(actionCreators.clearExercise())
 });
 
 export default connect(
