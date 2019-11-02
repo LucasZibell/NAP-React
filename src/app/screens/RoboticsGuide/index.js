@@ -1,9 +1,16 @@
 import React, { Fragment } from 'react';
-
+import { makeStyles } from '@material-ui/core/styles';
 import Text from '@components/Text';
 import GuideList from '@components/GuideList';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import titulo from '@assets/img/titulos/Robotica.png';
+
+const useStyles = makeStyles(theme => ({
+  imagenTitulo: {
+    width: '30%',
+  },
+}));
 
 const mockExcerciseList = [
   {
@@ -24,6 +31,7 @@ const mockExcerciseList = [
 ];
 
 function RoboticsGuide() {
+  const classes = useStyles();
   return (
     <Fragment>
       <br></br>
@@ -31,9 +39,7 @@ function RoboticsGuide() {
         <Grid item xs={1}>
         </Grid>
         <Grid item xs={8}>
-          <Typography variant="h6" gutterBottom>
-            Bienvenido a la guía de robótica
-          </Typography>
+          <img src={titulo} alt="titulo" className={`${classes.imagenTitulo}`} />
         </Grid>
       </Grid>
       <GuideList excerciseList={mockExcerciseList} />

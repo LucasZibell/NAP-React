@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import get from 'lodash.get';
 
 import { actionCreators } from '@redux/Exam/actions';
-
+import titulo from '@assets/img/titulos/Evaluaciones.png';
 import Text from '@components/Text';
 import GuideList from '@components/GuideList';
 
@@ -16,7 +16,7 @@ class Exams extends Component {
     const { examList } = this.props;
     return (
       <Fragment>
-        <Text>Bienvenido a la seccion de examenes</Text>
+        <img src={titulo} alt="titulo" width={400} />
         <GuideList excerciseList={examList || []} exams />
       </Fragment>
     );
