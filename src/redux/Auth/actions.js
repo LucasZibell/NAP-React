@@ -23,8 +23,7 @@ export const actionCreators = {
       payload: body,
       service: AuthService.login,
       injections: [
-        withPostSuccess((_, { data }) => {
-          AuthService.setCurrentUser(data.token);
+        withPostSuccess(() => {
           dispatch(actionCreators.init());
           dispatch(push(Routes.HOME));
         }),
@@ -34,7 +33,7 @@ export const actionCreators = {
       ]
     }),
   logout: () => async dispatch => {
-    await AuthService.removeCurrentUser();
+    AuthService.removeCurrentUser();
     dispatch({ type: actions.LOGOUT });
     dispatch(push(Routes.LOGIN));
   }

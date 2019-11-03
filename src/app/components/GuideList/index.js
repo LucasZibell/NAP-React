@@ -4,29 +4,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-
-import withLoader from '@components/Loader';
-import Routes from '@constants/routes';
-import { formatUrl } from '../../../utils/array';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
-import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Container from '@material-ui/core/Container';
-import happyNappy from '@assets/nappy/happy_nappy.png';
-import regularNappy from '@assets/nappy/regular_nappy.png';
 
+import regularNappy from '@assets/nappy/regular_nappy.png';
+import withLoader from '@components/Loader';
+import Routes from '@constants/routes';
+import { formatUrl } from '../../../utils/array';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,18 +27,18 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary
   },
   toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`
   },
   toolbarTitle: {
-    flex: 1,
+    flex: 1
   },
   toolbarSecondary: {
     justifyContent: 'space-between',
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   toolbarLink: {
     padding: theme.spacing(1),
-    flexShrink: 0,
+    flexShrink: 0
   },
   mainFeaturedPost: {
     position: 'relative',
@@ -59,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     backgroundImage: 'url(https://source.unsplash.com/user/erondu)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
+    backgroundPosition: 'center'
   },
   overlay: {
     position: 'absolute',
@@ -67,45 +56,45 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: 'rgba(0,0,0,.3)',
+    backgroundColor: 'rgba(0,0,0,.3)'
   },
   mainFeaturedPostContent: {
     position: 'relative',
     padding: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(6),
-      paddingRight: 0,
-    },
+      paddingRight: 0
+    }
   },
   mainGrid: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   card: {
     display: 'flex',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   cardDetails: {
-    flex: 1,
+    flex: 1
   },
   cardMedia: {
-    width: 160,
+    width: 160
   },
   markdown: {
     ...theme.typography.body2,
-    padding: theme.spacing(3, 0),
+    padding: theme.spacing(3, 0)
   },
   sidebarAboutBox: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: theme.palette.grey[200]
   },
   sidebarSection: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
     marginTop: theme.spacing(8),
-    padding: theme.spacing(6, 0),
-  },
+    padding: theme.spacing(6, 0)
+  }
 }));
 
 function GuideList({ title, description, excerciseList, goToExamDetails, goToExcersiceDetails, exams }) {
@@ -113,55 +102,53 @@ function GuideList({ title, description, excerciseList, goToExamDetails, goToExc
   return (
     <Grid container spacing={3}>
       <Grid item xs={6}>
-        <CardActionArea component="a" href="#">
-          <Card className={classes.card}>
-            <div className={classes.cardDetails}>
-              <CardContent>
-                <Typography component="h2" variant="h5">
-                  {t('guide_list:TITLE', { title })}
-                </Typography>
-                <br></br>
-                <Typography variant="subtitle1" paragraph>
-                  {t('guide_list:DESCRIPTION', { description })}
-                </Typography>
-              </CardContent>
-            </div>
-          </Card>
-          <br></br>
-        </CardActionArea>
+        <Card className={classes.card}>
+          <div className={classes.cardDetails}>
+            <CardContent>
+              <Typography component="h2" variant="h5">
+                {t('guide_list:TITLE', { title })}
+              </Typography>
+              <br />
+              <Typography variant="subtitle1" paragraph>
+                {t('guide_list:DESCRIPTION', { description })}
+              </Typography>
+            </CardContent>
+          </div>
+        </Card>
+        <br />
       </Grid>
       <Grid item xs={6} md={6}>
         {excerciseList.map(elem => (
-          <CardActionArea component="a" onClick={() => { exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id) }} key={elem.title}>
+          <CardActionArea
+            component="a"
+            onClick={() => (exams ? goToExamDetails(elem.id) : goToExcersiceDetails(elem.id))}
+            key={elem.title}
+          >
             <Card className={classes.card}>
               <div className={classes.cardDetails}>
                 <CardContent>
                   <Typography component="h2" variant="h5">
                     {elem.title}
                   </Typography>
-                  <br></br>
+                  <br />
                   <Typography variant="subtitle1" paragraph>
                     {elem.description}
                   </Typography>
-                  <br></br>
+                  <br />
                   <Typography variant="subtitle1" color="primary">
                     {exams ? 'Realizar Exámen' : 'Realizar Ejercicio'}
                   </Typography>
                 </CardContent>
               </div>
               <Hidden xsDown>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image={regularNappy}
-                  title="Regular Nappy"
-                />
+                <CardMedia className={classes.cardMedia} image={regularNappy} title="Regular Nappy" />
               </Hidden>
             </Card>
-            <br></br>
+            <br />
           </CardActionArea>
         ))}
       </Grid>
-    </Grid >
+    </Grid>
   );
 }
 

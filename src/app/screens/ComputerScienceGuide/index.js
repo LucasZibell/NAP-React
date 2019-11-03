@@ -7,31 +7,13 @@ import { actionCreators } from '@redux/Guides/actions';
 import get from 'lodash.get';
 import titulo from '@assets/img/titulos/CienciasComputacion.png';
 
-const mockExcerciseList = [
-  {
-    id: 20,
-    title: 'Ejercicio X',
-    description: 'Que es un celular?'
-  },
-  {
-    id: 30,
-    title: 'Ejercicio Y',
-    description: 'Que es una notebook?'
-  },
-  {
-    id: 44,
-    title: 'Ejercicio Z',
-    description: 'Que es un gps?'
-  }
-];
-
 class ComputerScienceGuide extends Component {
   componentDidMount() {
-    this.props.getGuide();
+    this.props.getGuide(this.props.currentUserGuide);
   }
 
   render() {
-    const { loading, guideList } = this.props;
+    const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
     return (
       <Fragment>
         <br />
@@ -42,9 +24,9 @@ class ComputerScienceGuide extends Component {
           </Grid>
         </Grid>
         <GuideList
-          title={get(guideList, 'guide.name')}
-          description={get(guideList, 'guide.description')}
-          excerciseList={mockExcerciseList}
+          title={guideTitle}
+          description={guideDescription}
+          excerciseList={guideExcercises}
           loading={loading}
         />
       </Fragment>
@@ -53,12 +35,15 @@ class ComputerScienceGuide extends Component {
 }
 
 const mapStateToProps = store => ({
-  guideList: store.guide.guideList,
+  currentUserGuide: get(store.auth, 'currentUser.user.guides.science'),
+  guideTitle: get(store.guide, 'guideList.guide.name'),
+  guideDescription: get(store.guide, 'guideList.guide.description'),
+  guideExcercises: get(store.guide, 'guideList.guide.exercises') || [],
   loading: store.guide.guideListLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  getGuide: () => dispatch(actionCreators.getGuide(1))
+  getGuide: guideId => dispatch(actionCreators.getGuide(guideId))
 });
 
 export default connect(

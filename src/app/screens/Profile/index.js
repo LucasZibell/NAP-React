@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import get from 'lodash.get';
 
 import Text from '@components/Text';
 import defaultUser from '@assets/icons/default_user.png';
@@ -8,6 +9,7 @@ import defaultUser from '@assets/icons/default_user.png';
 import { awards } from './constants';
 import styles2 from './styles.scss';
 import styles from "@assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import defaultAward from '@assets/awards/default_award.png';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -24,7 +26,6 @@ import CardAvatar from '@components/Card/CardAvatar';
 import CardBody from '@components/Card/CardBody';
 import CardFooter from '@components/Card/CardFooter';
 import CardIcon from '@components/Card/CardIcon';
-import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
 import Warning from "@material-ui/icons/Warning";
@@ -40,44 +41,13 @@ import Cloud from "@material-ui/icons/Cloud";
 
 import avatar from '@assets/img/digilab.jpg';
 
+
 class Profile extends Component {
   render() {
     const { currentUser } = this.props;
     return (
-      // <div className="row padding-20">
-      //   <div className="column margin-right-10">
-      //     <img src={titulo} alt="titulo" width={200} />
-      //     <Avatar alt="Remy Sharp" src={currentUser.photoUrl || defaultUser} className={`${styles.bigAvatar}`} />
-      //     <Typography variant="h6" gutterBottom>
-      //       <Text>{`Nombre: ${currentUser.name}`}</Text>
-      //       <br></br>
-      //       <Text>{`Apellido: ${currentUser.surname}`}</Text>
-      //       <br></br>
-      //       <Text>{`E-mail: ${currentUser.email}`}</Text>
-      //     </Typography>
-      //   </div>
-      //   <Grid
-      //     container
-      //     direction="row"
-      //     justify="center"
-      //     alignItems="flex-start"
-      //   >
-      //     <Paper className={`${styles.paper}`}>
-      // <Typography variant="h6" gutterBottom>
-      //   Logros:
-      // </Typography>
-      //       <Grid container justify="center" spacing={4}>
-      //         <Grid key={4} item>
-      //           {currentUser.awards.map(elem => (
-      //             <img className="margin-10" key={elem} alt="award" src={awards[elem]} width={30} />
-      //           ))}
-      //         </Grid>
-      //       </Grid>
-      //     </Paper>
-      //   </Grid>
-      // </div>
       <div>
-        <img src={titulo} alt="titulo" width={200} className={`${styles2.imagenTitulo}`}/>
+        <img src={titulo} alt="titulo" width={200} className={`${styles2.imagenTitulo}`} />
 
         <GridContainer>
           <GridItem xs={12} sm={12} md={1}>
@@ -91,11 +61,13 @@ class Profile extends Component {
               </CardAvatar>
               <CardBody profile>
                 <Typography variant="h6" gutterBottom>
-                  <Text>{`Nombre: ${currentUser.name}`}</Text>
-                  <br></br>
-                  <Text>{`Apellido: ${currentUser.surname}`}</Text>
-                  <br></br>
+                  <Text>{`Nombre: ${currentUser.first_name}`}</Text>
+                  <br />
+                  <Text>{`Apellido: ${currentUser.last_name}`}</Text>
+                  <br />
                   <Text>{`E-mail: ${currentUser.email}`}</Text>
+                  <br />
+                  <Text>{`Curso: ${currentUser.course}`}</Text>
                 </Typography>
                 <br></br>
               </CardBody>
@@ -154,6 +126,19 @@ class Profile extends Component {
               </Card>
             </Grid>
           </Grid>
+          <Grid container justify="center" spacing={4}>
+            <Grid key={4} item>
+              {currentUser.awards.map(elem => (
+                <img
+                  className="margin-10"
+                  key={elem}
+                  alt="award"
+                  src={awards[elem] || defaultAward}
+                  width={30}
+                />
+              ))}
+            </Grid>
+          </Grid>
         </GridContainer>
       </div>
     );
@@ -169,7 +154,7 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  currentUser: store.auth.currentUser
+  currentUser: get(store.auth, 'currentUser.user')
 });
 
 export default connect(mapStateToProps)(Profile);
