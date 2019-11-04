@@ -12,10 +12,18 @@ import Grid from '@material-ui/core/Grid';
 import ExerciseResult from '@components/ExerciseResult';
 
 class ExerciseDetails extends Component {
-  state = { isOpen: false, success: false };
+  state = { isOpen: false, success: false, loading: false };
 
   componentDidMount() {
     this.props.getExerciseInfo(this.props.match.params.id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const isBlockExc = !get(nextProps.exerciseInfo, 'exercise.multipleChoice');
+    const needsReRender = this.props.needReRender;
+    if (isBlockExc && needsReRender) {
+      location.reload();
+    }
   }
 
   componentWillUnmount() {
@@ -42,7 +50,9 @@ class ExerciseDetails extends Component {
             </Typography>
           </Grid>
         </Grid>
-        {get(exerciseInfo, 'exercise.multipleChoice') ? (
+        {!get(exerciseInfo, 'exercise.multipleChoice') ? (
+          <BlockCode loading={loading} />
+        ) : (
           <MultipleChoice
             options={get(exerciseInfo, 'exercise.options') || []}
             title={get(exerciseInfo, 'exercise.name')}
@@ -50,8 +60,6 @@ class ExerciseDetails extends Component {
             onSubmit={this.onSubmit}
             loading={loading}
           />
-        ) : (
-          <BlockCode loading={loading} />
         )}
         <ExerciseResult
           isOpen={isOpen}
@@ -77,13 +85,15 @@ ExerciseDetails.propTypes = {
 
 const mapStateToProps = store => ({
   exerciseInfo: store.exerciseDetails.exerciseInfo,
-  loading: store.exerciseDetails.exerciseInfoLoading
+  loading: store.exerciseDetails.exerciseInfoLoading,
+  needReRender: store.exerciseDetails.needReRender
 });
 
 const mapDispatchToProps = dispatch => ({
   getExerciseInfo: id => dispatch(actionCreators.getExerciseInfo(id)),
   submitAnswer: (id, answer, onFinish) => dispatch(actionCreators.submitAnswer(id, answer, onFinish)),
   goToExcList: () => dispatch(goBack()),
+  setReRender: () => dispatch(actionCreators.setReRender()),
   clearExercise: () => dispatch(actionCreators.clearExercise())
 });
 

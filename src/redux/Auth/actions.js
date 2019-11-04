@@ -14,7 +14,12 @@ export const actionCreators = {
   init: () => ({
     type: actions.AUTH_INIT,
     target: 'currentUser',
-    service: AuthService.getUserData
+    service: AuthService.getUserData,
+    injections: [
+      withPostFailure(dispatch => {
+        dispatch(push(Routes.LOGIN));
+      })
+    ]
   }),
   login: body => dispatch =>
     dispatch({

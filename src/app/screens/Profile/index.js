@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import get from 'lodash.get';
 
 import Text from '@components/Text';
+import withLoader from '@components/Loader';
 import defaultUser from '@assets/icons/default_user.png';
 import defaultAward from '@assets/awards/default_award.png';
 import Avatar from '@material-ui/core/Avatar';
@@ -49,15 +50,16 @@ class Profile extends Component {
             </Typography>
             <Grid container justify="center" spacing={4}>
               <Grid key={4} item>
-                {currentUser.awards.map(elem => (
-                  <img
-                    className="margin-10"
-                    key={elem}
-                    alt="award"
-                    src={awards[elem] || defaultAward}
-                    width={30}
-                  />
-                ))}
+                {currentUser.awards &&
+                  currentUser.awards.map(elem => (
+                    <img
+                      className="margin-10"
+                      key={elem}
+                      alt="award"
+                      src={awards[elem] || defaultAward}
+                      width={30}
+                    />
+                  ))}
               </Grid>
             </Grid>
           </Paper>
@@ -76,7 +78,8 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  currentUser: get(store.auth, 'currentUser.user')
+  currentUser: get(store.auth, 'currentUser.user') || {},
+  loading: store.auth.currentUserLoading
 });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(withLoader(props => props.loading)(Profile));
