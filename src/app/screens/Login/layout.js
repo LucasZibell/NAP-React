@@ -27,31 +27,30 @@ import Input from '@components/Input';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100vh',
+    height: '100vh'
   },
   image: {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundPosition: 'center'
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   avatar: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    margin: theme.spacing(3, 0, 2)
+  }
 }));
-
 
 function Login({ handleSubmit }) {
   const classes = useStyles();
@@ -66,7 +65,7 @@ function Login({ handleSubmit }) {
           </Avatar>
           <Typography component="h1" variant="h5" align="center">
             {t('login:LOGIN')}
-            <br></br>
+            <br />
             {t('login:LOGIN_EXPLANATION')}
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -82,7 +81,7 @@ function Login({ handleSubmit }) {
               margin="normal"
               required
             />
-            <br></br>
+            <br />
             <Input
               label={t('login:PASSWORD')}
               name={FormNames.PASSWORD}
@@ -109,11 +108,9 @@ function Login({ handleSubmit }) {
                   <a href={Routes.RECOVER_PASSWORD}>{t('login:FORGOT_PASSWORD')}</a>
                 </Link>
               </Grid>
-              <Grid item>
-              </Grid>
+              <Grid item />
             </Grid>
-            <Box mt={5}>
-            </Box>
+            <Box mt={5} />
           </form>
         </div>
       </Grid>
