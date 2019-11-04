@@ -4,7 +4,11 @@
   height: 30vh;
 }
 
+.loading-text {
+  color: $white;
+}
+
 :export {
-  emerald: $emerald;
+  emerald: $white;
 }
 

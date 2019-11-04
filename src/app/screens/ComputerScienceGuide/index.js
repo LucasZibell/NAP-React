@@ -1,12 +1,12 @@
 import React, { Fragment, Component } from 'react';
 import GuideList from '@components/GuideList';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
-
 import withLoader from '@components/Loader';
+
 import { actionCreators } from '@redux/Guides/actions';
 import get from 'lodash.get';
+import titulo from '@assets/img/titulos/CienciasComputacion.png';
 
 class ComputerScienceGuide extends Component {
   componentDidMount() {
@@ -27,9 +27,7 @@ class ComputerScienceGuide extends Component {
         <Grid container spacing={3}>
           <Grid item xs={1} />
           <Grid item xs={8}>
-            <Typography variant="h6" gutterBottom>
-              Bienvenido a la guía de ciencias de la computación
-            </Typography>
+            <img src={titulo} alt="titulo" width={400} />
           </Grid>
         </Grid>
         <GuideList

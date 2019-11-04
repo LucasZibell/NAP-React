@@ -1,11 +1,16 @@
 import React, { Fragment, Component } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Text from '@components/Text';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
+import styles from './styles.scss';
 
 import withLoader from '@components/Loader';
 import GuideList from '@components/GuideList';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import titulo from '@assets/img/titulos/Algoritmia.png';
+
 
 import { actionCreators } from '@redux/Guides/actions';
 
@@ -21,6 +26,7 @@ class AlgorithmGuide extends Component {
   }
 
   render() {
+
     const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
     return (
       <Fragment>
@@ -28,9 +34,7 @@ class AlgorithmGuide extends Component {
         <Grid container spacing={3}>
           <Grid item xs={1} />
           <Grid item xs={8}>
-            <Typography variant="h6" gutterBottom>
-              Bienvenido a la guía de algoritmia
-            </Typography>
+            <img src={titulo} alt="titulo" className={`${styles.imagenTitulo}`} />
           </Grid>
         </Grid>
         <GuideList

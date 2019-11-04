@@ -4,10 +4,11 @@ import get from 'lodash.get';
 
 import withLoader from '@components/Loader';
 import GuideList from '@components/GuideList';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
+import titulo from '@assets/img/titulos/Robotica.png';
 import { actionCreators } from '@redux/Guides/actions';
+
+import styles from './styles.scss';
 
 class RoboticsGuide extends Component {
   componentDidMount() {
@@ -28,9 +29,7 @@ class RoboticsGuide extends Component {
         <Grid container spacing={3}>
           <Grid item xs={1} />
           <Grid item xs={8}>
-            <Typography variant="h6" gutterBottom>
-              Bienvenido a la guía de robótica
-            </Typography>
+            <img src={titulo} alt="titulo" className={`${styles.imagenTitulo}`} />
           </Grid>
         </Grid>
         <GuideList

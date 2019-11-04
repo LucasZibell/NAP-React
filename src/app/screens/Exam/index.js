@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { actionCreators } from '@redux/Exam/actions';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
+import titulo from '@assets/img/titulos/Evaluaciones.png';
 import Text from '@components/Text';
+import styles from './styles.scss';
 
 class Exams extends Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class Exams extends Component {
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h6" gutterBottom>
+              <img src={titulo} alt="titulo" className={`${styles.imagenTitulo}`} />
               {currentUser.teacher
                 ? 'Bienvenido a la info del examen'
                 : 'No hay examenes habilitados para este curso'}
