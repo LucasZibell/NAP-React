@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import get from 'lodash.get';
 import styles from './styles.scss';
 
+import withLoader from '@components/Loader';
 import GuideList from '@components/GuideList';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -16,6 +17,12 @@ import { actionCreators } from '@redux/Guides/actions';
 class AlgorithmGuide extends Component {
   componentDidMount() {
     this.props.getGuide(this.props.currentUserGuide);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUserGuide !== this.props.currentUserGuide) {
+      this.props.getGuide(nextProps.currentUserGuide);
+    }
   }
 
   render() {
@@ -46,7 +53,8 @@ const mapStateToProps = store => ({
   guideTitle: get(store.guide, 'guideList.guide.name'),
   guideDescription: get(store.guide, 'guideList.guide.description'),
   guideExcercises: get(store.guide, 'guideList.guide.exercises') || [],
-  loading: store.guide.guideListLoading
+  loading: store.guide.guideListLoading,
+  userLoading: store.auth.currentUserLoading
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -56,4 +64,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AlgorithmGuide);
+)(withLoader(props => props.userLoading)(AlgorithmGuide));

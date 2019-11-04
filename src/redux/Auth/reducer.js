@@ -4,7 +4,7 @@ import { createReducer, completeReducer, completeState } from 'redux-recompose';
 import { actions } from './actions';
 
 const defaultState = {
-  currentUser: null
+  currentUser: {}
 };
 
 const initialState = completeState(defaultState);

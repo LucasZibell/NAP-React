@@ -4,7 +4,12 @@ import { createReducer, completeReducer, completeState } from 'redux-recompose';
 import { actions } from './actions';
 
 const defaultState = {
-  exerciseInfo: {}
+  exerciseInfo: {
+    exercise: {
+      multipleChoice: true
+    }
+  },
+  needReRender: false
 };
 
 const initialState = completeState(defaultState);
@@ -12,7 +17,15 @@ const initialState = completeState(defaultState);
 const reducerDescription = {
   primaryActions: [actions.GET_EXERCISE_INFO, actions.SUBMIT_ANSWER],
   override: {
-    [actions.CLEAR_EXERCISE]: state => ({ ...state, exerciseInfo: {} })
+    [actions.CLEAR_EXERCISE]: state => ({
+      ...state,
+      exerciseInfo: {
+        exercise: {
+          multipleChoice: true
+        }
+      }
+    }),
+    [actions.SET_RE_RENDER]: state => ({ ...state, needReRender: true })
   }
 };
 
