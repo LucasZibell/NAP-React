@@ -93,7 +93,6 @@ const mapDispatchToProps = dispatch => ({
   getExerciseInfo: id => dispatch(actionCreators.getExerciseInfo(id)),
   submitAnswer: (id, answer, onFinish) => dispatch(actionCreators.submitAnswer(id, answer, onFinish)),
   goToExcList: () => dispatch(goBack()),
-  setReRender: () => dispatch(actionCreators.setReRender()),
   clearExercise: () => dispatch(actionCreators.clearExercise())
 });
 

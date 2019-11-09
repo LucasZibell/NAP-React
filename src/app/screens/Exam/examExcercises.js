@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import MultipleChoice from '@components/MultipleChoice';
@@ -11,25 +11,27 @@ import styles from './styles.scss';
 function ExamExcercises({ exam, onSubmit }) {
   const { exercises } = exam;
   return (
-    <Fragment>
+    <div className="column margin-bottom-50">
       {exercises &&
-        exercises.map(exercise =>
-          exercise.multipleChoice ? (
-            <MultipleChoice
-              options={exercise.options || []}
-              title={exercise.name}
-              description={exercise.description}
-              name={parseResponseName(exercise.id)}
-              exam
-            />
-          ) : (
-            <BlockCode exam />
-          )
-        )}
+        exercises.map(exercise => (
+          <div key={exercise.id} className="margin-bottom-100">
+            {exercise.multipleChoice ? (
+              <MultipleChoice
+                options={exercise.options || []}
+                title={exercise.name}
+                description={exercise.description}
+                name={parseResponseName(exercise.id)}
+                exam
+              />
+            ) : (
+              <BlockCode exam />
+            )}
+          </div>
+        ))}
       <Button variant="contained" onClick={onSubmit} size="large" className={styles.button}>
         <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
       </Button>
-    </Fragment>
+    </div>
   );
 }
 

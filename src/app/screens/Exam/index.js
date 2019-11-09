@@ -6,6 +6,7 @@ import isempty from 'lodash.isempty';
 import FormNames from '@components/MultipleChoice/formFieldNames';
 
 import { actionCreators } from '@redux/Exam/actions';
+import { actionCreators as exerciseActions } from '@redux/ExerciseDetails/actions';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import titulo from '@assets/img/titulos/Evaluaciones.png';
@@ -17,7 +18,12 @@ import styles from './styles.scss';
 
 class Exam extends Component {
   componentDidMount() {
-    this.props.getExamInfo();
+    const needsReRender = this.props.needReRender;
+    if (needsReRender) {
+      location.reload();
+    } else {
+      this.props.getExamInfo();
+    }
   }
 
   onSubmit = () => {
@@ -54,7 +60,8 @@ class Exam extends Component {
 
 const mapDispatchToProps = dispatch => ({
   getExamInfo: () => dispatch(actionCreators.getExamInfo(1)),
-  submitExamAnswer: (body, onFinish) => dispatch(actionCreators.submitExamAnswer(1, body, onFinish))
+  submitExamAnswer: (body, onFinish) => dispatch(actionCreators.submitExamAnswer(1, body, onFinish)),
+  setReRender: () => dispatch(exerciseActions.setReRender())
 });
 
 const mapStateToProps = store => ({
@@ -62,7 +69,8 @@ const mapStateToProps = store => ({
   exam: get(store.exam, 'examInfo.exam') || {},
   loading: store.exam.examInfoLoading,
   userLoading: store.auth.currentUserLoading,
-  answers: store.form[FormNames.MULTIPLE_CHOICE_FORM]
+  answers: store.form[FormNames.MULTIPLE_CHOICE_FORM],
+  needReRender: store.exerciseDetails.needReRender
 });
 
 export default connect(

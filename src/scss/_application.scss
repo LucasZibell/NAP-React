@@ -7,9 +7,8 @@
 html,
 body {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   background: url('../assets/icons/fondoNap.png') 0 / 100% 100% no-repeat fixed;
-  // background-color: rgba(111, 195, 185, 0.1);
 }
 
 .ReactModal__Overlay {
