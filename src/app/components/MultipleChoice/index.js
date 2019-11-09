@@ -56,11 +56,11 @@ function MultipleChoice({ handleSubmit, options, title, description }) {
             </button>
           </Grid>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} alignContent="center">
           <img
             src={imagenEjercicio}
             alt="imagenEjercicio"
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: '70%', height: '100%' }}
           />
         </Grid>
       </Grid>
