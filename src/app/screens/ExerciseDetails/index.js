@@ -51,7 +51,13 @@ class ExerciseDetails extends Component {
           </Grid>
         </Grid>
         {!get(exerciseInfo, 'exercise.multipleChoice') ? (
-          <BlockCode loading={loading} />
+          <BlockCode
+            title={get(exerciseInfo, 'exercise.name')}
+            description={get(exerciseInfo, 'exercise.description')}
+            size={get(exerciseInfo, 'exercise.size')}
+            initialBoard={get(exerciseInfo, 'exercise.initial_board')}
+            finalBoard={get(exerciseInfo, 'exercise.final_board')}
+          />
         ) : (
           <MultipleChoice
             options={get(exerciseInfo, 'exercise.options') || []}
