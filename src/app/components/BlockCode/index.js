@@ -1,6 +1,10 @@
 import React, { Fragment } from 'react';
 
-function BlockCode() {
+import styles from './styles.scss';
+
+function BlockCode({ exam, title, description, size, initialBoard, finalBoard }) {
+  const { header: initialHeader, table: initialtable } = initialBoard;
+  const { header: finalHeader, table: finaltable } = finalBoard;
   window.digilab = {
     api_url: 'https://api.digilab.live',
     exercise_id: 1,
@@ -15,16 +19,49 @@ function BlockCode() {
       <link rel="import" href="https://gobstones.digilab.live/assets/polymer.html" />
       <link rel="import" href="https://gobstones.digilab.live/assets/gs-board.html" />
       <link rel="import" href="https://gobstones.digilab.live/assets/editor/editor.html" />
-      <div className="row space-between">
-        <mu-gobstones-custom-editor />
-        <div className="mu-kids-gbs-board-initial active">
-          <gs-board size='{ "x": 4, "y": 4 }' header='{ "x": 0, "y": 0 }' />
+      <div className="column">
+        <span>{title}</span>
+        <span>{description}</span>
+        <div className={`row space-around ${styles.codeContainer}`}>
+          <div className="row">
+            <div className="margin-right-20">
+              <mu-gobstones-custom-editor />
+            </div>
+            <div className="column">
+              {exam || (
+                <div className="column space-between margin-bottom-20">
+                  <span className={styles.tableHeader}>Enviar Solucion</span>
+                  <kids-submit-button />
+                </div>
+              )}
+              <div className="column space-between">
+                <span className={styles.tableHeader}>Reiniciar</span>
+                <div className="actions">
+                  <kids-reset-button />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            <div className="margin-bottom-40">
+              <span className={styles.tableHeader}>Tablero inicial</span>
+              <div className="mu-kids-gbs-board-initial active">
+                <gs-board
+                  size={JSON.stringify(size)}
+                  header={JSON.stringify(initialHeader)}
+                  table={JSON.stringify(initialtable)}
+                />
+              </div>
+            </div>
+            <span className={styles.tableHeader}>Tablero final</span>
+            <gs-board
+              className="mu-final-state active"
+              size={JSON.stringify(size)}
+              header={JSON.stringify(finalHeader)}
+              table={JSON.stringify(finaltable)}
+            />
+          </div>
         </div>
-        <gs-board className="mu-final-state active" size='{ "x": 4, "y": 4 }' header='{ "x": 4, "y": 4 }' />
-      </div>
-      <kids-submit-button />
-      <div className="actions">
-        <kids-reset-button />
       </div>
       <input type="hidden" id="mu-custom-editor-value" value={''} />
     </Fragment>

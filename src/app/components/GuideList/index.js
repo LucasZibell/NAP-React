@@ -1,5 +1,4 @@
 import React from 'react';
-import { t } from 'i18next';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
@@ -106,11 +105,11 @@ function GuideList({ title, description, excerciseList, goToExamDetails, goToExc
           <div className={classes.cardDetails}>
             <CardContent>
               <Typography component="h2" variant="h5">
-                {t('guide_list:TITLE', { title })}
+                {title}
               </Typography>
               <br />
               <Typography variant="subtitle1" paragraph>
-                {t('guide_list:DESCRIPTION', { description })}
+                {description}
               </Typography>
             </CardContent>
           </div>

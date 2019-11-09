@@ -51,7 +51,13 @@ class ExerciseDetails extends Component {
           </Grid>
         </Grid>
         {!get(exerciseInfo, 'exercise.multipleChoice') ? (
-          <BlockCode loading={loading} />
+          <BlockCode
+            title={get(exerciseInfo, 'exercise.name')}
+            description={get(exerciseInfo, 'exercise.description')}
+            size={get(exerciseInfo, 'exercise.size')}
+            initialBoard={get(exerciseInfo, 'exercise.initial_board')}
+            finalBoard={get(exerciseInfo, 'exercise.final_board')}
+          />
         ) : (
           <MultipleChoice
             options={get(exerciseInfo, 'exercise.options') || []}
@@ -93,7 +99,6 @@ const mapDispatchToProps = dispatch => ({
   getExerciseInfo: id => dispatch(actionCreators.getExerciseInfo(id)),
   submitAnswer: (id, answer, onFinish) => dispatch(actionCreators.submitAnswer(id, answer, onFinish)),
   goToExcList: () => dispatch(goBack()),
-  setReRender: () => dispatch(actionCreators.setReRender()),
   clearExercise: () => dispatch(actionCreators.clearExercise())
 });
 

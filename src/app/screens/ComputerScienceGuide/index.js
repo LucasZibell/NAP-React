@@ -20,7 +20,7 @@ class ComputerScienceGuide extends Component {
   }
 
   render() {
-    const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
+    const { guideExcercises, loading } = this.props;
     return (
       <Fragment>
         <br />
@@ -31,8 +31,8 @@ class ComputerScienceGuide extends Component {
           </Grid>
         </Grid>
         <GuideList
-          title={guideTitle}
-          description={guideDescription}
+          title="Guia de Ciencias de la Computacion"
+          description="En esta guia vas a aprender las bases de la computacion junto a Nappy"
           excerciseList={guideExcercises}
           loading={loading}
         />
