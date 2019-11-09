@@ -1,18 +1,15 @@
 import React, { Fragment, Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Text from '@components/Text';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
-import styles from './styles.scss';
 
 import withLoader from '@components/Loader';
 import GuideList from '@components/GuideList';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import titulo from '@assets/img/titulos/Algoritmia.png';
 
-
 import { actionCreators } from '@redux/Guides/actions';
+
+import styles from './styles.scss';
 
 class AlgorithmGuide extends Component {
   componentDidMount() {
@@ -26,7 +23,6 @@ class AlgorithmGuide extends Component {
   }
 
   render() {
-
     const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
     return (
       <Fragment>

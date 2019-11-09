@@ -1,4 +1,4 @@
-import { completeTypes, createTypes } from 'redux-recompose';
+import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
 
 import * as ExamService from '@services/ExamService';
 
@@ -11,7 +11,14 @@ export const actionCreators = {
     type: actions.GET_EXAM_INFO,
     target: 'examInfo',
     payload: id,
-    service: ExamService.getExerciseInfo
+    service: ExamService.getExamInfo
+  }),
+  submitExamAnswer: (id, body, onFinish) => ({
+    type: actions.SUBMIT_ANSWER,
+    target: 'examAnswer',
+    payload: { id, body },
+    service: ExamService.submitAnswer,
+    injections: [withPostSuccess(() => onFinish())]
   }),
   getExamList: () => ({
     type: actions.GET_EXAM_LIST,

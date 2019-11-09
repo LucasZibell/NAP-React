@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import FormNames from './formFieldNames';
 import styles from './styles.scss';
 
-function MultipleChoice({ handleSubmit, options, title, description }) {
+function MultipleChoice({ handleSubmit, options, title, description, exam, name }) {
   return (
     <Form className="row center" onSubmit={handleSubmit}>
       <div className="column margin-right-50">
@@ -19,20 +19,26 @@ function MultipleChoice({ handleSubmit, options, title, description }) {
         <Text elementType="text-1" className="margin-bottom-10">
           {description}
         </Text>
-        <button>
-          <Button variant="contained" size="large" className={styles.button}>
-            <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
-          </Button>
-        </button>
+        {exam || (
+          <button>
+            <Button variant="contained" size="large" className={styles.button}>
+              <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
+            </Button>
+          </button>
+        )}
       </div>
       <div className="column">
         {options.map(elem => (
-          <RadioButton key={elem.id} name={FormNames.ANSWER} value={elem.value} text={elem.text} />
+          <RadioButton key={elem.id} name={name} value={elem.value} text={elem.text} />
         ))}
       </div>
     </Form>
   );
 }
+
+MultipleChoice.defaultProps = {
+  name: FormNames.ANSWER
+};
 
 export default reduxForm({
   form: FormNames.MULTIPLE_CHOICE_FORM
