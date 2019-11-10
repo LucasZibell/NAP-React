@@ -71,6 +71,7 @@ class ExerciseDetails extends Component {
             options={get(exerciseInfo, 'exercise.options') || []}
             title={get(exerciseInfo, 'exercise.name')}
             description={get(exerciseInfo, 'exercise.description')}
+            imageUrl={get(exerciseInfo, 'exercise.image')}
             onSubmit={this.onSubmit}
             loading={loading}
           />
