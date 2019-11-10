@@ -28,6 +28,25 @@ import Code from '@material-ui/icons/Code';
 
 import styles2 from './styles.scss';
 
+export const awards = {
+  FIRST_EXERCISE: {
+    image: Code,
+    name: 'Primer ejercicio'
+  },
+  THREE_STREAK: {
+    image: Accessibility,
+    name: 'Tres ejercicios seguidos'
+  },
+  COMPLETE_ROBOTICS: {
+    image: AccessTime,
+    name: 'Completada guia de robotica'
+  },
+  COMPLETE_COMPUTER: {
+    image: Update,
+    name: 'Completada guia de computacion'
+  }
+};
+
 class Profile extends Component {
   render() {
     const { currentUser } = this.props;
@@ -59,54 +78,24 @@ class Profile extends Component {
             </Card>
           </GridItem>
           <Grid container md={8} spacing={3}>
-            <Grid item xs={3}>
-              <Card>
-                <CardHeader color="info" stats icon>
-                  <CardIcon color="info">
-                    <Code />
-                  </CardIcon>
-                  <p className={styles.cardCategory}>Registrarse con éxito </p>
-                </CardHeader>
-                <CardFooter stats>
-                  <div className={styles.stats}>
-                    <Update />
-                    Hace 4 meses
-                  </div>
-                </CardFooter>
-              </Card>
-            </Grid>
-            <Grid item xs={3}>
-              <Card>
-                <CardHeader color="info" stats icon>
-                  <CardIcon color="info">
-                    <Accessibility />
-                  </CardIcon>
-                  <p className={styles.cardCategory}>Superaste el Nivel 1</p>
-                </CardHeader>
-                <CardFooter stats>
-                  <div className={styles.stats}>
-                    <Update />
-                    Hace 2 meses
-                  </div>
-                </CardFooter>
-              </Card>
-            </Grid>
-            <Grid item xs={3}>
-              <Card>
-                <CardHeader color="info" stats icon>
-                  <CardIcon color="info">
-                    <AccessTime />
-                  </CardIcon>
-                  <p className={styles.cardCategory}>Superaste Robótica</p>
-                </CardHeader>
-                <CardFooter stats>
-                  <div className={styles.stats}>
-                    <Update />
-                    Hace 3 días
-                  </div>
-                </CardFooter>
-              </Card>
-            </Grid>
+            {currentUser.awards &&
+              currentUser.awards.map(({ name }) => {
+                const { image: Image, name: awardName } = awards[name];
+                return (
+                  <Grid key={name} item xs={3}>
+                    <Card>
+                      <CardHeader color="info" stats icon>
+                        <CardIcon color="info">
+                          <Image />
+                        </CardIcon>
+                      </CardHeader>
+                      <CardFooter stats>
+                        <div className={styles.stats}>{awardName}</div>
+                      </CardFooter>
+                    </Card>
+                  </Grid>
+                );
+              })}
           </Grid>
         </GridContainer>
       </div>
