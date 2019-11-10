@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
 
@@ -10,6 +11,7 @@ import { actionCreators } from '@redux/ExerciseDetails/actions';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ExerciseResult from '@components/ExerciseResult';
+import { PASSED } from '@constants/exercise';
 
 class ExerciseDetails extends Component {
   state = { isOpen: false, success: false, loading: false };
@@ -29,6 +31,10 @@ class ExerciseDetails extends Component {
   componentWillUnmount() {
     this.props.clearExercise();
   }
+
+  onFinishBlockExc = response => this.onFinish(response.results.status === PASSED);
+
+  onError = () => toast.error('Hubo un error enviando la solucion. Intente denuevo mas tarde');
 
   onSubmit = value => this.props.submitAnswer(this.props.match.params.id, value.answer, this.onFinish);
 
@@ -57,6 +63,8 @@ class ExerciseDetails extends Component {
             size={get(exerciseInfo, 'exercise.size')}
             initialBoard={get(exerciseInfo, 'exercise.initial_board')}
             finalBoard={get(exerciseInfo, 'exercise.final_board')}
+            onFinish={this.onFinishBlockExc}
+            onError={this.onError}
           />
         ) : (
           <MultipleChoice

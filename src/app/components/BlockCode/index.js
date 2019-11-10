@@ -2,14 +2,14 @@ import React, { Fragment } from 'react';
 
 import styles from './styles.scss';
 
-function BlockCode({ exam, title, description, size, initialBoard, finalBoard }) {
+function BlockCode({ exam, title, description, size, initialBoard, finalBoard, onFinish, onError }) {
   const { header: initialHeader, table: initialtable } = initialBoard;
   const { header: finalHeader, table: finaltable } = finalBoard;
   window.digilab = {
     api_url: 'https://api.digilab.live',
     exercise_id: 1,
-    on_success: () => console.log('Success'),
-    on_failure: () => console.log('Failure')
+    on_success: response => onFinish(response),
+    on_failure: () => onError()
   };
 
   return (
@@ -25,6 +25,7 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard })
         <div className={`row space-around ${styles.codeContainer}`}>
           <div className="row">
             <div className="margin-right-20">
+              <gs-toolbox toolbox-url="https://api.digilab.live/toolbox.xml" />
               <mu-gobstones-custom-editor />
             </div>
             <div className="column">
