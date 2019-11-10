@@ -6,10 +6,12 @@ import RadioButton from '@components/RadioButton';
 import withLoader from '@components/Loader';
 import Button from '@material-ui/core/Button';
 
+import amazedNappy from '@assets/nappy/amazed_nappy.png';
+
 import FormNames from './formFieldNames';
 import styles from './styles.scss';
 
-function MultipleChoice({ handleSubmit, options, title, description, exam, name }) {
+function MultipleChoice({ handleSubmit, options, title, description, exam, name, imageUrl }) {
   return (
     <Form className="row center" onSubmit={handleSubmit}>
       <div className="column margin-right-50">
@@ -19,6 +21,11 @@ function MultipleChoice({ handleSubmit, options, title, description, exam, name 
         <Text elementType="text-1" className="margin-bottom-10">
           {description}
         </Text>
+        <img
+          alt="excercise"
+          width="200"
+          src={imageUrl ? `${process.env.REACT_APP_API_BASE_URL}/${imageUrl}` : amazedNappy}
+        />
         {exam || (
           <button>
             <Button variant="contained" size="large" className={styles.button}>
