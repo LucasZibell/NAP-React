@@ -1,4 +1,4 @@
-@import 'colors';
+@import "colors";
 
 .modal {
   background-color: $white;
@@ -11,4 +11,23 @@
   outline: 0;
   padding: 30px;
   width: 100%;
+}
+
+.button {
+  background: #6fc3b9;
+  color: white;
+}
+.button:hover {
+  background-color: #4aa79c;
+}
+.buttonCerrar {
+  background: #b62121d5;
+  color: white;
+}
+.buttonCerrar:hover {
+  background-color: #990d0dd5;
+}
+
+.texto-blanco {
+  color: white !important;
 }
