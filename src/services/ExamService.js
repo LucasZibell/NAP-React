@@ -1,4 +1,4 @@
-// import api from '@config/api';
+import api from '@config/api';
 
 const mockExamList = [
   {
@@ -18,16 +18,9 @@ const mockExamList = [
   }
 ];
 
-export const getExamInfo = () =>
-  new Promise(resolve =>
-    resolve({
-      data: {
-        title: 'Examen 1',
-        description: 'El primer examen'
-      },
-      ok: false
-    })
-  ); // api.get(`/exercise_info`);
+export const getExamInfo = id => api.get(`/exams/${id}`, null, { withCredentials: true });
+
+export const submitExamAnswer = (id, body) => api.post('/exams/1/solutions', body, { withCredentials: true });
 
 export const getExamList = () =>
   new Promise(resolve =>
@@ -37,4 +30,4 @@ export const getExamList = () =>
       },
       ok: true
     })
-  ); // api.get(`/exam_list`);
+  ); // api.get(`/exam_list`, null, { withCredentials: true });

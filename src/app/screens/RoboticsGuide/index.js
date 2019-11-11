@@ -22,7 +22,7 @@ class RoboticsGuide extends Component {
   }
 
   render() {
-    const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
+    const { guideExcercises, loading } = this.props;
     return (
       <Fragment>
         <br />
@@ -33,8 +33,8 @@ class RoboticsGuide extends Component {
           </Grid>
         </Grid>
         <GuideList
-          title={guideTitle}
-          description={guideDescription}
+          title="Guia de Robotica"
+          description="En esta guia vas a aprender a controlar a Nappy como si fuese un robot"
           excerciseList={guideExcercises}
           loading={loading}
         />

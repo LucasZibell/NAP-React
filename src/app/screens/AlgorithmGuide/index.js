@@ -1,18 +1,15 @@
 import React, { Fragment, Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Text from '@components/Text';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
-import styles from './styles.scss';
 
 import withLoader from '@components/Loader';
 import GuideList from '@components/GuideList';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import titulo from '@assets/img/titulos/Algoritmia.png';
 
-
 import { actionCreators } from '@redux/Guides/actions';
+
+import styles from './styles.scss';
 
 class AlgorithmGuide extends Component {
   componentDidMount() {
@@ -26,8 +23,7 @@ class AlgorithmGuide extends Component {
   }
 
   render() {
-
-    const { guideTitle, guideDescription, guideExcercises, loading } = this.props;
+    const { guideExcercises, loading } = this.props;
     return (
       <Fragment>
         <br />
@@ -38,8 +34,8 @@ class AlgorithmGuide extends Component {
           </Grid>
         </Grid>
         <GuideList
-          title={guideTitle}
-          description={guideDescription}
+          title="Guia de Algoritmia"
+          description="En esta guia vas a aprender las bases de la programacion junto a Nappy"
           excerciseList={guideExcercises}
           loading={loading}
         />

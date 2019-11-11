@@ -5,12 +5,12 @@ import Text from "@components/Text";
 import RadioButton from "@components/RadioButton";
 import withLoader from "@components/Loader";
 import Button from "@material-ui/core/Button";
-
 import FormNames from "./formFieldNames";
 import styles from "./styles.scss";
 import imagenEjercicio from "@assets/img/digilab.jpg";
+import amazedNappy from '@assets/nappy/amazed_nappy.png';
 
-function MultipleChoice({ handleSubmit, options, title, description }) {
+function MultipleChoice({ handleSubmit, options, title, description, exam, name, imageUrl }) {
   return (
     <Form className="row" onSubmit={handleSubmit}>
       <Grid container spacing={3}>
@@ -26,78 +26,38 @@ function MultipleChoice({ handleSubmit, options, title, description }) {
               {description}
             </Text>
           </Grid>
-          {/* <Grid item xs={6}>
-          1
-        </Grid>
-        <Grid item xs={6}>
-          2
-        </Grid> */}
           {options.map(elem => (
             <Grid item xs={6}>
-              <RadioButton
-                key={elem.id}
-                name={FormNames.ANSWER}
-                value={elem.value}
-                text={elem.text}
-              />
+              <RadioButton key={elem.id} name={name} value={elem.value} text={elem.text} />
             </Grid>
           ))}
           <br></br>
           <br></br>
           <Grid item xs={12}>
-            <button>
-              <Button
-                variant="contained"
-                size="large"
-                className={styles.button}
-              >
-                <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
-              </Button>
-            </button>
+            {exam || (
+              <button>
+                <Button variant="contained" size="large" className={styles.button}>
+                  <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
+                </Button>
+              </button>
+            )}
           </Grid>
         </Grid>
         <Grid item xs={6} alignContent="center">
           <img
-            src={imagenEjercicio}
-            alt="imagenEjercicio"
+            alt="excercise"
+            src={imageUrl ? `${process.env.REACT_APP_API_BASE_URL}/${imageUrl}` : amazedNappy}
             style={{ width: '70%', height: '100%' }}
           />
         </Grid>
       </Grid>
-      {/* <Grid container spacing={3}>
-        <Grid item xs={12} md={12}>
-          <div className="column margin-right-50">
-            <Text elementType="title-2" className="margin-bottom-10">
-              {title}
-            </Text>
-            <Text elementType="text-1" className="margin-bottom-10">
-              {description}
-            </Text>
-            <button>
-              <Button
-                variant="contained"
-                size="large"
-                className={styles.button}
-              >
-              <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
-              </Button>
-            </button>
-          </div>
-          <div className="column">
-            {options.map(elem => (
-              <RadioButton
-                key={elem.id}
-                name={FormNames.ANSWER}
-                value={elem.value}
-                text={elem.text}
-              />
-            ))}
-          </div>
-        </Grid>
-      </Grid> */}
     </Form>
-  );
+      );
 }
+
+MultipleChoice.defaultProps = {
+  name: FormNames.ANSWER
+};
 
 export default reduxForm({
   form: FormNames.MULTIPLE_CHOICE_FORM
