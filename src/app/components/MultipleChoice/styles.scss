@@ -2,7 +2,15 @@
   background: #6fc3b9;
   color: white;
 }
+.button:hover {
+  background-color: #4aa79c;
+}
 
 .texto-blanco {
   color: white !important;
+}
+
+form{
+  margin-left: 9%;
+  margin-top: 2%;
 }
