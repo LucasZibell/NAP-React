@@ -51,7 +51,7 @@ class Profile extends Component {
   render() {
     const { currentUser } = this.props;
     return (
-      <div>
+      <div className={`${styles2.marginContainer}`}>
         <GridContainer>
           <GridItem xs={12} sm={12} md={1} />
           <GridItem xs={12} sm={12} md={3}>
