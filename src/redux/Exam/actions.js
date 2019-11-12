@@ -6,7 +6,10 @@ import { actionCreators as exerciseActions } from '../ExerciseDetails/actions';
 
 /* ------------- Auth actions ------------- */
 
-export const actions = createTypes(completeTypes(['GET_EXAM_INFO', 'GET_EXAM_LIST']), '@@EXAM');
+export const actions = createTypes(
+  completeTypes(['GET_EXAM_INFO', 'GET_EXAM_LIST', 'GET_AVAILABLE_EXAMS']),
+  '@@EXAM'
+);
 
 export const actionCreators = {
   getExamInfo: id => ({
@@ -27,5 +30,10 @@ export const actionCreators = {
     type: actions.GET_EXAM_LIST,
     target: 'examList',
     service: ExamService.getExamList
+  }),
+  getAvailableExams: () => ({
+    type: actions.GET_AVAILABLE_EXAMS,
+    target: 'examList',
+    service: ExamService.getAvailableExams
   })
 };

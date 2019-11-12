@@ -10,8 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import styles from './styles.scss';
 
-function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
-  const examLink = currentUser.teacher ? Routes.EXAM_LIST : Routes.EXAM;
+function NavBar({ logout, goToProfile, goHome, goTo }) {
   return (
     <AppBar position="static" className={styles.verde}>
       <Toolbar variant="dense">
@@ -28,7 +27,7 @@ function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
             <button onClick={() => goTo(Routes.ROBOTICS_GUIDE)}>{t('navbar:ROBOTICS')}</button>
           </div>
         </div>
-        <button onClick={() => goTo(examLink)} className={styles.navButton}>
+        <button onClick={() => goTo(Routes.EXAM_LIST)} className={styles.navButton}>
           {t('navbar:TESTS')}
         </button>
         <button onClick={goToProfile} className={styles.navButton}>
@@ -42,10 +41,6 @@ function NavBar({ logout, goToProfile, goHome, goTo, currentUser }) {
   );
 }
 
-const mapStateToProps = store => ({
-  currentUser: store.auth.currentUser
-});
-
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(actionCreators.logout()),
   goToProfile: () => dispatch(push(Routes.PROFILE)),
@@ -54,6 +49,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(NavBar);
