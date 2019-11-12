@@ -25,7 +25,7 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard, o
         <div className={`row space-around ${styles.codeContainer}`}>
           <div className="row">
             <div className="margin-right-20">
-              <gs-toolbox toolbox-url="https://api.digilab.live/toolbox.xml" />
+              <gs-toolbox toolbox-url="http://api.digilab.live/toolbox.txt" />
               <mu-gobstones-custom-editor />
             </div>
             <div className="column">

@@ -8,7 +8,7 @@ import withLoader from '@components/Loader';
 import { parseResponseName } from './utils';
 import styles from './styles.scss';
 
-function ExamExcercises({ exam, onSubmit }) {
+function ExamExcercises({ exam, onSubmit, buttonText }) {
   const { exercises } = exam;
   return (
     <div className="column margin-bottom-50">
@@ -29,7 +29,7 @@ function ExamExcercises({ exam, onSubmit }) {
           </div>
         ))}
       <Button variant="contained" onClick={onSubmit} size="large" className={styles.button}>
-        <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
+        <span className={`${styles.textoBlanco}`}>{buttonText}</span>
       </Button>
     </div>
   );

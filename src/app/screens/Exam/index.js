@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
-import isempty from 'lodash.isempty';
 
 import FormNames from '@components/MultipleChoice/formFieldNames';
 
@@ -22,21 +21,25 @@ class Exam extends Component {
     if (needsReRender) {
       location.reload();
     } else {
-      this.props.getExamInfo();
+      this.props.getExamInfo(this.props.examId);
     }
   }
 
   onSubmit = () => {
-    const exercises = this.props.exam.exercises || [];
-    const body = exercises.map(({ id }) => ({
-      exercise: id,
-      content: this.props.answers.values[parseResponseName(id)]
-    }));
-    this.props.submitExamAnswer(body, () => console.log('Abrir Modal'));
+    if (this.props.isTeacher) {
+      this.props.enableExam(this.props.examId);
+    } else {
+      const exercises = this.props.exam.exercises || [];
+      const body = exercises.map(({ id }) => ({
+        exercise: id,
+        content: this.props.answers.values[parseResponseName(id)]
+      }));
+      this.props.submitExamAnswer(this.props.examId, body, () => console.log('Abrir Modal'));
+    }
   };
 
   render() {
-    const { exam, loading } = this.props;
+    const { exam, loading, isTeacher } = this.props;
     return (
       <Fragment>
         <br />
@@ -48,24 +51,28 @@ class Exam extends Component {
             </Typography>
           </Grid>
         </Grid>
-        {isempty(exam) ? (
-          loading || 'No hay examenes habilitados para este curso'
-        ) : (
-          <ExamExcercises exam={exam} loading={loading} onSubmit={this.onSubmit} />
-        )}
+        <ExamExcercises
+          exam={exam}
+          loading={loading}
+          onSubmit={this.onSubmit}
+          buttonText={isTeacher ? 'Habilitar Evaluacion' : 'Enviar Solucion'}
+        />
       </Fragment>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  getExamInfo: () => dispatch(actionCreators.getExamInfo(1)),
-  submitExamAnswer: (body, onFinish) => dispatch(actionCreators.submitExamAnswer(1, body, onFinish)),
-  setReRender: () => dispatch(exerciseActions.setReRender())
+  getExamInfo: id => dispatch(actionCreators.getExamInfo(id)),
+  submitExamAnswer: (id, body, onFinish) => dispatch(actionCreators.submitExamAnswer(id, body, onFinish)),
+  setReRender: () => dispatch(exerciseActions.setReRender()),
+  enableExam: id => dispatch(actionCreators.enableExam(id))
 });
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store, props) => ({
+  examId: props.match.params.id,
   currentUser: store.auth.currentUser,
+  isTeacher: get(store, 'auth.currentUser.user.is_teacher'),
   exam: get(store.exam, 'examInfo.exam') || {},
   loading: store.exam.examInfoLoading,
   userLoading: store.auth.currentUserLoading,
