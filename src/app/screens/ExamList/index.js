@@ -36,7 +36,11 @@ class Exams extends Component {
         <GuideList
           title="Examenes"
           description="En este listado vas a encontrar todos los examenes disponibles para este curso"
-          excerciseList={examList.map(({ exam }) => ({ title: exam.name, description: exam.description }))}
+          excerciseList={examList.map(({ exam }) => ({
+            id: exam.id,
+            title: exam.name,
+            description: exam.description
+          }))}
           exams
           loading={loading}
         />

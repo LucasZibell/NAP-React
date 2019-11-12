@@ -11,7 +11,7 @@ const defaultState = {
 const initialState = completeState(defaultState);
 
 const reducerDescription = {
-  primaryActions: [actions.GET_EXAM_INFO, actions.GET_EXAM_LIST]
+  primaryActions: [actions.GET_EXAM_INFO, actions.GET_EXAM_LIST, actions.GET_AVAILABLE_EXAMS]
 };
 
 export const reducer = createReducer(Immutable(initialState), completeReducer(reducerDescription));

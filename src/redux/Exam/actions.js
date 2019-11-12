@@ -1,4 +1,5 @@
 import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
+import { toast } from 'react-toastify';
 
 import * as ExamService from '@services/ExamService';
 
@@ -35,5 +36,12 @@ export const actionCreators = {
     type: actions.GET_AVAILABLE_EXAMS,
     target: 'examList',
     service: ExamService.getAvailableExams
+  }),
+  enableExam: id => ({
+    type: actions.ENABLE_EXAMS,
+    target: 'enabledExams',
+    payload: id,
+    service: ExamService.enableExam,
+    injections: [withPostSuccess(() => toast.success('Examen habilitado con exito'))]
   })
 };
