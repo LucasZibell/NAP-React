@@ -30,9 +30,11 @@ class Exam extends Component {
       this.props.enableExam(this.props.examId);
     } else {
       const exercises = this.props.exam.exercises || [];
-      const body = exercises.map(({ id }) => ({
+      const body = exercises.map(({ id, multipleChoice }) => ({
         exercise: id,
-        content: this.props.answers.values[parseResponseName(id)]
+        content: multipleChoice
+          ? this.props.answers.values[parseResponseName(id)]
+          : window.digilab.getStudentXml()
       }));
       this.props.submitExamAnswer(this.props.examId, body, () => console.log('Abrir Modal'));
     }
