@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import get from 'lodash.get';
 
 import FormNames from '@components/MultipleChoice/formFieldNames';
 
+import Routes from '@constants/routes';
 import { actionCreators } from '@redux/Exam/actions';
 import { actionCreators as exerciseActions } from '@redux/ExerciseDetails/actions';
 import Typography from '@material-ui/core/Typography';
@@ -13,9 +15,12 @@ import withLoader from '@components/Loader';
 
 import { parseResponseName } from './utils';
 import ExamExcercises from './examExcercises';
+import ResultModal from './resultModal';
 import styles from './styles.scss';
 
 class Exam extends Component {
+  state = { isOpen: false };
+
   componentDidMount() {
     const needsReRender = this.props.needReRender;
     if (needsReRender) {
@@ -36,12 +41,14 @@ class Exam extends Component {
           ? this.props.answers.values[parseResponseName(id)]
           : window.digilab.getStudentXml()
       }));
-      this.props.submitExamAnswer(this.props.examId, body, () => console.log('Abrir Modal'));
+      this.props.submitExamAnswer(this.props.examId, body, this.toggleModal);
     }
   };
 
+  toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+
   render() {
-    const { exam, loading, isTeacher } = this.props;
+    const { exam, loading, isTeacher, goHome } = this.props;
     return (
       <Fragment>
         <br />
@@ -59,12 +66,14 @@ class Exam extends Component {
           onSubmit={this.onSubmit}
           buttonText={isTeacher ? 'Habilitar Evaluacion' : 'Enviar Solucion'}
         />
+        <ResultModal isOpen={this.state.isOpen} closeModal={this.toggleModal} goHome={goHome} />
       </Fragment>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
+  goHome: () => dispatch(push(Routes.HOME)),
   getExamInfo: id => dispatch(actionCreators.getExamInfo(id)),
   submitExamAnswer: (id, body, onFinish) => dispatch(actionCreators.submitExamAnswer(id, body, onFinish)),
   setReRender: () => dispatch(exerciseActions.setReRender()),

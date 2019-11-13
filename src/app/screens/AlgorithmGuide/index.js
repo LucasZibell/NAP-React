@@ -54,7 +54,7 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getGuide: guideId => dispatch(actionCreators.getGuide(guideId || 1))
+  getGuide: guideId => dispatch(actionCreators.getGuide(guideId))
 });
 
 export default connect(
