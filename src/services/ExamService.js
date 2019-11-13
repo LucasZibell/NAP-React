@@ -2,7 +2,8 @@ import api from '@config/api';
 
 export const getExamInfo = id => api.get(`/exams/${id}`, null, { withCredentials: true });
 
-export const submitExamAnswer = (id, body) => api.post('/exams/1/solutions', body, { withCredentials: true });
+export const submitExamAnswer = ({ id, body }) =>
+  api.post(`/exams/${id}/solutions`, { solutions: body }, { withCredentials: true });
 
 export const getExamList = () => api.get('/exams', null, { withCredentials: true });
 

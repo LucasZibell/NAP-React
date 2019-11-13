@@ -8,7 +8,7 @@ import { actionCreators as exerciseActions } from '../ExerciseDetails/actions';
 /* ------------- Auth actions ------------- */
 
 export const actions = createTypes(
-  completeTypes(['GET_EXAM_INFO', 'GET_EXAM_LIST', 'GET_AVAILABLE_EXAMS']),
+  completeTypes(['GET_EXAM_INFO', 'GET_EXAM_LIST', 'GET_AVAILABLE_EXAMS', 'SUBMIT_ANSWER']),
   '@@EXAM'
 );
 
@@ -24,7 +24,7 @@ export const actionCreators = {
     type: actions.SUBMIT_ANSWER,
     target: 'examAnswer',
     payload: { id, body },
-    service: ExamService.submitAnswer,
+    service: ExamService.submitExamAnswer,
     injections: [withPostSuccess(() => onFinish())]
   }),
   getExamList: () => ({
