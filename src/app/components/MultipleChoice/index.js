@@ -18,13 +18,13 @@ function MultipleChoice({ handleSubmit, options, title, description, exam, name,
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Grid item xs={12}>
-            <Text elementType="title-2" className="margin-bottom-10">
+            <Text elementType="title-1" className="margin-bottom-10">
               {title}
             </Text>
           </Grid>
           <br />
           <Grid item xs={12}>
-            <Text elementType="text-1" className="margin-bottom-10">
+            <Text elementType="title-3" className="margin-bottom-10">
               {description}
             </Text>
           </Grid>

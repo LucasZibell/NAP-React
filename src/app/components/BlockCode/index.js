@@ -20,8 +20,8 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard, o
       <link rel="import" href="https://gobstones.digilab.live/assets/gs-board.html" />
       <link rel="import" href="https://gobstones.digilab.live/assets/editor/editor.html" />
       <div className="column">
-        <span>{title}</span>
-        <span>{description}</span>
+        <span className={styles.title}>{title}</span>
+        <span className={styles.description}>{description}</span>
         <div className={`row space-around ${styles.codeContainer}`}>
           <div className="row">
             <div className="margin-right-20">

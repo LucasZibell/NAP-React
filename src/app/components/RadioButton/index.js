@@ -10,7 +10,7 @@ import { RADIO_TYPES } from './constants';
 function RadioButton({ name, value, elementType, className, text, checked }) {
   return (
     <div className={className}>
-      <Text tag="label" elementType="text-1" className="row middle start margin-5 full-width">
+      <Text tag="label" elementType="title-3" className="row middle start margin-5 full-width">
         <div className={`margin-right-5 ${styles[elementType]}`}>
           <Field
             name={name}

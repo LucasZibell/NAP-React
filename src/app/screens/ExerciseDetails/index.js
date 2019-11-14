@@ -8,8 +8,6 @@ import { goBack } from 'react-router-redux';
 import MultipleChoice from '@components/MultipleChoice';
 import BlockCode from '@components/BlockCode';
 import { actionCreators } from '@redux/ExerciseDetails/actions';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import ExerciseResult from '@components/ExerciseResult';
 import { PASSED } from '@constants/exercise';
 
@@ -48,14 +46,6 @@ class ExerciseDetails extends Component {
     return (
       <div className="column">
         <br />
-        <Grid container spacing={3}>
-          <Grid item xs={1} />
-          <Grid item xs={8}>
-            <Typography variant="h6" gutterBottom>
-              Bienvenido al ejercicio
-            </Typography>
-          </Grid>
-        </Grid>
         {!get(exerciseInfo, 'exercise.multipleChoice') ? (
           <BlockCode
             title={get(exerciseInfo, 'exercise.name')}

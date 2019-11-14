@@ -10,7 +10,6 @@ import defaultUser from '@assets/icons/default_user.png';
 import styles from '@assets/jss/material-dashboard-react/views/dashboardStyle.js';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import titulo from '@assets/img/titulos/Perfil.png';
 // core components
 import GridItem from '@components/Grid/GridItem.js';
 import GridContainer from '@components/Grid/GridContainer.js';
@@ -21,29 +20,35 @@ import CardBody from '@components/Card/CardBody';
 import CardFooter from '@components/Card/CardFooter';
 import CardIcon from '@components/Card/CardIcon';
 // @material-ui/icons
-import Update from '@material-ui/icons/Update';
-import AccessTime from '@material-ui/icons/AccessTime';
-import Accessibility from '@material-ui/icons/Accessibility';
-import Code from '@material-ui/icons/Code';
+import Phonelink from '@material-ui/icons/Phonelink';
+import Reddit from '@material-ui/icons/Reddit';
+import Filter3 from '@material-ui/icons/Filter3';
+import Mouse from '@material-ui/icons/Mouse';
+import Extension from '@material-ui/icons/Extension';
+import LockOpen from '@material-ui/icons/LockOpen';
 
 import styles2 from './styles.scss';
 
 export const awards = {
   FIRST_EXERCISE: {
-    image: Code,
+    image: Mouse,
     name: 'Primer ejercicio'
   },
   THREE_STREAK: {
-    image: Accessibility,
+    image: Filter3,
     name: 'Tres ejercicios seguidos'
   },
   COMPLETE_ROBOTICS: {
-    image: AccessTime,
+    image: Reddit,
     name: 'Completada guia de robotica'
   },
   COMPLETE_COMPUTER: {
-    image: Update,
+    image: Phonelink,
     name: 'Completada guia de computacion'
+  },
+  COMPLETE_EXAM: {
+    image: Extension,
+    name: 'Completado el primer examen'
   }
 };
 
@@ -78,7 +83,10 @@ class Profile extends Component {
           <Grid container md={8} spacing={3}>
             {currentUser.awards &&
               currentUser.awards.map(({ name }) => {
-                const { image: Image, name: awardName } = awards[name];
+                const { image: Image, name: awardName } = awards[name] || {
+                  image: LockOpen,
+                  name: 'Logro secreto desbloqueado'
+                };
                 return (
                   <Grid key={name} item xs={3}>
                     <Card>
