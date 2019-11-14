@@ -41,7 +41,7 @@ class ExerciseDetails extends Component {
   toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
 
   render() {
-    const { loading, exerciseInfo, goToExcList } = this.props;
+    const { loading, exerciseInfo, goToExcList, match } = this.props;
     const { isOpen, success } = this.state;
     return (
       <div className="column">
@@ -55,6 +55,7 @@ class ExerciseDetails extends Component {
             finalBoard={get(exerciseInfo, 'exercise.final_board')}
             onFinish={this.onFinishBlockExc}
             onError={this.onError}
+            id={match.params.id}
           />
         ) : (
           <MultipleChoice
