@@ -13,6 +13,7 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard, o
   };
 
   return (
+    initialBoard && finalBoard ? (
     <Fragment>
       <link rel="stylesheet" href="https://gobstones.digilab.live/assets/editor/editor.css" />
       <script src="https://gobstones.digilab.live/assets/editor/editor.js" />
@@ -65,7 +66,7 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard, o
         </div>
       </div>
       <input type="hidden" id="mu-custom-editor-value" value={''} />
-    </Fragment>
+    </Fragment>) : <div/>
   );
 }
 

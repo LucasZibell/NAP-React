@@ -29,7 +29,7 @@ function MultipleChoice({ handleSubmit, options, title, description, exam, name,
             </Text>
           </Grid>
           {options.map(elem => (
-            <Grid item xs={6} key={elem.id}>
+            <Grid item xs={12} key={elem.id}>
               <RadioButton name={name} value={elem.value} text={elem.text} />
             </Grid>
           ))}
