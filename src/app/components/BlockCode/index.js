@@ -6,6 +6,7 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard, o
   const { header: initialHeader, table: initialtable } = initialBoard;
   const { header: finalHeader, table: finaltable } = finalBoard;
   window.digilab = {
+    ...window.digilab,
     api_url: 'https://api.digilab.live',
     exercise_id: id,
     on_success: response => onFinish(response),
@@ -13,7 +14,6 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard, o
   };
 
   return (
-    initialBoard && finalBoard ? (
     <Fragment>
       <link rel="stylesheet" href="https://gobstones.digilab.live/assets/editor/editor.css" />
       <script src="https://gobstones.digilab.live/assets/editor/editor.js" />
@@ -66,7 +66,7 @@ function BlockCode({ exam, title, description, size, initialBoard, finalBoard, o
         </div>
       </div>
       <input type="hidden" id="mu-custom-editor-value" value={''} />
-    </Fragment>) : <div/>
+    </Fragment>
   );
 }
 

@@ -17,14 +17,22 @@ function ExamExcercises({ exam, onSubmit, buttonText }) {
           <div key={exercise.id} className="margin-bottom-100">
             {exercise.multipleChoice ? (
               <MultipleChoice
+                exam
                 options={exercise.options || []}
                 title={exercise.name}
                 description={exercise.description}
                 name={parseResponseName(exercise.id)}
-                exam
               />
             ) : (
-              <BlockCode exam />
+              <BlockCode
+                exam
+                title={exercise.name}
+                description={exercise.description}
+                size={exercise.size}
+                initialBoard={exercise.initial_board}
+                finalBoard={exercise.final_board}
+                id={exercise.id}
+              />
             )}
           </div>
         ))}
