@@ -1,4 +1,4 @@
-import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
+import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
 import { PASSED } from '@constants/exercise';
 import get from 'lodash.get';
 
@@ -28,7 +28,10 @@ export const actionCreators = {
     target: 'answer',
     payload: { id, body },
     service: ExerciseService.submitAnswer,
-    injections: [withPostSuccess((_, { data }) => onFinish(data.results.status === PASSED))]
+    injections: [
+      withPostSuccess((_, { data }) => onFinish(data.results.status === PASSED)),
+      withPostFailure(() => onFinish(false))
+    ]
   }),
   clearExercise: () => ({
     type: actions.CLEAR_EXERCISE

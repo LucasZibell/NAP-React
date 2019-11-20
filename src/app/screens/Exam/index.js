@@ -37,13 +37,14 @@ class Exam extends Component {
       const exercises = this.props.exam.exercises || [];
       const body = exercises.map(({ id, multipleChoice }) => ({
         exercise: id,
-        content: multipleChoice
-          ? this.props.answers.values[parseResponseName(id)]
-          : window.digilab.getStudentXml()
+        content: multipleChoice ? this.getMultipleChoiceAnswer(id) : window.digilab.getStudentXml()
       }));
       this.props.submitExamAnswer(this.props.examId, body, this.toggleModal);
     }
   };
+
+  getMultipleChoiceAnswer = id =>
+    this.props.answers.values && this.props.answers.values[parseResponseName(id)];
 
   toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
 
