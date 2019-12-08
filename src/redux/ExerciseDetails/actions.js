@@ -1,5 +1,6 @@
 import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
 import { PASSED } from '@constants/exercise';
+import { toast } from 'react-toastify';
 import get from 'lodash.get';
 
 import * as ExerciseService from '@services/ExerciseService';
@@ -7,7 +8,10 @@ import * as ExerciseService from '@services/ExerciseService';
 /* ------------- Auth actions ------------- */
 
 export const actions = createTypes(
-  completeTypes(['GET_EXERCISE_INFO', 'SUBMIT_ANSWER'], ['CLEAR_EXERCISE', 'SET_RE_RENDER']),
+  completeTypes(
+    ['GET_EXERCISE_INFO', 'SUBMIT_ANSWER', 'CREATE_EXERCISE'],
+    ['CLEAR_EXERCISE', 'SET_RE_RENDER']
+  ),
   '@@EXERCISE_DETAILS'
 );
 
@@ -38,5 +42,15 @@ export const actionCreators = {
   }),
   setReRender: () => ({
     type: actions.SET_RE_RENDER
+  }),
+  createExercise: body => ({
+    type: actions.CREATE_EXERCISE,
+    target: 'newExercise',
+    payload: body,
+    service: ExerciseService.createExercise,
+    injections: [
+      withPostSuccess(() => toast.success('Ejercicio creado con exito')),
+      withPostFailure(() => toast.error('Hubo un error al crear el ejercicio, intentelo mas tarde'))
+    ]
   })
 };

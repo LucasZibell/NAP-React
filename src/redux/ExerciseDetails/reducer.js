@@ -9,13 +9,14 @@ const defaultState = {
       multipleChoice: true
     }
   },
-  needReRender: false
+  needReRender: false,
+  newExercise: null
 };
 
 const initialState = completeState(defaultState);
 
 const reducerDescription = {
-  primaryActions: [actions.GET_EXERCISE_INFO, actions.SUBMIT_ANSWER],
+  primaryActions: [actions.GET_EXERCISE_INFO, actions.SUBMIT_ANSWER, actions.CREATE_EXERCISE],
   override: {
     [actions.CLEAR_EXERCISE]: state => ({
       ...state,

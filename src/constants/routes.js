@@ -8,5 +8,8 @@ export default {
   ROBOTICS_GUIDE: '/robotics_guide',
   EXAM: '/exam/:id',
   EXAM_LIST: '/exam_list',
-  EXERCISE_DETAILS: '/exercise_details/:id'
+  EXERCISE_DETAILS: '/exercise_details/:id',
+  NEW_EXERCISE_ALGORITHM: '/new_exercise/algorithm',
+  NEW_EXERCISE_SCIENCE: '/new_exercise/science',
+  NEW_EXERCISE_ROBOTICS: '/new_exercise/robotics'
 };
