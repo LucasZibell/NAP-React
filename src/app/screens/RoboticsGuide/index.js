@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import titulo from '@assets/img/titulos/Robotica.png';
 import { actionCreators } from '@redux/Guides/actions';
 
+import Routes from '@constants/routes';
+
 import styles from './styles.scss';
 
 class RoboticsGuide extends Component {
@@ -37,6 +39,7 @@ class RoboticsGuide extends Component {
           description="En esta guia vas a aprender a controlar a Nappy como si fuese un robot"
           excerciseList={guideExcercises}
           loading={loading}
+          theoricCreationRoute={Routes.NEW_EXERCISE_ROBOTICS}
         />
       </Fragment>
     );

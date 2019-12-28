@@ -2,6 +2,7 @@ import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 're
 import { PASSED } from '@constants/exercise';
 import { toast } from 'react-toastify';
 import get from 'lodash.get';
+import { goBack } from 'react-router-redux';
 
 import * as ExerciseService from '@services/ExerciseService';
 
@@ -49,7 +50,10 @@ export const actionCreators = {
     payload: body,
     service: ExerciseService.createExercise,
     injections: [
-      withPostSuccess(() => toast.success('Ejercicio creado con exito')),
+      withPostSuccess(dispatch => {
+        toast.success('Ejercicio creado con exito');
+        dispatch(goBack());
+      }),
       withPostFailure(() => toast.error('Hubo un error al crear el ejercicio, intentelo mas tarde'))
     ]
   })

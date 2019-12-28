@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
+import get from 'lodash.get';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -96,7 +97,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function GuideList({ title, description, excerciseList, goToExamDetails, goToExcersiceDetails, exams }) {
+function GuideList({
+  title,
+  description,
+  excerciseList,
+  isTeacher,
+  goTo,
+  goToExamDetails,
+  goToExcersiceDetails,
+  exams,
+  theoricCreationRoute
+}) {
   const classes = useStyles();
   return (
     <Grid container spacing={3}>
@@ -112,6 +123,14 @@ function GuideList({ title, description, excerciseList, goToExamDetails, goToExc
                 {description}
               </Typography>
             </CardContent>
+            {isTeacher && (
+              <div className="margin-bottom-20">
+                <button className="margin-right-20" onClick={() => goTo(theoricCreationRoute)}>
+                  Nuevo ejercicio teorico
+                </button>
+                <button>Nuevo ejercicio practico</button>
+              </div>
+            )}
           </div>
         </Card>
         <br />
@@ -156,12 +175,17 @@ GuideList.propTypes = {
   goToExcersiceDetails: PropTypes.func.isRequired
 };
 
+const mapStateToProps = store => ({
+  isTeacher: get(store, 'auth.currentUser.user.is_teacher')
+});
+
 const mapDispatchToProps = dispatch => ({
   goToExcersiceDetails: id => dispatch(push(formatUrl(Routes.EXERCISE_DETAILS, id))),
-  goToExamDetails: id => dispatch(push(formatUrl(Routes.EXAM, id)))
+  goToExamDetails: id => dispatch(push(formatUrl(Routes.EXAM, id))),
+  goTo: route => dispatch(push(route))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withLoader(props => props.loading)(GuideList));

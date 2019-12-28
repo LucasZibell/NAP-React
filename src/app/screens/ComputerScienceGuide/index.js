@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import withLoader from '@components/Loader';
 
+import Routes from '@constants/routes';
+
 import { actionCreators } from '@redux/Guides/actions';
 import get from 'lodash.get';
 import titulo from '@assets/img/titulos/CienciasComputacion.png';
@@ -35,6 +37,7 @@ class ComputerScienceGuide extends Component {
           description="En esta guia vas a aprender las bases de la computacion junto a Nappy"
           excerciseList={guideExcercises}
           loading={loading}
+          theoricCreationRoute={Routes.NEW_EXERCISE_SCIENCE}
         />
       </Fragment>
     );
