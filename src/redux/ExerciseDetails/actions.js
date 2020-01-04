@@ -11,7 +11,7 @@ import * as ExerciseService from '@services/ExerciseService';
 export const actions = createTypes(
   completeTypes(
     ['GET_EXERCISE_INFO', 'SUBMIT_ANSWER', 'CREATE_EXERCISE'],
-    ['CLEAR_EXERCISE', 'SET_RE_RENDER']
+    ['CLEAR_EXERCISE', 'SET_RE_RENDER', 'SET_INITIAL_BOARD_CELL', 'SET_FINAL_BOARD_CELL']
   ),
   '@@EXERCISE_DETAILS'
 );
@@ -69,5 +69,13 @@ export const actionCreators = {
       }),
       withPostFailure(() => toast.error('Hubo un error al crear el ejercicio, intentelo mas tarde'))
     ]
+  }),
+  setInitialBoardCell: body => ({
+    type: actions.SET_INITIAL_BOARD_CELL,
+    payload: body
+  }),
+  setFinalBoardCell: body => ({
+    type: actions.SET_FINAL_BOARD_CELL,
+    payload: body
   })
 };
