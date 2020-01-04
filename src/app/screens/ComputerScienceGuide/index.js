@@ -38,6 +38,7 @@ class ComputerScienceGuide extends Component {
           excerciseList={guideExcercises}
           loading={loading}
           theoricCreationRoute={Routes.NEW_EXERCISE_SCIENCE}
+          practicalCreationRoute={Routes.NEW_CODE_SCIENCE}
         />
       </Fragment>
     );
