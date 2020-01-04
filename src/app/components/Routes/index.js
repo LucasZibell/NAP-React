@@ -20,6 +20,7 @@ const AlgorithmGuide = lazy(() => import('../../screens/AlgorithmGuide'));
 const Exam = lazy(() => import('../../screens/Exam'));
 const ExamList = lazy(() => import('../../screens/ExamList'));
 const ExerciseDetails = lazy(() => import('../../screens/ExerciseDetails'));
+const NewMultipleChoice = lazy(() => import('../../screens/NewMultipleChoice'));
 
 class AppRoutes extends Component {
   componentDidMount() {
@@ -53,6 +54,24 @@ class AppRoutes extends Component {
               component={ExerciseDetails}
             />
             <AuthenticatedRoute isPrivateRoute exact path={Routes.EXAM} component={Exam} />
+            <AuthenticatedRoute
+              isPrivateRoute
+              exact
+              path={Routes.NEW_EXERCISE_ALGORITHM}
+              component={NewMultipleChoice}
+            />
+            <AuthenticatedRoute
+              isPrivateRoute
+              exact
+              path={Routes.NEW_EXERCISE_SCIENCE}
+              component={NewMultipleChoice}
+            />
+            <AuthenticatedRoute
+              isPrivateRoute
+              exact
+              path={Routes.NEW_EXERCISE_ROBOTICS}
+              component={NewMultipleChoice}
+            />
             <AuthenticatedRoute isPrivateRoute exact path={Routes.EXAM_LIST} component={ExamList} />
             <Route exact path={Routes.LOGIN} component={Login} />
           </Switch>

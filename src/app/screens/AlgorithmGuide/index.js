@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import titulo from '@assets/img/titulos/Algoritmia.png';
 
 import { actionCreators } from '@redux/Guides/actions';
+import Routes from '@constants/routes';
 
 import styles from './styles.scss';
 
@@ -38,6 +39,7 @@ class AlgorithmGuide extends Component {
           description="En esta guia vas a aprender las bases de la programacion junto a Nappy"
           excerciseList={guideExcercises}
           loading={loading}
+          theoricCreationRoute={Routes.NEW_EXERCISE_ALGORITHM}
         />
       </Fragment>
     );
