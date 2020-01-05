@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { actionCreators } from '@redux/ExerciseDetails/actions';
+import { change } from 'redux-form';
 
 import styles from './styles.scss';
 
@@ -9,7 +8,8 @@ class BoardCell extends Component {
   state = { azul: 0, rojo: 0, negro: 0, verde: 0 };
 
   setCellValue = () => {
-    const body = { ...this.state, x: this.props.x, y: this.props.y };
+    const { azul, rojo, negro, verde } = this.state;
+    const body = { azul, rojo, negro, verde };
     if (this.props.initial) this.props.setInitialBoard(body);
     else this.props.setFinalBoard(body);
   };
@@ -74,9 +74,9 @@ class BoardCell extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  setInitialBoard: body => dispatch(actionCreators.setInitialBoardCell(body)),
-  setFinalBoard: body => dispatch(actionCreators.setFinalBoardCell(body))
+const mapDispatchToProps = (dispatch, { x, y }) => ({
+  setInitialBoard: value => dispatch(change('new_code_exercise', `initial-cell-${x}-${y}`, value)),
+  setFinalBoard: value => dispatch(change('new_code_exercise', `final-cell-${x}-${y}`, value))
 });
 
 export default connect(

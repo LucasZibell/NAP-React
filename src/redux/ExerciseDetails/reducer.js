@@ -10,9 +10,7 @@ const defaultState = {
     }
   },
   needReRender: false,
-  newExercise: null,
-  initialBoard: [[[], [], [], []], [[], [], [], []], [[], [], [], []], [[], [], [], []], [[], [], [], []]],
-  finalBoard: [[[], [], [], []], [[], [], [], []], [[], [], [], []], [[], [], [], []], [[], [], [], []]]
+  newExercise: null
 };
 
 const initialState = completeState(defaultState);
@@ -28,15 +26,7 @@ const reducerDescription = {
         }
       }
     }),
-    [actions.SET_RE_RENDER]: state => ({ ...state, needReRender: true }),
-    [actions.SET_INITIAL_BOARD_CELL]: (state, { payload }) => ({
-      ...state,
-      initialBoard: (state.initialBoard[payload.y][payload.x] = payload.value)
-    }),
-    [actions.SET_FINAL_BOARD_CELL]: (state, { payload }) => ({
-      ...state,
-      finalBoard: (state.finalBoard[payload.y][payload.x] = payload.value)
-    })
+    [actions.SET_RE_RENDER]: state => ({ ...state, needReRender: true })
   }
 };
 
