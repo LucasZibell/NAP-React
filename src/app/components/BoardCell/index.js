@@ -5,22 +5,22 @@ import { change } from 'redux-form';
 import styles from './styles.scss';
 
 class BoardCell extends Component {
-  state = { azul: 0, rojo: 0, negro: 0, verde: 0 };
+  state = { blue: 0, red: 0, black: 0, green: 0 };
 
   setCellValue = () => {
-    const { azul, rojo, negro, verde } = this.state;
-    const body = { azul, rojo, negro, verde };
+    const { blue, red, black, green } = this.state;
+    const body = { blue, red, black, green, x: this.props.x, y: this.props.y };
     if (this.props.initial) this.props.setInitialBoard(body);
     else this.props.setFinalBoard(body);
   };
 
-  handleBlueChange = event => this.setState({ azul: Math.min(event.target.value, 99) }, this.setCellValue);
+  handleBlueChange = event => this.setState({ blue: Math.min(event.target.value, 99) }, this.setCellValue);
 
-  handleRedChange = event => this.setState({ rojo: Math.min(event.target.value, 99) }, this.setCellValue);
+  handleRedChange = event => this.setState({ red: Math.min(event.target.value, 99) }, this.setCellValue);
 
-  handleBlackChange = event => this.setState({ negro: Math.min(event.target.value, 99) }, this.setCellValue);
+  handleBlackChange = event => this.setState({ black: Math.min(event.target.value, 99) }, this.setCellValue);
 
-  handleGreenChange = event => this.setState({ verde: Math.min(event.target.value, 99) }, this.setCellValue);
+  handleGreenChange = event => this.setState({ green: Math.min(event.target.value, 99) }, this.setCellValue);
 
   render() {
     return (
@@ -34,7 +34,7 @@ class BoardCell extends Component {
             min="0"
             max="99"
             onChange={this.handleBlueChange}
-            value={this.state.azul}
+            value={this.state.blue}
           />
           <div className={styles.redCell} />
           <input
@@ -44,7 +44,7 @@ class BoardCell extends Component {
             min="0"
             max="99"
             onChange={this.handleRedChange}
-            value={this.state.rojo}
+            value={this.state.red}
           />
         </div>
         <div className="row">
@@ -56,7 +56,7 @@ class BoardCell extends Component {
             min="0"
             max="99"
             onChange={this.handleBlackChange}
-            value={this.state.negro}
+            value={this.state.black}
           />
           <div className={styles.greenCell} />
           <input
@@ -66,7 +66,7 @@ class BoardCell extends Component {
             min="0"
             max="99"
             onChange={this.handleGreenChange}
-            value={this.state.verde}
+            value={this.state.green}
           />
         </div>
       </div>

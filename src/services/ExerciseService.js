@@ -22,14 +22,14 @@ export const createExercise = ({ name, description, answer, option1, option2, gu
   return api.post(`/guides/${guide}/exercises`, { exercise }, { withCredentials: true });
 };
 
-export const createCodeExercise = ({ name, description, initialBoard, finalBoard, guide }) => {
+export const createCodeExercise = ({ name, description, guide, test }) => {
   const exercise = {
     name,
     description,
     number: 99,
-    editor: 'multiple_choice',
+    editor: 'code',
     language: 'gobstones',
-    test: { initialBoard, finalBoard }
+    test
   };
   return api.post(`/guides/${guide}/exercises`, { exercise }, { withCredentials: true });
 };
