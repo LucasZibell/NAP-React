@@ -1,0 +1,73 @@
+%base-button {
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  font-size: 16px;
+  height: 46px;
+  justify-content: center;
+  line-height: 22px;
+  max-width: var(--max-width, 220px);
+  text-align: center;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.btn-primary {
+  @extend %base-button;
+  background: $caribbean-green;
+  color: $white;
+  transition: all 0.2s ease-in-out;
+
+  &.large {
+    max-width: 180px;
+    width: 180px;
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    background: $alto;
+    color: $white;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background: $emerald;
+  }
+
+  &:focus {
+    background: $green-haze;
+    color: $white;
+    font-weight: bold;
+    transition: font-size 0.3s;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.btn-secondary {
+  @extend %base-button;
+  transition: all 0.2s ease-in-out;
+  background-color: $white;
+  border: 1px solid $caribbean-green;
+  color: $caribbean-green;
+  padding: 0 10px;
+
+  &:hover {
+    color: $emerald;
+  }
+
+  &:focus {
+    color: $green-haze;
+    border: 2px solid $green-haze;
+    font-weight: bold;
+    transition: font-size 0.3s;
+  }
+}
+

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { Component } from 'react';
+import React from 'react';
 import { t } from 'i18next';
 import { Form, reduxForm } from 'redux-form';
 import withLoader from '@components/Loader';
@@ -15,10 +15,11 @@ import styles from './styles.scss';
 function NewCodeExercise({ handleSubmit, handleXChange, handleYChange, x, y }) {
   const board = createBoard(x, y);
   return (
-    <Form className="column" onSubmit={handleSubmit}>
+    <Form className={`column ${styles.codeCreationContainer}`} onSubmit={handleSubmit}>
       <div className="row middle">
         <div className="column margin-right-50">
           <Input
+            className="margin-bottom-30"
             label={t('new_exercise:TITLE')}
             name={FormNames.TITLE}
             type="text"
@@ -28,6 +29,7 @@ function NewCodeExercise({ handleSubmit, handleXChange, handleYChange, x, y }) {
             required
           />
           <Input
+            className="margin-bottom-30"
             label={t('new_exercise:DESCRIPTION')}
             name={FormNames.DESCRIPTION}
             type="text"
@@ -39,16 +41,32 @@ function NewCodeExercise({ handleSubmit, handleXChange, handleYChange, x, y }) {
         </div>
         <div className="column">
           <span>Tamaño del tablero en X</span>
-          <input type="number" name="quantity" min="1" max="5" onChange={handleXChange} value={x} />
+          <input
+            className="margin-bottom-30"
+            type="number"
+            name="quantity"
+            min="1"
+            max="5"
+            onChange={handleXChange}
+            value={x}
+          />
           <span>Tamaño del tablero en Y</span>
-          <input type="number" name="quantity" min="1" max="5" onChange={handleYChange} value={y} />
+          <input
+            className="margin-bottom-30"
+            type="number"
+            name="quantity"
+            min="1"
+            max="5"
+            onChange={handleYChange}
+            value={y}
+          />
         </div>
       </div>
-      <div className="row space-between">
+      <div className="row">
         <div>
           <span>Tablero Inicial</span>
           {board.map(column => (
-            <div className="row">
+            <div className={`row ${styles.initialBoard}`}>
               {column.map(elem => (
                 <BoardCell initial {...elem} />
               ))}
@@ -66,7 +84,9 @@ function NewCodeExercise({ handleSubmit, handleXChange, handleYChange, x, y }) {
           ))}
         </div>
       </div>
-      <button type="submit">{t('new_exercise:CREATE')}</button>
+      <button className="btn-primary margin-top-20" type="submit">
+        {t('new_exercise:CREATE')}
+      </button>
     </Form>
   );
 }
