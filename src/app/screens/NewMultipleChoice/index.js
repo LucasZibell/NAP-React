@@ -10,8 +10,10 @@ class NewMultipleChoiceContainer extends Component {
   handleCreate = values =>
     this.props.createExercise({ ...values, guide: this.props.guides[this.props.guideName] });
 
+  handleLoadImage = () => {};
+
   render() {
-    return <NewMultipleChoice onSubmit={this.handleCreate} />;
+    return <NewMultipleChoice onSubmit={this.handleCreate} handleLoadImage={this.handleLoadImage} />;
   }
 }
 

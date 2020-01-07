@@ -125,11 +125,13 @@ function GuideList({
               </Typography>
             </CardContent>
             {isTeacher && (
-              <div className="margin-bottom-20">
-                <button className="margin-right-20" onClick={() => goTo(theoricCreationRoute)}>
+              <div className="row center margin-bottom-20">
+                <button className="btn-secondary margin-right-20" onClick={() => goTo(theoricCreationRoute)}>
                   Nuevo ejercicio teorico
                 </button>
-                <button onClick={() => goTo(practicalCreationRoute)}>Nuevo ejercicio practico</button>
+                <button className="btn-primary" onClick={() => goTo(practicalCreationRoute)}>
+                  Nuevo ejercicio practico
+                </button>
               </div>
             )}
           </div>
