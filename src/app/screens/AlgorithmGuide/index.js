@@ -40,6 +40,7 @@ class AlgorithmGuide extends Component {
           excerciseList={guideExcercises}
           loading={loading}
           theoricCreationRoute={Routes.NEW_EXERCISE_ALGORITHM}
+          practicalCreationRoute={Routes.NEW_CODE_ALGORITHM}
         />
       </Fragment>
     );

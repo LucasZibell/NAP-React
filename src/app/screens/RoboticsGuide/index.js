@@ -40,6 +40,7 @@ class RoboticsGuide extends Component {
           excerciseList={guideExcercises}
           loading={loading}
           theoricCreationRoute={Routes.NEW_EXERCISE_ROBOTICS}
+          practicalCreationRoute={Routes.NEW_CODE_ROBOTICS}
         />
       </Fragment>
     );

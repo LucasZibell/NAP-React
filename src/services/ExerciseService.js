@@ -21,3 +21,15 @@ export const createExercise = ({ name, description, answer, option1, option2, gu
   };
   return api.post(`/guides/${guide}/exercises`, { exercise }, { withCredentials: true });
 };
+
+export const createCodeExercise = ({ name, description, guide, test }) => {
+  const exercise = {
+    name,
+    description,
+    number: 99,
+    editor: 'code',
+    language: 'gobstones',
+    test
+  };
+  return api.post(`/guides/${guide}/exercises`, { exercise }, { withCredentials: true });
+};

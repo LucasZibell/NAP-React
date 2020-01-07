@@ -56,5 +56,18 @@ export const actionCreators = {
       }),
       withPostFailure(() => toast.error('Hubo un error al crear el ejercicio, intentelo mas tarde'))
     ]
+  }),
+  createCodeExercise: body => ({
+    type: actions.CREATE_CODE_EXERCISE,
+    target: 'newCodeExercise',
+    payload: body,
+    service: ExerciseService.createCodeExercise,
+    injections: [
+      withPostSuccess(dispatch => {
+        toast.success('Ejercicio creado con exito');
+        dispatch(goBack());
+      }),
+      withPostFailure(() => toast.error('Hubo un error al crear el ejercicio, intentelo mas tarde'))
+    ]
   })
 };

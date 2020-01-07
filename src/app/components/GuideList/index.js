@@ -106,7 +106,8 @@ function GuideList({
   goToExamDetails,
   goToExcersiceDetails,
   exams,
-  theoricCreationRoute
+  theoricCreationRoute,
+  practicalCreationRoute
 }) {
   const classes = useStyles();
   return (
@@ -128,7 +129,7 @@ function GuideList({
                 <button className="margin-right-20" onClick={() => goTo(theoricCreationRoute)}>
                   Nuevo ejercicio teorico
                 </button>
-                <button>Nuevo ejercicio practico</button>
+                <button onClick={() => goTo(practicalCreationRoute)}>Nuevo ejercicio practico</button>
               </div>
             )}
           </div>

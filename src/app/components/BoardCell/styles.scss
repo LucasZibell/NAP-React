@@ -1,0 +1,39 @@
+.cell-container {
+  padding: 10px;
+  border: solid 1px gray;
+}
+
+%cell {
+  min-width: 25px;
+  min-height: 25px;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-bottom: 2px;
+}
+
+.blue-cell {
+  @extend %cell;
+  background-color: blue;
+}
+
+.red-cell {
+  @extend %cell;
+  background-color: red;
+}
+
+.green-cell {
+  @extend %cell;
+  background-color: green;
+}
+
+.black-cell {
+  @extend %cell;
+  background-color: black;
+}
+
+.cell-input {
+  min-width: 25px;
+  min-height: 25px;
+  margin-right: 5px;
+  margin-bottom: 2px;
+}
