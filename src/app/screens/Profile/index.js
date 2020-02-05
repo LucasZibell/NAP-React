@@ -53,6 +53,10 @@ export const awards = {
 };
 
 class Profile extends Component {
+  uploadCsv = () => {
+
+  }
+
   render() {
     const { currentUser } = this.props;
     return (
@@ -79,6 +83,7 @@ class Profile extends Component {
                 <br />
               </CardBody>
             </Card>
+            <button onClick={this.uploadCsv}> Cargar alumnos por csv</button>
           </GridItem>
           <Grid container md={8} spacing={3}>
             {currentUser.awards &&
