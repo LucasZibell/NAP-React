@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import get from 'lodash.get';
 
@@ -27,6 +28,10 @@ import Mouse from '@material-ui/icons/Mouse';
 import Extension from '@material-ui/icons/Extension';
 import LockOpen from '@material-ui/icons/LockOpen';
 
+import { uploadCSV } from '@services/StudentService';
+
+import CsvModal from './components/csvModal';
+
 import styles2 from './styles.scss';
 
 export const awards = {
@@ -53,14 +58,26 @@ export const awards = {
 };
 
 class Profile extends Component {
-  uploadCsv = () => {
+  state = { csvOpen: false };
 
-  }
+  toggleCSVModal = () => this.setState(prevState => ({ csvOpen: !prevState.csvOpen }));
+
+  uploadCsv = file => {
+    uploadCSV(file[0]).then(() => {
+      toast.success('Archivo cargado con exito. Le llegara un mail con la informacion.');
+      this.toggleCSVModal();
+    });
+  };
 
   render() {
     const { currentUser } = this.props;
     return (
       <div className={`${styles2.marginContainer}`}>
+        <CsvModal
+          isOpen={this.state.csvOpen}
+          closeModal={this.toggleModal}
+          handleLoadImage={this.uploadCsv}
+        />
         <GridContainer>
           <GridItem xs={12} sm={12} md={1} />
           <GridItem xs={12} sm={12} md={3}>
@@ -83,7 +100,9 @@ class Profile extends Component {
                 <br />
               </CardBody>
             </Card>
-            <button onClick={this.uploadCsv}> Cargar alumnos por csv</button>
+            <button className="btn-primary" onClick={this.toggleCSVModal}>
+              Cargar alumnos por csv
+            </button>
           </GridItem>
           <Grid container md={8} spacing={3}>
             {currentUser.awards &&

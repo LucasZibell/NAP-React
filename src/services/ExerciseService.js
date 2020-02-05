@@ -30,17 +30,17 @@ export const createExercise = ({ name, description, answer, option1, option2, gu
     test: `---\nequal: ${options.indexOf(answer)}\n`,
     image
   };
-  const formData = new FormData()
-  formData.append('exercise[name]', exercise.name)
-  formData.append('exercise[description]', exercise.description)
-  formData.append('exercise[number]', exercise.number)
-  formData.append('exercise[choices][]', exercise.choices[0])
-  formData.append('exercise[choices][]', exercise.choices[1])
-  formData.append('exercise[choices][]', exercise.choices[2])
-  formData.append('exercise[editor]', exercise.editor)
-  formData.append('exercise[language]', exercise.language)
-  formData.append('exercise[test]', exercise.test)
-  formData.append('exercise[image]', exercise.image)
+  const formData = new FormData();
+  formData.append('exercise[name]', exercise.name);
+  formData.append('exercise[description]', exercise.description);
+  formData.append('exercise[number]', exercise.number);
+  formData.append('exercise[choices][]', exercise.choices[0]);
+  formData.append('exercise[choices][]', exercise.choices[1]);
+  formData.append('exercise[choices][]', exercise.choices[2]);
+  formData.append('exercise[editor]', exercise.editor);
+  formData.append('exercise[language]', exercise.language);
+  formData.append('exercise[test]', exercise.test);
+  formData.append('exercise[image]', exercise.image);
 
   return formApi.post(`/guides/${guide}/exercises`, formData, { withCredentials: true });
 };
