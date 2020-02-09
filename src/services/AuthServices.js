@@ -31,3 +31,5 @@ export const authApiSetup = (/* apiInstance */) => {
 };
 
 export const getUserData = () => api.get('/user', null, { withCredentials: true });
+
+export const resetPassword = body => api.post('/password_reset', body, { withCredentials: true });

@@ -18,6 +18,12 @@
   align-items: center;
 }
 
+.default {
+  height: 80px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
 %base-text {
   color: $caribbean-green;
   font-weight: bold;

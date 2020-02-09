@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import get from 'lodash.get';
+import { reset } from 'redux-form';
 
 import Text from '@components/Text';
 import withLoader from '@components/Loader';
@@ -30,7 +31,10 @@ import LockOpen from '@material-ui/icons/LockOpen';
 
 import { uploadCSV } from '@services/StudentService';
 
+import { resetPassword } from '@services/AuthServices';
+
 import CsvModal from './components/csvModal';
+import ResetModal from './components/changePassword';
 
 import styles2 from './styles.scss';
 
@@ -58,14 +62,36 @@ export const awards = {
 };
 
 class Profile extends Component {
-  state = { csvOpen: false };
+  state = { csvOpen: false, resetOpen: false };
 
   toggleCSVModal = () => this.setState(prevState => ({ csvOpen: !prevState.csvOpen }));
 
+  toggleResetPassModal = () => {
+    this.setState(prevState => ({ resetOpen: !prevState.resetOpen }));
+    this.props.resetPassFields();
+  };
+
   uploadCsv = file => {
-    uploadCSV(file[0]).then(() => {
-      toast.success('Archivo cargado con exito. Le llegara un mail con la informacion.');
-      this.toggleCSVModal();
+    uploadCSV(file[0]).then(({ ok }) => {
+      if (ok) {
+        toast.success('Archivo cargado con exito. Le llegara un mail con la informacion.');
+        this.toggleCSVModal();
+      } else {
+        toast.error('Hubo un error con la carga de datos. Intente de nuevo mas tarde');
+        this.toggleCSVModal();
+      }
+    });
+  };
+
+  resetPassword = values => {
+    resetPassword({ password_reset: values }).then(({ ok }) => {
+      if (ok) {
+        toast.success('Contraseña cambiada con exito');
+        this.toggleResetPassModal();
+      } else {
+        toast.error('Hubo un error en el cambio de contraseña');
+        this.toggleResetPassModal();
+      }
     });
   };
 
@@ -75,8 +101,13 @@ class Profile extends Component {
       <div className={`${styles2.marginContainer}`}>
         <CsvModal
           isOpen={this.state.csvOpen}
-          closeModal={this.toggleModal}
+          closeModal={this.toggleCSVModal}
           handleLoadImage={this.uploadCsv}
+        />
+        <ResetModal
+          isOpen={this.state.resetOpen}
+          closeModal={this.toggleResetPassModal}
+          onSubmit={this.resetPassword}
         />
         <GridContainer>
           <GridItem xs={12} sm={12} md={1} />
@@ -100,8 +131,11 @@ class Profile extends Component {
                 <br />
               </CardBody>
             </Card>
-            <button className="btn-primary" onClick={this.toggleCSVModal}>
+            <button className="btn-primary margin-bottom-20" onClick={this.toggleCSVModal}>
               Cargar alumnos por csv
+            </button>
+            <button className="btn-primary" onClick={this.toggleResetPassModal}>
+              Cambiar contraseña
             </button>
           </GridItem>
           <Grid container md={8} spacing={3}>
@@ -146,4 +180,11 @@ const mapStateToProps = store => ({
   loading: store.auth.currentUserLoading
 });
 
-export default connect(mapStateToProps)(withLoader(props => props.loading)(Profile));
+const mapDispatchToProps = dispatch => ({
+  resetPassFields: () => dispatch(reset('reset_password'))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withLoader(props => props.loading)(Profile));
