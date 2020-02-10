@@ -49,6 +49,7 @@ export const createCodeExercise = ({ name, description, guide, test }) => {
   const exercise = {
     name,
     description,
+    locale: 'es',
     number: 99,
     editor: 'code',
     language: 'gobstones',

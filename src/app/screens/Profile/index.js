@@ -33,8 +33,11 @@ import { uploadCSV } from '@services/StudentService';
 
 import { resetPassword } from '@services/AuthServices';
 
+import { actionCreators } from '@redux/Auth/actions';
+
 import CsvModal from './components/csvModal';
 import ResetModal from './components/changePassword';
+import StudentsModal from './components/studentsModal';
 
 import styles2 from './styles.scss';
 
@@ -62,9 +65,15 @@ export const awards = {
 };
 
 class Profile extends Component {
-  state = { csvOpen: false, resetOpen: false };
+  state = { csvOpen: false, resetOpen: false, studentsOpen: false };
+
+  componentDidMount() {
+    this.props.getCourses();
+  }
 
   toggleCSVModal = () => this.setState(prevState => ({ csvOpen: !prevState.csvOpen }));
+
+  toggleStudentsModal = () => this.setState(prevState => ({ studentsOpen: !prevState.studentsOpen }));
 
   toggleResetPassModal = () => {
     this.setState(prevState => ({ resetOpen: !prevState.resetOpen }));
@@ -95,8 +104,10 @@ class Profile extends Component {
     });
   };
 
+  classroomIntegration = () => window.open(`${process.env.REACT_APP_API_BASE_URL}/users/integration`);
+
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, courses } = this.props;
     return (
       <div className={`${styles2.marginContainer}`}>
         <CsvModal
@@ -108,6 +119,11 @@ class Profile extends Component {
           isOpen={this.state.resetOpen}
           closeModal={this.toggleResetPassModal}
           onSubmit={this.resetPassword}
+        />
+        <StudentsModal
+          courses={courses}
+          isOpen={this.state.studentsOpen}
+          closeModal={this.toggleStudentsModal}
         />
         <GridContainer>
           <GridItem xs={12} sm={12} md={1} />
@@ -134,8 +150,14 @@ class Profile extends Component {
             <button className="btn-primary margin-bottom-20" onClick={this.toggleCSVModal}>
               Cargar alumnos por csv
             </button>
-            <button className="btn-primary" onClick={this.toggleResetPassModal}>
+            <button className="btn-primary margin-bottom-20" onClick={this.toggleResetPassModal}>
               Cambiar contraseña
+            </button>
+            <button className="btn-primary margin-bottom-20" onClick={this.classroomIntegration}>
+              Integrar con classroom
+            </button>
+            <button className="btn-primary" onClick={this.toggleStudentsModal}>
+              Ver cursos
             </button>
           </GridItem>
           <Grid container md={8} spacing={3}>
@@ -177,11 +199,13 @@ Profile.propTypes = {
 
 const mapStateToProps = store => ({
   currentUser: get(store.auth, 'currentUser.user') || {},
-  loading: store.auth.currentUserLoading
+  loading: store.auth.currentUserLoading,
+  courses: get(store.auth, 'courses.courses') || []
 });
 
 const mapDispatchToProps = dispatch => ({
-  resetPassFields: () => dispatch(reset('reset_password'))
+  resetPassFields: () => dispatch(reset('reset_password')),
+  getCourses: () => dispatch(actionCreators.getCourses())
 });
 
 export default connect(

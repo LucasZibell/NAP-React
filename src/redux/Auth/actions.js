@@ -4,11 +4,16 @@ import { toast } from 'react-toastify';
 import { t } from 'i18next';
 
 import * as AuthService from '@services/AuthServices';
+import { getCourses } from '@services/StudentService';
+
 import Routes from '@constants/routes';
 
 /* ------------- Auth actions ------------- */
 
-export const actions = createTypes(completeTypes(['AUTH_INIT', 'LOGIN'], ['LOGOUT']), '@@AUTH');
+export const actions = createTypes(
+  completeTypes(['AUTH_INIT', 'LOGIN', 'GET_COURSES'], ['LOGOUT']),
+  '@@AUTH'
+);
 
 export const actionCreators = {
   init: () => ({
@@ -41,5 +46,10 @@ export const actionCreators = {
     AuthService.removeCurrentUser();
     dispatch({ type: actions.LOGOUT });
     dispatch(push(Routes.LOGIN));
-  }
+  },
+  getCourses: () => ({
+    type: actions.GET_COURSES,
+    target: 'courses',
+    service: getCourses
+  })
 };
