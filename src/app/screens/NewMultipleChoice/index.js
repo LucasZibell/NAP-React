@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
+import { toast } from 'react-toastify';
 
 import { actionCreators } from '@redux/ExerciseDetails/actions';
 
@@ -8,9 +9,16 @@ import NewMultipleChoice from './layout';
 
 class NewMultipleChoiceContainer extends Component {
   handleCreate = values =>
-    this.props.createExercise({ ...values, guide: this.props.guides[this.props.guideName] });
+    this.props.createExercise({
+      ...values,
+      image: this.state.image,
+      guide: this.props.guides[this.props.guideName]
+    });
 
-  handleLoadImage = () => {};
+  handleLoadImage = file => {
+    this.setState({ image: file[0] });
+    toast.success('Imagen cargada con exito');
+  };
 
   render() {
     return <NewMultipleChoice onSubmit={this.handleCreate} handleLoadImage={this.handleLoadImage} />;

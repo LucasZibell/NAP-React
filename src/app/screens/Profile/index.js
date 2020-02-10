@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import get from 'lodash.get';
+import { reset } from 'redux-form';
 
 import Text from '@components/Text';
 import withLoader from '@components/Loader';
@@ -26,6 +28,16 @@ import Filter3 from '@material-ui/icons/Filter3';
 import Mouse from '@material-ui/icons/Mouse';
 import Extension from '@material-ui/icons/Extension';
 import LockOpen from '@material-ui/icons/LockOpen';
+
+import { uploadCSV } from '@services/StudentService';
+
+import { resetPassword } from '@services/AuthServices';
+
+import { actionCreators } from '@redux/Auth/actions';
+
+import CsvModal from './components/csvModal';
+import ResetModal from './components/changePassword';
+import StudentsModal from './components/studentsModal';
 
 import styles2 from './styles.scss';
 
@@ -53,10 +65,66 @@ export const awards = {
 };
 
 class Profile extends Component {
+  state = { csvOpen: false, resetOpen: false, studentsOpen: false };
+
+  componentDidMount() {
+    this.props.getCourses();
+  }
+
+  toggleCSVModal = () => this.setState(prevState => ({ csvOpen: !prevState.csvOpen }));
+
+  toggleStudentsModal = () => this.setState(prevState => ({ studentsOpen: !prevState.studentsOpen }));
+
+  toggleResetPassModal = () => {
+    this.setState(prevState => ({ resetOpen: !prevState.resetOpen }));
+    this.props.resetPassFields();
+  };
+
+  uploadCsv = file => {
+    uploadCSV(file[0]).then(({ ok }) => {
+      if (ok) {
+        toast.success('Archivo cargado con exito. Le llegara un mail con la informacion.');
+        this.toggleCSVModal();
+      } else {
+        toast.error('Hubo un error con la carga de datos. Intente de nuevo mas tarde');
+        this.toggleCSVModal();
+      }
+    });
+  };
+
+  resetPassword = values => {
+    resetPassword({ password_reset: values }).then(({ ok }) => {
+      if (ok) {
+        toast.success('Contraseña cambiada con exito');
+        this.toggleResetPassModal();
+      } else {
+        toast.error('Hubo un error en el cambio de contraseña');
+        this.toggleResetPassModal();
+      }
+    });
+  };
+
+  classroomIntegration = () => window.open(`${process.env.REACT_APP_API_BASE_URL}/users/integration`);
+
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, courses } = this.props;
     return (
       <div className={`${styles2.marginContainer}`}>
+        <CsvModal
+          isOpen={this.state.csvOpen}
+          closeModal={this.toggleCSVModal}
+          handleLoadImage={this.uploadCsv}
+        />
+        <ResetModal
+          isOpen={this.state.resetOpen}
+          closeModal={this.toggleResetPassModal}
+          onSubmit={this.resetPassword}
+        />
+        <StudentsModal
+          courses={courses}
+          isOpen={this.state.studentsOpen}
+          closeModal={this.toggleStudentsModal}
+        />
         <GridContainer>
           <GridItem xs={12} sm={12} md={1} />
           <GridItem xs={12} sm={12} md={3}>
@@ -79,6 +147,18 @@ class Profile extends Component {
                 <br />
               </CardBody>
             </Card>
+            <button className="btn-primary margin-bottom-20" onClick={this.toggleCSVModal}>
+              Cargar alumnos por csv
+            </button>
+            <button className="btn-primary margin-bottom-20" onClick={this.toggleResetPassModal}>
+              Cambiar contraseña
+            </button>
+            <button className="btn-primary margin-bottom-20" onClick={this.classroomIntegration}>
+              Integrar con classroom
+            </button>
+            <button className="btn-primary" onClick={this.toggleStudentsModal}>
+              Ver cursos
+            </button>
           </GridItem>
           <Grid container md={8} spacing={3}>
             {currentUser.awards &&
@@ -119,7 +199,16 @@ Profile.propTypes = {
 
 const mapStateToProps = store => ({
   currentUser: get(store.auth, 'currentUser.user') || {},
-  loading: store.auth.currentUserLoading
+  loading: store.auth.currentUserLoading,
+  courses: get(store.auth, 'courses.courses') || []
 });
 
-export default connect(mapStateToProps)(withLoader(props => props.loading)(Profile));
+const mapDispatchToProps = dispatch => ({
+  resetPassFields: () => dispatch(reset('reset_password')),
+  getCourses: () => dispatch(actionCreators.getCourses())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withLoader(props => props.loading)(Profile));

@@ -1,0 +1,66 @@
+@import "colors";
+
+.modal {
+  background-color: $white;
+  border: 1px solid $gray-3;
+  border-radius: 30px;
+  height: auto;
+  margin: 200px auto;
+  max-height: 400px;
+  max-width: 450px;
+  outline: 0;
+  padding: 30px;
+  width: 100%;
+}
+
+.table-modal {
+  background-color: $white;
+  border: 1px solid $gray-3;
+  border-radius: 30px;
+  height: auto;
+  margin: 200px auto;
+  max-height: 900px;
+  max-width: 800px;
+  outline: 0;
+  padding: 30px;
+  width: 100%;
+}
+
+.upload-image {
+  height: 30px;
+  align-items: center;
+}
+
+.default {
+  height: 80px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+%base-text {
+  color: $caribbean-green;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+  font-size: 20px;
+}
+
+.text {
+  @extend %base-text;
+  cursor: pointer;
+  
+  &:hover {
+     color: $green-haze;
+  }
+}
+
+.focus {
+  @extend %base-text;
+  color: $green-haze;
+  cursor: pointer;
+}
+
+.disabled-text {
+  @extend %base-text;
+  cursor: not-allowed;
+  color: $gray-3;
+}

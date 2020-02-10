@@ -10,7 +10,7 @@ function ImageUploader({ disabled, src, focused, handleLoadImage, actionImage, h
   return (
     <Fragment>
       <a tabIndex="-1" href={src} target="_blank" rel="noopener noreferrer">
-        <img alt="contingency_img" src={defaultImage} className={src ? styles.image : styles.default} />
+        <img alt="exercise_image" src={defaultImage} className={src ? styles.image : styles.default} />
       </a>
       <Dropzone
         className={`row ${styles.uploadImage}`}

@@ -1,0 +1,155 @@
+@import 'colors';
+
+.header {
+  background-color: $black-haze;
+  border-right: none !important;
+  color: $juniper;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.table-heading {
+  color: $tundora;
+  font-size: 12px !important;
+  padding: 8px 0 5px;
+}
+
+.box-with-shadow {
+  background-color: $white;
+  box-shadow: 0 2px 4px 0 $box-shadow;
+}
+
+.rt-th.sortable {
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    background: url(../assets/arrows/both-arrows.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 14px;
+    right: 6px;
+    top: 14px;
+  }
+}
+
+.rt-th.asc,
+.rt-th.desc {
+  &::after {
+    background: url(../assets/arrows/down-arrow.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 13px;
+  }
+}
+
+.rt-th.desc {
+  &::after {
+    transform: rotate(180deg);
+  }
+}
+
+.rounded {
+  border-radius: 5px;
+}
+
+.ReactTable {
+  box-shadow: none !important; // TODO: delete all css rules that exists in every local styles.tableStyle.
+  border: none !important;
+
+  .rt-table {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 10px 0 $box-shadow;
+  }
+
+  .rt-thead, .-header {
+    box-shadow: none !important;
+    z-index: 1;
+  }
+
+  .pagination-bottom {
+    display: flex;
+    justify-content: center;
+    height: 48px;
+    margin: 10px 0;
+  }
+
+  .-pagination {
+    border: none !important;
+    box-shadow: none !important;
+    width: 600px;
+
+    .-btn {
+      background-color: $caribbean-green !important;
+      border: 1px solid $caribbean-green !important;
+      border-radius: 5px !important;
+      color: $white !important;
+      font-size: 14px !important;
+      font-weight: bold;
+      height: 30px;
+      line-height: 30px;
+      padding: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: background 0.2s ease-in-out;
+      width: 100%;
+
+      &:disabled {
+        background: $gray-2 !important;
+        border: 1px solid $gray !important;
+        cursor: not-allowed !important;
+        color: $black !important;
+        font-weight: bold;
+        opacity: 0.2 !important;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:active {
+        background: $green-haze !important;
+      }
+    }
+
+    .-pageJump input {
+      border: 1px solid $caribbean-green;
+      border-radius: 5px;
+    }
+
+    .-pageInfo,
+    .-totalPages,
+    .-pageJump,
+    .-pageJump input {
+      color: $black;
+      font-weight: bold;
+    }
+
+    .-pageInfo,
+    .-pageJump,
+    .-pageJump input {
+      height: 100%;
+    }
+
+    .-pageInfo {
+      margin: 0 10px !important;
+    }
+
+    .-totalPages {
+      min-width: 45px;
+    }
+  }
+
+  .-pageJump input {
+    margin: 0 8px;
+    transition: box-shadow 0.2s ease-in-out;
+
+    &:focus {
+      box-shadow: 0 0 3px $green-haze;
+    }
+  }
+}
