@@ -126,12 +126,19 @@ function GuideList({
             </CardContent>
             {isTeacher && (
               <div className="row center margin-bottom-20">
-                <button className="btn-secondary margin-right-20" onClick={() => goTo(theoricCreationRoute)}>
-                  Nuevo ejercicio teorico
-                </button>
-                <button className="btn-primary" onClick={() => goTo(practicalCreationRoute)}>
-                  Nuevo ejercicio practico
-                </button>
+                {!exams && (
+                  <button
+                    className="btn-secondary margin-right-20"
+                    onClick={() => goTo(theoricCreationRoute)}
+                  >
+                    Nuevo ejercicio teorico
+                  </button>
+                )}
+                {!exams && (
+                  <button className="btn-primary" onClick={() => goTo(practicalCreationRoute)}>
+                    Nuevo ejercicio practico
+                  </button>
+                )}
               </div>
             )}
           </div>

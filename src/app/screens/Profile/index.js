@@ -107,7 +107,7 @@ class Profile extends Component {
   classroomIntegration = () => window.open(`${process.env.REACT_APP_API_BASE_URL}/users/integration`);
 
   render() {
-    const { currentUser, courses } = this.props;
+    const { currentUser, courses, isTeacher } = this.props;
     return (
       <div className={`${styles2.marginContainer}`}>
         <CsvModal
@@ -147,18 +147,24 @@ class Profile extends Component {
                 <br />
               </CardBody>
             </Card>
-            <button className="btn-primary margin-bottom-20" onClick={this.toggleCSVModal}>
-              Cargar alumnos por csv
-            </button>
+            {isTeacher && (
+              <button className="btn-primary margin-bottom-20" onClick={this.toggleCSVModal}>
+                Cargar alumnos por csv
+              </button>
+            )}
             <button className="btn-primary margin-bottom-20" onClick={this.toggleResetPassModal}>
               Cambiar contraseña
             </button>
-            <button className="btn-primary margin-bottom-20" onClick={this.classroomIntegration}>
-              Integrar con classroom
-            </button>
-            <button className="btn-primary" onClick={this.toggleStudentsModal}>
-              Ver cursos
-            </button>
+            {isTeacher && (
+              <button className="btn-primary margin-bottom-20" onClick={this.classroomIntegration}>
+                Integrar con classroom
+              </button>
+            )}
+            {isTeacher && (
+              <button className="btn-primary" onClick={this.toggleStudentsModal}>
+                Ver cursos
+              </button>
+            )}
           </GridItem>
           <Grid container md={8} spacing={3}>
             {currentUser.awards &&
@@ -199,6 +205,7 @@ Profile.propTypes = {
 
 const mapStateToProps = store => ({
   currentUser: get(store.auth, 'currentUser.user') || {},
+  isTeacher: get(store, 'auth.currentUser.user.is_teacher'),
   loading: store.auth.currentUserLoading,
   courses: get(store.auth, 'courses.courses') || []
 });

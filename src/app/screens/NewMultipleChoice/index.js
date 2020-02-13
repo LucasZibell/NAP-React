@@ -17,6 +17,13 @@ class NewMultipleChoiceContainer extends Component {
 
   handleLoadImage = file => {
     this.setState({ image: file[0] });
+    const reader = new FileReader();
+
+    reader.onload = e => {
+      document.getElementById('img-exc').setAttribute('src', e.target.result);
+    };
+    reader.readAsDataURL(file[0]);
+
     toast.success('Imagen cargada con exito');
   };
 

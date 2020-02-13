@@ -64,3 +64,20 @@
   cursor: not-allowed;
   color: $gray-3;
 }
+
+.back-arrow{
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+
+  &::before {
+    content: url('../../../../assets/icons/ic_arrow_green.svg');
+    display: inline-block;
+    margin-right: 8px;
+    transform: rotate(180deg);
+  }
+}
+
+.course-text {
+  font-size: 20px;
+}
