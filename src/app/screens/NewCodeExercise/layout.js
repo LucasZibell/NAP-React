@@ -40,9 +40,9 @@ function NewCodeExercise({ handleSubmit, handleXChange, handleYChange, x, y }) {
           />
         </div>
         <div className="column">
-          <span>Tamaño del tablero en X</span>
+          <span className={styles.boardSize}>Tamaño del tablero en X</span>
           <input
-            className="margin-bottom-30"
+            className={`margin-bottom-30 ${styles.input1}`}
             type="number"
             name="quantity"
             min="1"
@@ -50,9 +50,9 @@ function NewCodeExercise({ handleSubmit, handleXChange, handleYChange, x, y }) {
             onChange={handleXChange}
             value={x}
           />
-          <span>Tamaño del tablero en Y</span>
+          <span className={styles.boardSize}>Tamaño del tablero en Y</span>
           <input
-            className="margin-bottom-30"
+            className={`margin-bottom-30 ${styles.input1}`}
             type="number"
             name="quantity"
             min="1"

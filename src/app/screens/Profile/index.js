@@ -65,7 +65,7 @@ export const awards = {
 };
 
 class Profile extends Component {
-  state = { csvOpen: false, resetOpen: false, studentsOpen: false };
+  state = { csvOpen: false, resetOpen: false, studentsOpen: false, csvLoading: false };
 
   componentDidMount() {
     this.props.getCourses();
@@ -81,13 +81,16 @@ class Profile extends Component {
   };
 
   uploadCsv = file => {
+    this.setState({ csvLoading: true });
     uploadCSV(file[0]).then(({ ok }) => {
       if (ok) {
         toast.success('Archivo cargado con exito. Le llegara un mail con la informacion.');
         this.toggleCSVModal();
+        this.setState({ csvLoading: false });
       } else {
         toast.error('Hubo un error con la carga de datos. Intente de nuevo mas tarde');
         this.toggleCSVModal();
+        this.setState({ csvLoading: false });
       }
     });
   };
@@ -114,6 +117,7 @@ class Profile extends Component {
           isOpen={this.state.csvOpen}
           closeModal={this.toggleCSVModal}
           handleLoadImage={this.uploadCsv}
+          loading={this.state.csvLoading}
         />
         <ResetModal
           isOpen={this.state.resetOpen}

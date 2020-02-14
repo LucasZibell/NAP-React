@@ -1,3 +1,5 @@
+@import "colors";
+
 .code-creation-container {
   padding: 50px 0;
 }
@@ -5,4 +7,48 @@
 .initial-board {
   width: 710px;
   margin-right: 40px;
+}
+
+%input-base {
+  background-color: $white;
+  border: 1px solid $silver;
+  border-radius: 5px;
+  color: $tundora;
+  font-size: 12px;
+  font-weight: 400;
+  height: 35px;
+  padding: 5px 10px;
+  z-index: 0;
+  min-width: 300px;
+
+  &:focus {
+    border-color: $caribbean-green;
+    box-shadow: 0 0 5px 0 $caribbean-green;
+  }
+
+  &:disabled {
+    background-color: rgba($silver, 0.2);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+%input-1-base {
+  @extend %input-base;
+  max-width: 300px;
+  transition: border-color, box-shadow 0.5s ease-in-out;
+  width: 100%;
+}
+
+.input-1 {
+  @extend %input-1-base;
+}
+
+.board-size {
+  color: $tundora;
+  font-size: 12px;
+  font-weight: 350;
+  line-height: 13px;
+  margin-bottom: 5px;
+  transition: color 0.5s ease-in-out;
 }
