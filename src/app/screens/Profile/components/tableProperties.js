@@ -20,7 +20,7 @@ const fieldRender = item => (
   </div>
 );
 
-const columns = [
+export const courseColumns = [
   {
     Header: headerRender('Cursos'),
     accessor: 'course_name',
@@ -40,6 +40,33 @@ const columns = [
   }
 ];
 
+export const studentsColumns = [
+  {
+    Header: headerRender('Usuario'),
+    accessor: 'uid',
+    className: columnClassName,
+    Cell: fieldRender,
+    headerClassName: 'header pointer',
+    minWidth: 160
+  },
+  {
+    Header: headerRender('Nombre'),
+    accessor: 'first_name',
+    className: columnClassName,
+    headerClassName: 'header pointer',
+    Cell: fieldRender,
+    minWidth: 210
+  },
+  {
+    Header: headerRender('Apellido'),
+    accessor: 'last_name',
+    className: columnClassName,
+    headerClassName: 'header pointer',
+    Cell: fieldRender,
+    minWidth: 210
+  }
+];
+
 const getTrProps = () => ({
   style: {
     minHeight: '50px',
@@ -51,9 +78,8 @@ export default {
   resizable: false,
   sortable: false,
   minRows: 8,
-  defaultPageSize: 20,
+  defaultPageSize: 8,
   showPageSizeOptions: false,
-  columns,
   className: `-highlight ${styles.tableStyle}`,
   getTrProps
 };

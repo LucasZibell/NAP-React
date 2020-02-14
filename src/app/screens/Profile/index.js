@@ -65,7 +65,7 @@ export const awards = {
 };
 
 class Profile extends Component {
-  state = { csvOpen: false, resetOpen: false, studentsOpen: false };
+  state = { csvOpen: false, resetOpen: false, studentsOpen: false, csvLoading: false };
 
   componentDidMount() {
     this.props.getCourses();
@@ -81,13 +81,16 @@ class Profile extends Component {
   };
 
   uploadCsv = file => {
+    this.setState({ csvLoading: true });
     uploadCSV(file[0]).then(({ ok }) => {
       if (ok) {
         toast.success('Archivo cargado con exito. Le llegara un mail con la informacion.');
         this.toggleCSVModal();
+        this.setState({ csvLoading: false });
       } else {
         toast.error('Hubo un error con la carga de datos. Intente de nuevo mas tarde');
         this.toggleCSVModal();
+        this.setState({ csvLoading: false });
       }
     });
   };
@@ -107,13 +110,14 @@ class Profile extends Component {
   classroomIntegration = () => window.open(`${process.env.REACT_APP_API_BASE_URL}/users/integration`);
 
   render() {
-    const { currentUser, courses } = this.props;
+    const { currentUser, courses, isTeacher } = this.props;
     return (
       <div className={`${styles2.marginContainer}`}>
         <CsvModal
           isOpen={this.state.csvOpen}
           closeModal={this.toggleCSVModal}
           handleLoadImage={this.uploadCsv}
+          loading={this.state.csvLoading}
         />
         <ResetModal
           isOpen={this.state.resetOpen}
@@ -147,18 +151,24 @@ class Profile extends Component {
                 <br />
               </CardBody>
             </Card>
-            <button className="btn-primary margin-bottom-20" onClick={this.toggleCSVModal}>
-              Cargar alumnos por csv
-            </button>
+            {isTeacher && (
+              <button className="btn-primary margin-bottom-20" onClick={this.toggleCSVModal}>
+                Cargar alumnos por csv
+              </button>
+            )}
             <button className="btn-primary margin-bottom-20" onClick={this.toggleResetPassModal}>
               Cambiar contraseña
             </button>
-            <button className="btn-primary margin-bottom-20" onClick={this.classroomIntegration}>
-              Integrar con classroom
-            </button>
-            <button className="btn-primary" onClick={this.toggleStudentsModal}>
-              Ver cursos
-            </button>
+            {isTeacher && (
+              <button className="btn-primary margin-bottom-20" onClick={this.classroomIntegration}>
+                Integrar con classroom
+              </button>
+            )}
+            {isTeacher && (
+              <button className="btn-primary" onClick={this.toggleStudentsModal}>
+                Ver cursos
+              </button>
+            )}
           </GridItem>
           <Grid container md={8} spacing={3}>
             {currentUser.awards &&
@@ -199,6 +209,7 @@ Profile.propTypes = {
 
 const mapStateToProps = store => ({
   currentUser: get(store.auth, 'currentUser.user') || {},
+  isTeacher: get(store, 'auth.currentUser.user.is_teacher'),
   loading: store.auth.currentUserLoading,
   courses: get(store.auth, 'courses.courses') || []
 });
