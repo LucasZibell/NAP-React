@@ -24,17 +24,17 @@ export const courseColumns = [
   {
     Header: headerRender('Cursos'),
     accessor: 'course_name',
-    className: columnClassName,
+    className: `${columnClassName} pointer`,
     Cell: fieldRender,
-    headerClassName: 'header pointer',
+    headerClassName: 'header',
     minWidth: 160
   },
   {
     Header: headerRender('Cantidad de alumnos'),
     id: 'amount_students',
     accessor: course => course.students.length,
-    className: columnClassName,
-    headerClassName: 'header pointer',
+    className: `${columnClassName} pointer`,
+    headerClassName: 'header',
     Cell: fieldRender,
     minWidth: 210
   }
@@ -46,14 +46,14 @@ export const studentsColumns = [
     accessor: 'uid',
     className: columnClassName,
     Cell: fieldRender,
-    headerClassName: 'header pointer',
+    headerClassName: 'header',
     minWidth: 160
   },
   {
     Header: headerRender('Nombre'),
     accessor: 'first_name',
     className: columnClassName,
-    headerClassName: 'header pointer',
+    headerClassName: 'header',
     Cell: fieldRender,
     minWidth: 210
   },
@@ -61,7 +61,7 @@ export const studentsColumns = [
     Header: headerRender('Apellido'),
     accessor: 'last_name',
     className: columnClassName,
-    headerClassName: 'header pointer',
+    headerClassName: 'header',
     Cell: fieldRender,
     minWidth: 210
   }
@@ -77,8 +77,8 @@ const getTrProps = () => ({
 export default {
   resizable: false,
   sortable: false,
-  minRows: 8,
-  defaultPageSize: 8,
+  minRows: 5,
+  defaultPageSize: 5,
   showPageSizeOptions: false,
   className: `-highlight ${styles.tableStyle}`,
   getTrProps

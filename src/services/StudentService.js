@@ -19,3 +19,7 @@ export const uploadCSV = file => {
 export const classroomIntegration = () => api.get('/users/integration', null, { withCredentials: true });
 
 export const getCourses = () => api.get('/courses', null, { withCredentials: true });
+
+export const changeBook = (id, body) => api.put(`/courses/${id}`, body, { withCredentials: true });
+
+export const getBooks = () => api.get('/books', null, { withCredentials: true });

@@ -5,13 +5,14 @@ import { actions } from './actions';
 
 const defaultState = {
   currentUser: {},
-  courses: []
+  courses: [],
+  books: []
 };
 
 const initialState = completeState(defaultState);
 
 const reducerDescription = {
-  primaryActions: [actions.AUTH_INIT, actions.LOGIN, actions.GET_COURSES]
+  primaryActions: [actions.AUTH_INIT, actions.LOGIN, actions.GET_COURSES, actions.GET_BOOKS]
 };
 
 export const reducer = createReducer(Immutable(initialState), completeReducer(reducerDescription));
