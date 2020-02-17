@@ -1,0 +1,33 @@
+@import "colors";
+
+.modal {
+  background-color: $white;
+  border: 1px solid $gray-3;
+  border-radius: 30px;
+  height: auto;
+  margin: 200px auto;
+  max-height: 400px;
+  max-width: 450px;
+  outline: 0;
+  padding: 30px;
+  width: 100%;
+}
+
+.button {
+  background: #6fc3b9;
+  color: white;
+}
+.button:hover {
+  background-color: #4aa79c;
+}
+.buttonCerrar {
+  background: #b62121d5;
+  color: white;
+}
+.buttonCerrar:hover {
+  background-color: #990d0dd5;
+}
+
+.texto-blanco {
+  color: white !important;
+}

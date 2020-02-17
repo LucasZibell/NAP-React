@@ -9,6 +9,8 @@ export const submitAnswer = ({ id, body }) =>
 
 export const getGuide = id => api.get(`/guides/${id}`, null, { withCredentials: true });
 
+export const deleteExercise = id => api.delete(`/exercises/${id}`, null, { withCredentials: true });
+
 const formApi = create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
   timeout: 30000,

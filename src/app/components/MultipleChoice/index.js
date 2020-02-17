@@ -4,17 +4,17 @@ import Grid from '@material-ui/core/Grid';
 import Text from '@components/Text';
 import RadioButton from '@components/RadioButton';
 import withLoader from '@components/Loader';
-import Button from '@material-ui/core/Button';
 import amazedNappy from '@assets/nappy/amazed_nappy.png';
 
 import FormNames from './formFieldNames';
+
 import styles from './styles.scss';
 
 function MultipleChoice({ handleSubmit, options, title, description, exam, name, imageUrl }) {
   const image = imageUrl ? `${process.env.REACT_APP_API_BASE_URL}/${imageUrl}` : amazedNappy;
   const showImage = imageUrl || !exam;
   return (
-    <Form className="row" onSubmit={handleSubmit}>
+    <Form className={`row ${styles.mcForm}`} onSubmit={handleSubmit}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Grid item xs={12}>
@@ -37,10 +37,8 @@ function MultipleChoice({ handleSubmit, options, title, description, exam, name,
           <br />
           <Grid item xs={12}>
             {exam || (
-              <button>
-                <Button variant="contained" size="large" className={styles.button}>
-                  <span className={`${styles.textoBlanco}`}>Enviar Solucion</span>
-                </Button>
+              <button className="btn-primary" type="submit">
+                Enviar Solucion
               </button>
             )}
           </Grid>

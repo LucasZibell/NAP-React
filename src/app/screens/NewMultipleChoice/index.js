@@ -8,6 +8,8 @@ import { actionCreators } from '@redux/ExerciseDetails/actions';
 import NewMultipleChoice from './layout';
 
 class NewMultipleChoiceContainer extends Component {
+  state = { image: undefined };
+
   handleCreate = values =>
     this.props.createExercise({
       ...values,

@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import Modal from 'react-modal';
 import happyNappy from '@assets/nappy/happy_nappy.png';
 import sadNappy from '@assets/nappy/sad_nappy.png';
-import Text from '@components/Text';
-import styles from './styles.scss';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+
+import styles from './styles.scss';
 
 function ExerciseResult({ isOpen, closeModal, success, goToExerciseList }) {
   return (

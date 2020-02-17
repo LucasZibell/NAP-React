@@ -71,3 +71,33 @@
   }
 }
 
+.btn-cancel {
+  @extend %base-button;
+  background: $sunset-orange;
+  color: $white;
+  transition: all 0.2s ease-in-out;
+
+  &.large {
+    max-width: 180px;
+    width: 180px;
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    background: $alto;
+    color: $white;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background: $orange;
+  }
+
+  &:focus {
+    background: $roof-terracota;
+    color: $white;
+    font-weight: bold;
+    transition: font-size 0.3s;
+  }
+}
+

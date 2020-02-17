@@ -46,7 +46,7 @@ export const awards = {
     image: Mouse,
     name: 'Primer ejercicio'
   },
-  THREE_STREAK: {
+  THREE_IN_A_ROW: {
     image: Filter3,
     name: 'Tres ejercicios seguidos'
   },
@@ -69,6 +69,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this.props.getCourses();
+    this.props.getBooks();
   }
 
   toggleCSVModal = () => this.setState(prevState => ({ csvOpen: !prevState.csvOpen }));
@@ -110,7 +111,7 @@ class Profile extends Component {
   classroomIntegration = () => window.open(`${process.env.REACT_APP_API_BASE_URL}/users/integration`);
 
   render() {
-    const { currentUser, courses, isTeacher } = this.props;
+    const { currentUser, courses, isTeacher, books, getCourses } = this.props;
     return (
       <div className={`${styles2.marginContainer}`}>
         <CsvModal
@@ -128,6 +129,8 @@ class Profile extends Component {
           courses={courses}
           isOpen={this.state.studentsOpen}
           closeModal={this.toggleStudentsModal}
+          books={books}
+          getCourses={getCourses}
         />
         <GridContainer>
           <GridItem xs={12} sm={12} md={1} />
@@ -211,12 +214,14 @@ const mapStateToProps = store => ({
   currentUser: get(store.auth, 'currentUser.user') || {},
   isTeacher: get(store, 'auth.currentUser.user.is_teacher'),
   loading: store.auth.currentUserLoading,
-  courses: get(store.auth, 'courses.courses') || []
+  courses: get(store.auth, 'courses.courses') || [],
+  books: (get(store.auth, 'books.books') || []).map(elem => ({ text: elem, value: elem }))
 });
 
 const mapDispatchToProps = dispatch => ({
   resetPassFields: () => dispatch(reset('reset_password')),
-  getCourses: () => dispatch(actionCreators.getCourses())
+  getCourses: () => dispatch(actionCreators.getCourses()),
+  getBooks: () => dispatch(actionCreators.getBooks())
 });
 
 export default connect(

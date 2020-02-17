@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 import { t } from 'i18next';
 
 import * as AuthService from '@services/AuthServices';
-import { getCourses } from '@services/StudentService';
+import { getCourses, getBooks } from '@services/StudentService';
 
 import Routes from '@constants/routes';
 
 /* ------------- Auth actions ------------- */
 
 export const actions = createTypes(
-  completeTypes(['AUTH_INIT', 'LOGIN', 'GET_COURSES'], ['LOGOUT']),
+  completeTypes(['AUTH_INIT', 'LOGIN', 'GET_COURSES', 'GET_BOOKS'], ['LOGOUT']),
   '@@AUTH'
 );
 
@@ -51,5 +51,10 @@ export const actionCreators = {
     type: actions.GET_COURSES,
     target: 'courses',
     service: getCourses
+  }),
+  getBooks: () => ({
+    type: actions.GET_BOOKS,
+    target: 'books',
+    service: getBooks
   })
 };

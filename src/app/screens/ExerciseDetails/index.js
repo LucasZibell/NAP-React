@@ -11,8 +11,12 @@ import { actionCreators } from '@redux/ExerciseDetails/actions';
 import ExerciseResult from '@components/ExerciseResult';
 import { PASSED } from '@constants/exercise';
 
+import { deleteExercise } from '@services/ExerciseService';
+
+import ConfirmModal from './confirmModal';
+
 class ExerciseDetails extends Component {
-  state = { isOpen: false, success: false, loading: false };
+  state = { isOpen: false, success: false, loading: false, openConfirm: false };
 
   componentDidMount() {
     this.props.getExerciseInfo(this.props.match.params.id);
@@ -32,17 +36,29 @@ class ExerciseDetails extends Component {
 
   onFinishBlockExc = response => this.onFinish(response.results.status === PASSED);
 
-  onError = () => toast.error('Hubo un error enviando la solucion. Intente denuevo mas tarde');
+  onError = () => toast.error('Hubo un error enviando la solucion. Intente de nuevo mas tarde');
 
   onSubmit = value => this.props.submitAnswer(this.props.match.params.id, value.answer, this.onFinish);
 
   onFinish = success => this.setState(prevState => ({ isOpen: !prevState.isOpen, success }));
 
+  deleteExercise = () => {
+    deleteExercise(this.props.match.params.id).then(
+      () => {
+        toast.success('Ejercicio eliminado con exito.');
+        this.props.goToExcList();
+      },
+      () => toast.error('Hubo un error eliminando el ejercicio. Intente de nuevo mas tarde')
+    );
+  };
+
   toggleModal = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
 
+  toggleConfirm = () => this.setState(prevState => ({ openConfirm: !prevState.openConfirm }));
+
   render() {
-    const { loading, exerciseInfo, goToExcList, match } = this.props;
-    const { isOpen, success } = this.state;
+    const { loading, exerciseInfo, goToExcList, match, isTeacher } = this.props;
+    const { isOpen, success, openConfirm } = this.state;
     return (
       <div className="column">
         <br />
@@ -67,11 +83,21 @@ class ExerciseDetails extends Component {
             loading={loading}
           />
         )}
+        {isTeacher && (
+          <button onClick={this.toggleConfirm} className="self-center margin-top-40 btn-cancel">
+            Eliminar ejercicio
+          </button>
+        )}
         <ExerciseResult
           isOpen={isOpen}
           success={success}
           closeModal={this.toggleModal}
           goToExerciseList={goToExcList}
+        />
+        <ConfirmModal
+          isOpen={openConfirm}
+          closeModal={this.toggleConfirm}
+          deleteExercise={this.deleteExercise}
         />
       </div>
     );
@@ -90,6 +116,7 @@ ExerciseDetails.propTypes = {
 };
 
 const mapStateToProps = store => ({
+  isTeacher: get(store, 'auth.currentUser.user.is_teacher'),
   exerciseInfo: store.exerciseDetails.exerciseInfo,
   loading: store.exerciseDetails.exerciseInfoLoading,
   needReRender: store.exerciseDetails.needReRender
