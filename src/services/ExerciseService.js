@@ -31,13 +31,15 @@ export const createExercise = ({ name, description, answer, option1, option2, gu
     language: 'text',
     test: `---\nequal: ${options.indexOf(answer)}\n`,
     image,
-    videoUrl: videoUrl.split('&')[0].replace('watch?v=', 'embed/')
+    videoUrl: videoUrl && videoUrl.split('&')[0].replace('watch?v=', 'embed/')
   };
   const formData = new FormData();
   formData.append('exercise[name]', exercise.name);
   formData.append('exercise[description]', exercise.description);
   formData.append('exercise[number]', exercise.number);
-  formData.append('exercise[video_url]', exercise.videoUrl);
+  if (videoUrl && videoUrl.includes('https://www.youtube.com')) {
+    formData.append('exercise[video_url]', exercise.videoUrl);
+  }
   formData.append('exercise[choices][]', exercise.choices[0]);
   formData.append('exercise[choices][]', exercise.choices[1]);
   formData.append('exercise[choices][]', exercise.choices[2]);
