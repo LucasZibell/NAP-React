@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 import React, { Fragment } from 'react';
 
 import Grid from '@material-ui/core/Grid';
