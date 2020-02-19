@@ -19,7 +19,7 @@ const formApi = create({
   }
 });
 
-export const createExercise = ({ name, description, answer, option1, option2, guide, image }) => {
+export const createExercise = ({ name, description, answer, option1, option2, guide, image, videoUrl }) => {
   const options = [answer, option1, option2];
   options.sort((a, b) => 0.5 - Math.random()); //eslint-disable-line
   const exercise = {
@@ -30,12 +30,14 @@ export const createExercise = ({ name, description, answer, option1, option2, gu
     editor: 'multiple_choice',
     language: 'text',
     test: `---\nequal: ${options.indexOf(answer)}\n`,
-    image
+    image,
+    videoUrl: videoUrl.split('&')[0].replace('watch?v=', 'embed/')
   };
   const formData = new FormData();
   formData.append('exercise[name]', exercise.name);
   formData.append('exercise[description]', exercise.description);
   formData.append('exercise[number]', exercise.number);
+  formData.append('exercise[video_url]', exercise.videoUrl);
   formData.append('exercise[choices][]', exercise.choices[0]);
   formData.append('exercise[choices][]', exercise.choices[1]);
   formData.append('exercise[choices][]', exercise.choices[2]);

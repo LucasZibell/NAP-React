@@ -10,7 +10,7 @@ import FormNames from './formFieldNames';
 
 import styles from './styles.scss';
 
-function MultipleChoice({ handleSubmit, options, title, description, exam, name, imageUrl }) {
+function MultipleChoice({ handleSubmit, options, title, description, exam, name, imageUrl, videoUrl }) {
   const image = imageUrl ? `${process.env.REACT_APP_API_BASE_URL}/${imageUrl}` : amazedNappy;
   const showImage = imageUrl || !exam;
   return (
@@ -44,9 +44,19 @@ function MultipleChoice({ handleSubmit, options, title, description, exam, name,
           </Grid>
         </Grid>
         {showImage && (
-          <Grid item xs={6} alignContent="center">
-            <img alt="excercise" src={image} style={{ width: '70%', height: '100%' }} />
-          </Grid>
+          <div className="column middle">
+            <img className="margin-bottom-50" alt="excercise" src={image} width="600" height="340" />
+            {videoUrl && (
+              <iframe
+                title={videoUrl}
+                src={videoUrl}
+                width="600"
+                height="340"
+                frameBorder="0"
+                allowFullScreen
+              />
+            )}
+          </div>
         )}
       </Grid>
     </Form>

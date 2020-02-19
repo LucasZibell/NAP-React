@@ -5,12 +5,10 @@ import { reduxForm } from 'redux-form';
 
 import { required } from '@utils/validationUtils';
 import withLoader from '@components/Loader';
-import Routes from '@constants/routes';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -99,14 +97,6 @@ function Login({ handleSubmit }) {
             >
               <span className={`m-bottom-1 ${styles.textoBlanco}`}>{t('login:ENTER')}</span>
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  <a href={Routes.RECOVER_PASSWORD}>{t('login:FORGOT_PASSWORD')}</a>
-                </Link>
-              </Grid>
-              <Grid item />
-            </Grid>
             <Box mt={5} />
           </form>
         </div>
