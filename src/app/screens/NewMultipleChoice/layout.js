@@ -64,6 +64,14 @@ function NewMultipleChoice({ handleSubmit, handleLoadImage }) {
           placeholder={t('new_exercise:OPTION_2_PLACEHOLDER')}
           required
         />
+        <Input
+          className="margin-bottom-30"
+          label="Link al video de youtube"
+          name="videoUrl"
+          type="text"
+          inputClassName={`m-bottom-2 full-width ${styles.input}`}
+          placeholder="Link de youtube"
+        />
         <button className="btn-primary self-center" type="submit">
           {t('new_exercise:CREATE')}
         </button>

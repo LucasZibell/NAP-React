@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
@@ -74,15 +75,16 @@ class ExerciseDetails extends Component {
             id={match.params.id}
           />
         ) : (
-          <MultipleChoice
-            options={get(exerciseInfo, 'exercise.options') || []}
-            title={get(exerciseInfo, 'exercise.name')}
-            description={get(exerciseInfo, 'exercise.description')}
-            imageUrl={get(exerciseInfo, 'exercise.image')}
-            onSubmit={this.onSubmit}
-            loading={loading}
-          />
-        )}
+            <MultipleChoice
+              options={get(exerciseInfo, 'exercise.options') || []}
+              title={get(exerciseInfo, 'exercise.name')}
+              description={get(exerciseInfo, 'exercise.description')}
+              imageUrl={get(exerciseInfo, 'exercise.image')}
+              videoUrl={get(exerciseInfo, 'exercise.video_url')}
+              onSubmit={this.onSubmit}
+              loading={loading}
+            />
+          )}
         {isTeacher && (
           <button onClick={this.toggleConfirm} className="self-center margin-top-40 btn-cancel">
             Eliminar ejercicio
