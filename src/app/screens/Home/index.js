@@ -97,16 +97,6 @@ function Home() {
           </Grid>
         </Grid>
       </Container>
-      <div className="row center margin-top-50">
-        <iframe
-          title="Aprender a programar"
-          src="https://www.youtube.com/embed/X5Wkp1gsNik"
-          width="800"
-          height="400"
-          frameBorder="0"
-          allowFullScreen
-        />
-      </div>
     </Fragment>
   );
 }
